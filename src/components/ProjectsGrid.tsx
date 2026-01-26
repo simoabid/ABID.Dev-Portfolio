@@ -37,7 +37,10 @@ const filterButtons = ['All', 'React', 'Node.js', 'Web Apps'];
 
 export default function ProjectsGrid() {
   return (
-    <section id="projects" className="py-24 bg-dark-secondary relative">
+    <section
+      id="projects"
+      className="min-h-screen py-24 pt-32 bg-dark-secondary relative"
+    >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(108,99,255,0.05),rgba(0,212,255,0.05))] pointer-events-none" />
 

@@ -2,19 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/skills', label: 'Skills' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +33,13 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const isActiveLink = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
   };
 
   return (
@@ -58,10 +67,20 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="relative text-text-primary hover:text-accent-primary transition-colors duration-300 py-2 group"
+                  className={`relative py-2 transition-colors duration-300 group ${
+                    isActiveLink(link.href)
+                      ? 'text-accent-primary font-medium'
+                      : 'text-text-primary hover:text-accent-primary'
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary transition-all duration-300 group-hover:w-full" />
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary transition-all duration-300 ${
+                      isActiveLink(link.href)
+                        ? 'w-full'
+                        : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </Link>
               </li>
             ))}
@@ -130,7 +149,11 @@ export default function Header() {
                 <Link
                   href={link.href}
                   onClick={closeMobileMenu}
-                  className="block py-3 px-4 text-text-primary hover:text-accent-primary hover:bg-accent-primary/10 rounded-lg transition-all duration-300"
+                  className={`block py-3 px-4 rounded-lg transition-all duration-300 ${
+                    isActiveLink(link.href)
+                      ? 'text-accent-primary bg-accent-primary/20 font-medium'
+                      : 'text-text-primary hover:text-accent-primary hover:bg-accent-primary/10'
+                  }`}
                 >
                   {link.label}
                 </Link>
