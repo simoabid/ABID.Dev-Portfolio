@@ -1,0 +1,159 @@
+High-level plan — make your portfolio “pro”
+
+Great brief. Below is a focussed, practical blueprint you can hand to AI agents (and humans) to take your HTML/CSS/JS portfolio from simple → premium. I cover technology choices, concrete libraries & assets, architecture & file structure, visual / interaction recipes (how to reproduce Lando-style effects), performance & accessibility, deployment/observability, and ready-to-use AI agent tasks + prompt templates so agents can do the work end-to-end.
+
+1) Recommended stack (primary — production grade)
+
+Use this stack for maximum control, performance and ability to create complex animations and 3D:
+
+Framework: Next.js (app router) + React + TypeScript
+
+Why: SSR/SSG, image optimization, route-based code splitting, great DX, easy deployment to Vercel/Netlify.
+
+Styling: Tailwind CSS + CSS variables for theme tokens (light/dark). Use a design-token file for colors/spacing/typography.
+
+Animations: GSAP (core) + ScrollTrigger for scroll-driven animations. Use Lenis for smooth, inertial scrolling.
+
+3D / WebGL: three.js integrated via react-three-fiber (R3F) + drei utilities + GLTF models (DRACO compressed). Use postprocessing for bloom, vignette.
+
+Vector animations: Rive or Lottie for interactive vector micro-animations. Use Rive when you want real-time interactive state machines (like helmet morphs, toggles).
+
+State + UI: React state, small UI-only components; avoid heavy UI frameworks. Use shadcn or headless primitives only if you want accessible components fast.
+
+Image CDN & optimization: Cloudinary or imgix or Cloudflare Images (or Next/Image with remote loader).
+
+Hosting/CDN: Vercel (or Netlify). Add Cloudflare in front for global edge caching and WAF if needed.
+
+Analytics / Tagging: GA4 + Google Tag Manager (GTM).
+
+Accessibility / Testing: axe / lighthouse, Playwright for visual/regression tests.
+
+CI/CD: GitHub Actions; PR → automatic preview deployment, Lighthouse CI.
+
+Alternative simpler stack: If you want less code overhead, Webflow + custom code embeds + Cloudflare + GSAP can produce similar visuals faster. But Webflow limits custom 3D and fine control.
+
+2) Key libraries & why (short list you should install)
+
+react, next, typescript — core.
+
+tailwindcss, postcss, autoprefixer — styling.
+
+gsap + gsap/ScrollTrigger — robust timeline & scroll-driven animations.
+
+@studio-freight/lenis — smooth scroll with inertia (pair with GSAP).
+
+@react-three/fiber, @react-three/drei, three — 3D scenes and glTF model viewer.
+
+r3f-postprocessing or postprocessing — effects (bloom, vignette).
+
+rive-js or lottie-web — vector interactive animations.
+
+swr or react-query — data fetching (if using headless CMS).
+
+sanity or contentful or DatoCMS — optional headless CMS for collections (projects, helmets).
+
+clsx — class merging for Tailwind.
+
+sharp (dev pipeline) — image transforms for build.
+
+eslint, prettier, husky — code quality.
+
+3) Design system & assets
+
+Typography: choose a bold display serif for headings (variable display font) + a neutral sans (variable) for body. Use variable fonts to reduce weight and enable dynamic styles (e.g., big condensed headings). Example: "Space Grotesk / Playfair Display" or premium alternatives.
+
+Color palette: high-contrast dark/olive/acid lime + neutral backgrounds. Create CSS variables --primary, --accent, --bg, etc.
+
+Iconography: use SVG icons (inline) for crispness and animation.
+
+Image format: supply .avif / .webp fallbacks and multiple sizes. Deliver 1x / 2x / 3x.
+
+3D assets: glTF for helmets, optimized with DRACO and KTX2 (basis) compressed textures.
+
+4) Component & folder structure (Next.js + TypeScript)
+/src
+  /app
+    /[route]               # pages
+  /components
+    Hero/
+      Hero.tsx
+      Hero.module.css     # or tailwind classes
+    Nav/
+    ThemeToggle/
+    ProjectsGrid/
+    ProjectCard/
+    HelmetGallery/
+      HelmetViewer.tsx    # R3F scene + controls
+    Footer/
+  /lib
+    gsap.ts
+    lenis.ts
+    three-utils.ts
+  /styles
+    tokens.css
+    globals.css
+  /public
+    /models
+    /images
+  /content
+    projects/*.mdx (or use headless CMS)
+
+5) Visual & interaction recipes (how to reproduce Lando style)
+Hero: layered, dynamic face/helmet split
+
+Technique: full-bleed hero with two overlapping layers — a top photoreal face and a masked lower rotating helmet. Use CSS clip-path and a small JS parallax driven by scroll.
+
+Implementation: high-res hero image, overlay SVG mask, GSAP timeline that animates mask path + photo scale + opacity on scroll.
+
+Polish: subtle tilt via transform: rotateY() on mouse move, with requestAnimationFrame smoothing.
+
+Smooth inertial scroll + scroll synced animations
+
+Lenis provides smooth scrolling. Pair with GSAP’s ScrollTrigger using the scrollerProxy pattern so ScrollTrigger responds to Lenis.
+
+Use case: big typographic reveal (oversized words) that animate individually — split headings into words/letters and animate with GSAP stagger.
+
+3D helmet viewer
+
+Technique: load GLTF (helmet), add environment lighting, bloom, and use OrbitControls with limited rotation and auto-rotation. Add highlight on hover and “inspect” modal.
+
+Performance: lazy-load the 3D viewer only on interaction (click “view helmet”), low-poly initial LOD with a higher-detail model on demand. Use draco and KTX2 basis compression.
+
+UX: show loading skeleton + progressive enhancement (2D fallback images).
+
+Gallery & hover effects
+
+Masonry grid: CSS grid with grid-auto-flow:dense; or Masonry layout JS.
+
+Hover: tilt + parallax + subtle vignette + reveal caption. Use GSAP for hover in/out (scale, translate, clip).
+
+Modal: full-screen modal with swipe navigation on mobile.
+
+Typographic scale & layout
+
+Use large display numeric counters (big 41 style). Implement as DOM text animated by GSAP (count up) and made responsive with clamp: font-size: clamp(48px, 10vw, 300px).
+
+SVG & stroke animations
+
+Animate SVG strokes using GSAP drawSVG plugin (paid) or manual stroke-dasharray technique with GSAP tweens.
+
+Microinteractions
+
+Button hovers: expand ring outline, soft shadow; use CSS variables for transitions.
+
+Theme toggle: animated icon using Rive for state transitions.
+
+6) Performance & SEO best practices
+
+Critical CSS: inline above-the-fold minimal styles; rest with Tailwind compiled CSS.
+
+Image strategy: use responsive srcset, loading="lazy", and CDN delivery in AVIF/WebP.
+
+Bundle splitting: dynamic import heavy libs (three, gsap) only when needed.
+
+Lighthouse goals: Aim LCP < 1.5s (optimize hero image), TBT < 150ms (defer heavy JS).
+
+Metadata: JSON-LD schema for Person, Organization, breadcrumbs; full Open Graph tags, Twitter Card.
+
+Accessibility: keyboard navigation, semantic HTML, high contrast, alt texts. Use axe to test.
+

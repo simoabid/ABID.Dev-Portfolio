@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #24243e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #c0c0ff;
+  --text-tertiary: #d0d0ff;
+  --accent-primary: #6c63ff;
+  --accent-secondary: #00d4ff;
+  --accent-hover: #7c6eff;
+  --border-color: rgba(108, 99, 255, 0.3);
+  --shadow-color: rgba(108, 99, 255, 0.4);
+}
+
+.light {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-tertiary: #666666;
+  --accent-primary: #4a3aff;
+  --accent-secondary: #00aaff;
+  --accent-hover: #5a4aff;
+  --border-color: rgba(74, 58, 255, 0.2);
+  --shadow-color: rgba(74, 58, 255, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* Gradient text utility */
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      var(--accent-primary),
+      var(--accent-secondary)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(
+      90deg,
+      var(--accent-primary),
+      var(--accent-secondary)
+    );
+  }
+
+  .gradient-border {
+    border-image: linear-gradient(
+        90deg,
+        var(--accent-primary),
+        var(--accent-secondary)
+      )
+      1;
+  }
+}
+
+/* Container utility */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section heading style */
+.section-heading {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2.5rem;
+  color: var(--text-secondary);
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.section-heading::after {
+  content: '';
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}

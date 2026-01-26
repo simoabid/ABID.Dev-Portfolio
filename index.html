@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Amine Abid | Full-Stack Developer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <meta name="theme-color" content="#0d0d17" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#048ac9" media="(prefers-color-scheme: light)">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="dot-pulse-container">
+            <div class="dot-pulse"></div>
+            <div class="dot-pulse"></div>
+            <div class="dot-pulse"></div>
+        </div>
+        <div class="loading-text">Loading<span class="dot-animation"></span></div>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo"> < ABID.Dev/> </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-extras">
+            <div class="theme-toggle" id="themeToggle"><i class="fas fa-adjust"></i>
+                <div class="theme-dropdown" id="themeDropdown">
+                    <a href="#dark-mode" onclick="setTheme('dark')">Dark Mode</a>
+                    <a href="#light-mode" onclick="setTheme('light')">Light Mode</a>
+                </div>
+            </div>
+            <div class="profile-icon" id="profileIcon"><i class="fas fa-user"></i>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#profile">My Profile</a>
+                    <a href="#settings">Settings</a>
+                    <a href="#logout">Logout</a>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <canvas id="particleCanvas" class="background-canvas"></canvas>
+        <div class="hero-content">
+            <h1>Hi, I'm Mohamed Amine Abid</h1>
+            <h2><span class="typing-text">Full-Stack Developer</span><span class="cursor">|</span></h2>
+            <p class="hero-subtitle">Turning complex problems into elegant solutions with cutting-edge technology.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button primary">Hire Me</a>
+                <a href="#projects" class="cta-button secondary">View Projects</a>
+            </div>
+            <div class="hero-social-links">
+                <a href="https://github.com/simoabid" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohamed-amine-abidd" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.x.com/SeeMooAbid" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/simoabiid" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="wave-container">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(108,99,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0,212,255,0.2)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(108,99,255,0.1)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0,212,255,0.1)" />
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="about-photo.jpg" alt="Profile Picture">
+                </div>
+                <div class="about-text">
+                    <p>I'm a passionate Full-Stack Developer with a knack for creating robust, scalable web applications. My expertise spans both front-end and back-end technologies, ensuring seamless user experiences from concept to deployment.</p>
+                    <p>Beyond coding, I'm a tech enthusiast who thrives on learning cutting-edge tools and frameworks. My goal is to build solutions that not only solve problems but also inspire and delight users.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">2+</span>
+                            <span class="stat-text">Years of Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-text">Projects Completed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-text">Happy Clients</span>
+                        </div>
+                    </div>
+                    <a href="Mohamed-Amine-Abid-Resume.pdf" class="download-cv">Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML5</h3>
+                    <div class="skill-level">95%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+                    <p class="skill-description">Expert in semantic markup and modern web standards.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt"></i>
+                    <h3>CSS3</h3>
+                    <div class="skill-level">90%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                    <p class="skill-description">Advanced styling with animations and responsive design.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <div class="skill-level">85%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                    <p class="skill-description">Dynamic client-side scripting and ES6+ features.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-react"></i>
+                    <h3>React</h3>
+                    <div class="skill-level">80%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    <p class="skill-description">Building interactive UIs with component-based architecture.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js"></i>
+                    <h3>Node.js</h3>
+                    <div class="skill-level">75%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+                    <p class="skill-description">Server-side development with RESTful APIs.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>MongoDB</h3>
+                    <div class="skill-level">70%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+                    <p class="skill-description">Designing and managing NoSQL databases for scalable applications.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>MySQL</h3>
+                    <div class="skill-level">70%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+                    <p class="skill-description">Relational database management for structured data solutions.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-php"></i>
+                    <h3>PHP</h3>
+                    <div class="skill-level">70%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+                    <p class="skill-description">Server-side scripting for dynamic web applications.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-laravel"></i>
+                    <h3>Laravel</h3>
+                    <div class="skill-level">70%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+                    <p class="skill-description">Building robust web applications with PHP framework.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python</h3>
+                    <div class="skill-level">65%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 65%;"></div></div>
+                    <p class="skill-description">Versatile programming for web development and automation.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-django"></i>
+                    <h3>Django</h3>
+                    <div class="skill-level">60%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 60%;"></div></div>
+                    <p class="skill-description">High-level Python framework for rapid development.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-git-alt"></i>
+                    <h3>Git</h3>
+                    <div class="skill-level">80%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    <p class="skill-description">Version control for collaborative and efficient coding.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>C Language</h3>
+                    <div class="skill-level">60%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 60%;"></div></div>
+                    <p class="skill-description">Low-level programming for system and embedded applications.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-terminal"></i>
+                    <h3>Bash</h3>
+                    <div class="skill-level">65%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 65%;"></div></div>
+                    <p class="skill-description">Shell scripting for automation and system administration.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-file-word"></i>
+                    <h3>Microsoft Word</h3>
+                    <div class="skill-level">85%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                    <p class="skill-description">Professional document creation and formatting.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <h3>PowerPoint</h3>
+                    <div class="skill-level">80%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    <p class="skill-description">Creating engaging presentations for various audiences.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>Excel</h3>
+                    <div class="skill-level">75%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+                    <p class="skill-description">Data analysis and visualization with spreadsheets.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-linux"></i>
+                    <h3>Linux</h3>
+                    <div class="skill-level">70%</div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+                    <p class="skill-description">System administration and development in Linux environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Junior Full-Stack Developer</h3>
+                        <h4>Self-Employed</h4>
+                        <span class="date">Jan 2024 - Present</span>
+                        <p>Creating scalable web applications, focusing on microservices architecture and cloud integration. Improved application performance by 40% through optimization techniques.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Front-End Developer</h3>
+                        <h4>Self-Employed</h4>
+                        <span class="date">Jun 2025 - Present</span>
+                        <p>Specialized in creating responsive, user-friendly interfaces with React and Redux. Collaborated with UX designers to enhance user engagement by 25%.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Junior Web Developer</h3>
+                        <h4>Self-Employed</h4>
+                        <span class="date">Jan 2024 - Present</span>
+                        <p>Developed and maintained client websites using HTML, CSS, and JavaScript. Implemented SEO strategies that increased web traffic by 30%.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Recent Projects</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="react">React</button>
+                <button class="filter-btn" data-filter="nodejs">Node.js</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+            </div>
+            <div class="project-grid">
+                <div class="project-card" data-category="react">
+                    <div class="project-image"><img src="project1.jpg" alt="Project 1"></div>
+                    <div class="project-info">
+                        <h3>E-commerce Platform</h3>
+                        <p>A full-featured online shopping platform with cart functionality, user authentication, and payment integration using Stripe.</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live Demo</a>
+                            <a href="#" class="link-btn">View Code</a>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                            <span><i class="fas fa-eye"></i> 10K+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="nodejs">
+                    <div class="project-image"><img src="project2.jpg" alt="Project 2"></div>
+                    <div class="project-info">
+                        <h3>Task Management App</h3>
+                        <p>A collaborative task management application with real-time updates, team collaboration features, and drag-and-drop interface.</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Firebase</span>
+                            <span>Material UI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live Demo</a>
+                            <a href="#" class="link-btn">View Code</a>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                            <span><i class="fas fa-eye"></i> 8K+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="web">
+                    <div class="project-image"><img src="project3.jpg" alt="Project 3"></div>
+                    <div class="project-info">
+                        <h3>Social Media Dashboard</h3>
+                        <p>A dashboard for managing multiple social media accounts with analytics, scheduling capabilities, and sentiment analysis.</p>
+                        <div class="project-tech">
+                            <span>Vue.js</span>
+                            <span>Express</span>
+                            <span>Chart.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live Demo</a>
+                            <a href="#" class="link-btn">View Code</a>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                            <span><i class="fas fa-eye"></i> 9K+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more">
+                <a href="#" class="view-more-btn">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2>Achievements & Certifications</h2>
+            <div class="swiper-container achievements-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide achievement-card">
+                        <img src="https://via.placeholder.com/150" alt="Certification 1">
+                        <h3>Certification 1</h3>
+                        <p>Description of certification or award.</p>
+                    </div>
+                    <div class="swiper-slide achievement-card">
+                        <img src="https://via.placeholder.com/150" alt="Certification 2">
+                        <h3>Certification 2</h3>
+                        <p>Description of certification or award.</p>
+                    </div>
+                    <div class="swiper-slide achievement-card">
+                        <img src="https://via.placeholder.com/150" alt="Certification 3">
+                        <h3>Certification 3</h3>
+                        <p>Description of certification or award.</p>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>seemooabid@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+212 6 76 22 61 20</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Khenifra, Morocco</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/simoabid" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/mohamed-amine-abidd" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.x.com/SeeMooAbid" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/simoabiid" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" action="https://formspree.io/f/mnnpbpvw" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>ABID.Dev</h3>
+                </div>
+                <div class="footer-center">
+                    <p>Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by Mohamed Amine Abid</p>
+                    <p>&copy; 2025 Mohamed Amine Abid. All Rights Reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://www.linkedin.com/in/mohamed-amine-abidd">LinkedIn</a></li>
+                            <li><a href="Mohamed-Amine-Abid-Resume.pdf">Resume</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Social Media</h4>
+                        <div class="social-links">
+                            <a href="https://github.com/simoabid" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/mohamed-amine-abidd" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.x.com/SeeMooAbid" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/simoabiid" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6839c398eabb6a190d4f33f0/1isgq83gg';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html> 
