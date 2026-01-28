@@ -1,14 +1,14 @@
 export default function About() {
   return (
-    <section className="min-h-screen py-24 pt-32 bg-dark-secondary">
+    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]">
       <div className="container mx-auto px-4">
         <h2 className="section-heading">About Me</h2>
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Profile Image Placeholder */}
             <div className="relative">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-accent-primary/30 to-accent-secondary/30 flex items-center justify-center overflow-hidden border-2 border-accent-primary/30">
-                <div className="text-center text-text-secondary">
+              <div className="aspect-square rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 flex items-center justify-center overflow-hidden border-2 border-[var(--color-border)]">
+                <div className="text-center text-[var(--color-foreground-muted)]">
                   <svg
                     className="w-24 h-24 mx-auto mb-4 opacity-50"
                     fill="none"
@@ -26,19 +26,19 @@ export default function About() {
                 </div>
               </div>
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-accent-primary/30 rounded-2xl -z-10" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20 rounded-2xl -z-10" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-[var(--color-border)] rounded-2xl -z-10" />
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent-secondary)]/20 rounded-2xl -z-10" />
             </div>
 
             {/* Bio Content */}
-            <div className="bg-dark-primary/60 p-8 rounded-xl border border-accent-primary/20">
-              <p className="text-lg text-text-secondary mb-6 leading-relaxed">
+            <div className="bg-[var(--color-background)]/60 p-8 rounded-xl border border-[var(--color-border)]">
+              <p className="text-lg text-[var(--color-foreground-muted)] mb-6 leading-relaxed">
                 I&apos;m a passionate Full-Stack Developer with a knack for
                 creating robust, scalable web applications. My expertise spans
                 both front-end and back-end technologies, ensuring seamless user
                 experiences from concept to deployment.
               </p>
-              <p className="text-lg text-text-secondary mb-8 leading-relaxed">
+              <p className="text-lg text-[var(--color-foreground-muted)] mb-8 leading-relaxed">
                 Beyond coding, I&apos;m a tech enthusiast who thrives on
                 learning cutting-edge tools and frameworks. My goal is to build
                 solutions that not only solve problems but also inspire and
@@ -56,7 +56,7 @@ export default function About() {
                     <span className="block text-3xl font-bold gradient-text">
                       {stat.value}
                     </span>
-                    <span className="text-sm text-text-secondary">
+                    <span className="text-sm text-[var(--color-foreground-muted)]">
                       {stat.label}
                     </span>
                   </div>
@@ -66,7 +66,7 @@ export default function About() {
               {/* Download CV Button */}
               <a
                 href="/resume.pdf"
-                className="inline-flex items-center gap-2 px-6 py-3 gradient-bg text-white font-semibold rounded-full shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/50 hover:scale-105 transition-all duration-300"
+                className="btn-primary inline-flex items-center gap-2 px-6 py-3"
               >
                 <svg
                   className="w-5 h-5"

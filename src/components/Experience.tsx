@@ -39,12 +39,12 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section className="min-h-screen py-24 pt-32 bg-dark-secondary">
+    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]">
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Experience</h2>
         <div className="max-w-3xl mx-auto relative">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-primary to-accent-secondary transform md:-translate-x-1/2" />
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] transform md:-translate-x-1/2" />
 
           {experiences.map((exp, index) => (
             <div
@@ -55,7 +55,7 @@ export default function Experience() {
             >
               {/* Timeline dot */}
               <div
-                className={`absolute top-0 w-4 h-4 rounded-full bg-dark-secondary border-4 border-accent-primary shadow-lg shadow-accent-primary/50 ${
+                className={`absolute top-0 w-4 h-4 rounded-full bg-[var(--color-background-alt)] border-4 border-[var(--color-accent)] shadow-lg shadow-[var(--color-shadow-accent)] ${
                   index % 2 === 0
                     ? 'left-0 md:left-auto md:-right-2 md:translate-x-1/2'
                     : 'left-0 md:-left-2 md:-translate-x-1/2'
@@ -63,26 +63,26 @@ export default function Experience() {
               />
 
               {/* Content card */}
-              <div className="ml-8 md:ml-0 bg-dark-primary/80 p-6 rounded-xl border border-accent-primary/20 hover:border-accent-primary/50 hover:shadow-lg hover:shadow-accent-primary/10 transition-all duration-300">
-                <h3 className="text-xl font-semibold text-text-primary mb-1">
+              <div className="ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300">
+                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-1">
                   {exp.title}
                 </h3>
-                <p className="text-accent-primary font-medium mb-2">
+                <p className="text-[var(--color-accent)] font-medium mb-2">
                   {exp.company}
                 </p>
                 <span className="inline-block px-3 py-1 gradient-bg text-white text-xs rounded-full mb-4">
                   {exp.date}
                 </span>
-                <p className="text-text-secondary text-sm mb-4 md:text-left">
+                <p className="text-[var(--color-foreground-muted)] text-sm mb-4 md:text-left">
                   {exp.description}
                 </p>
                 <ul className="space-y-1 md:text-left">
                   {exp.highlights.map((highlight, i) => (
                     <li
                       key={i}
-                      className="text-sm text-text-secondary flex items-center gap-2"
+                      className="text-sm text-[var(--color-foreground-muted)] flex items-center gap-2"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-secondary flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-secondary)] flex-shrink-0" />
                       {highlight}
                     </li>
                   ))}

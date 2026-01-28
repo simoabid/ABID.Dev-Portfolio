@@ -10,23 +10,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Dark theme colors
+        // Token-based colors using CSS variables
+        background: 'var(--color-background)',
+        'background-alt': 'var(--color-background-alt)',
+        'background-elevated': 'var(--color-background-elevated)',
+        foreground: 'var(--color-foreground)',
+        'foreground-muted': 'var(--color-foreground-muted)',
+        'foreground-subtle': 'var(--color-foreground-subtle)',
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+          secondary: 'var(--color-accent-secondary)',
+          hover: 'var(--color-accent-hover)',
+          muted: 'var(--color-accent-muted)',
+        },
+        border: 'var(--color-border)',
+        'border-muted': 'var(--color-border-muted)',
+        'border-accent': 'var(--color-border-accent)',
+
+        // Legacy support - keep existing color definitions
         dark: {
           primary: '#1a1a2e',
           secondary: '#24243e',
         },
-        // Light theme colors
         light: {
           primary: '#f5f5f5',
           secondary: '#ffffff',
         },
-        // Accent colors
-        accent: {
-          primary: '#6c63ff',
-          secondary: '#00d4ff',
-          light: '#4a3aff',
-        },
-        // Text colors
         text: {
           primary: '#e0e0e0',
           secondary: '#c0c0ff',
@@ -34,10 +43,55 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
+      },
+      fontSize: {
+        xs: 'var(--font-size-xs)',
+        sm: 'var(--font-size-sm)',
+        base: 'var(--font-size-base)',
+        lg: 'var(--font-size-lg)',
+        xl: 'var(--font-size-xl)',
+        '2xl': 'var(--font-size-2xl)',
+        '3xl': 'var(--font-size-3xl)',
+        '4xl': 'var(--font-size-4xl)',
+        '5xl': 'var(--font-size-5xl)',
+        '6xl': 'var(--font-size-6xl)',
+        '7xl': 'var(--font-size-7xl)',
+      },
+      borderRadius: {
+        none: 'var(--radius-none)',
+        sm: 'var(--radius-sm)',
+        DEFAULT: 'var(--radius-md)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+        '2xl': 'var(--radius-2xl)',
+        '3xl': 'var(--radius-3xl)',
+        full: 'var(--radius-full)',
+      },
+      boxShadow: {
+        sm: 'var(--shadow-sm)',
+        DEFAULT: 'var(--shadow-md)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        xl: 'var(--shadow-xl)',
+        '2xl': 'var(--shadow-2xl)',
+        accent: 'var(--shadow-accent)',
+        glow: 'var(--shadow-glow)',
+      },
+      transitionDuration: {
+        fast: 'var(--transition-duration-fast)',
+        normal: 'var(--transition-duration-normal)',
+        slow: 'var(--transition-duration-slow)',
+      },
+      transitionTimingFunction: {
+        bounce: 'var(--transition-timing-bounce)',
+        smooth: 'var(--transition-timing-smooth)',
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(90deg, #6c63ff, #00d4ff)',
+        'gradient-primary':
+          'linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary))',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       animation: {

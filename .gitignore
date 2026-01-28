@@ -36,7 +36,10 @@ next-env.d.ts
 *.swp
 *.swo
 
-# Legacy files (to be migrated)
+Legacy files (to be migrated)
 # index.html
-# styles.css
+#styles.css
 # script.js
+Context/
+.agent/
+first-chat-session.md

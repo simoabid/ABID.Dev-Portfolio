@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -44,10 +45,10 @@ export default function Header() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-normal ${
         isScrolled
-          ? 'bg-dark-secondary/95 backdrop-blur-sm shadow-lg shadow-accent-primary/20'
-          : 'bg-dark-primary/95'
+          ? 'bg-[var(--color-background-alt)]/95 backdrop-blur-sm shadow-lg shadow-[var(--color-shadow-accent)]'
+          : 'bg-[var(--color-background)]/95'
       }`}
     >
       <div className="container mx-auto px-4 md:px-8">
@@ -55,9 +56,9 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="relative flex items-center text-xl md:text-2xl font-bold text-accent-primary hover:text-accent-secondary transition-colors duration-300"
+            className="relative flex items-center text-xl md:text-2xl font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-secondary)] transition-colors duration-normal"
           >
-            <span className="absolute -left-3 w-1 h-6 bg-gradient-to-b from-accent-primary to-accent-secondary rounded-full" />
+            <span className="absolute -left-3 w-1 h-6 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] rounded-full" />
             &lt; ABID.Dev/&gt;
           </Link>
 
@@ -67,15 +68,15 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`relative py-2 transition-colors duration-300 group ${
+                  className={`relative py-2 transition-colors duration-normal group ${
                     isActiveLink(link.href)
-                      ? 'text-accent-primary font-medium'
-                      : 'text-text-primary hover:text-accent-primary'
+                      ? 'text-[var(--color-accent)] font-medium'
+                      : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)]'
                   }`}
                 >
                   {link.label}
                   <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] transition-all duration-normal ${
                       isActiveLink(link.href)
                         ? 'w-full'
                         : 'w-0 group-hover:w-full'
@@ -88,48 +89,32 @@ export default function Header() {
 
           {/* Theme Toggle & Mobile Menu Button */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle Button (placeholder) */}
-            <button
-              className="w-10 h-10 rounded-full bg-accent-primary/20 border border-accent-primary/30 flex items-center justify-center text-text-primary hover:bg-gradient-to-r hover:from-accent-primary hover:to-accent-secondary hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent-primary/30"
-              aria-label="Toggle theme"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            </button>
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
               className="md:hidden flex flex-col gap-1.5 p-2 hover:scale-110 transition-transform"
               aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
             >
               <span
-                className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${
+                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
                   isMobileMenuOpen
-                    ? 'rotate-45 translate-y-2 bg-accent-primary'
+                    ? 'rotate-45 translate-y-2 bg-[var(--color-accent)]'
                     : ''
                 }`}
               />
               <span
-                className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${
+                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
                   isMobileMenuOpen ? 'opacity-0' : ''
                 }`}
               />
               <span
-                className={`w-6 h-0.5 bg-text-primary transition-all duration-300 ${
+                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
                   isMobileMenuOpen
-                    ? '-rotate-45 -translate-y-2 bg-accent-primary'
+                    ? '-rotate-45 -translate-y-2 bg-[var(--color-accent)]'
                     : ''
                 }`}
               />
@@ -139,7 +124,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
+          className={`md:hidden overflow-hidden transition-all duration-normal ${
             isMobileMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
           }`}
         >
@@ -149,10 +134,10 @@ export default function Header() {
                 <Link
                   href={link.href}
                   onClick={closeMobileMenu}
-                  className={`block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  className={`block py-3 px-4 rounded-lg transition-all duration-normal ${
                     isActiveLink(link.href)
-                      ? 'text-accent-primary bg-accent-primary/20 font-medium'
-                      : 'text-text-primary hover:text-accent-primary hover:bg-accent-primary/10'
+                      ? 'text-[var(--color-accent)] bg-[var(--color-accent-muted)] font-medium'
+                      : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)] hover:bg-[var(--color-accent-muted)]'
                   }`}
                 >
                   {link.label}

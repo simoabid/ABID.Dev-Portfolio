@@ -24,7 +24,7 @@ const socialLinks = [
     label: 'Twitter',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
@@ -56,9 +56,9 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark-primary border-t border-accent-primary/20 py-8 relative">
+    <footer className="bg-[var(--color-background)] border-t border-[var(--color-border)] py-8 relative">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(108,99,255,0.1),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,var(--color-accent-muted),transparent_50%)] pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -66,15 +66,15 @@ export default function Footer() {
           <div className="text-center md:text-left">
             <Link
               href="/"
-              className="relative inline-flex items-center text-xl font-bold text-accent-primary hover:text-accent-secondary transition-colors duration-300"
+              className="relative inline-flex items-center text-xl font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-secondary)] transition-colors duration-normal"
             >
-              <span className="absolute -left-2.5 w-1 h-5 bg-gradient-to-b from-accent-primary to-accent-secondary rounded-full" />
+              <span className="absolute -left-2.5 w-1 h-5 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] rounded-full" />
               ABID.Dev
             </Link>
           </div>
 
           {/* Center content */}
-          <div className="text-center text-text-secondary">
+          <div className="text-center text-[var(--color-foreground-muted)]">
             <p className="flex items-center justify-center gap-1 mb-1">
               Made with
               <span className="text-red-500 animate-pulse">❤</span>
@@ -90,16 +90,16 @@ export default function Footer() {
             {/* Resources */}
             {footerLinks.map((section) => (
               <div key={section.title} className="text-center md:text-left">
-                <h4 className="text-sm font-semibold text-text-primary mb-2 relative inline-block">
+                <h4 className="text-sm font-semibold text-[var(--color-foreground)] mb-2 relative inline-block">
                   {section.title}
-                  <span className="absolute -bottom-1 left-0 w-6 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full" />
+                  <span className="absolute -bottom-1 left-0 w-6 h-0.5 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] rounded-full" />
                 </h4>
                 <ul className="flex gap-4">
                   {section.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-text-secondary hover:text-accent-primary transition-colors duration-300"
+                        className="text-sm text-[var(--color-foreground-muted)] hover:text-[var(--color-accent)] transition-colors duration-normal"
                       >
                         {link.label}
                       </Link>
@@ -118,7 +118,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-8 h-8 rounded-full bg-accent-primary/20 border border-accent-primary/30 flex items-center justify-center text-text-primary hover:bg-gradient-to-r hover:from-accent-primary hover:to-accent-secondary hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent-primary/30"
+                  className="w-8 h-8 rounded-full bg-[var(--color-accent-muted)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-foreground)] hover:bg-gradient-to-r hover:from-[var(--color-accent)] hover:to-[var(--color-accent-secondary)] hover:text-white transition-all duration-normal hover:-translate-y-1 hover:shadow-accent"
                 >
                   {social.icon}
                 </Link>

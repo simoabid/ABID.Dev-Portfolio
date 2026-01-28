@@ -39,10 +39,10 @@ export default function ProjectsGrid() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-24 pt-32 bg-dark-secondary relative"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)] relative"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(108,99,255,0.05),rgba(0,212,255,0.05))] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,var(--color-accent-muted),transparent)] opacity-30 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="section-heading">Recent Projects</h2>
@@ -54,8 +54,8 @@ export default function ProjectsGrid() {
               key={filter}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                 index === 0
-                  ? 'gradient-bg text-white shadow-lg shadow-accent-primary/30'
-                  : 'bg-accent-primary/20 text-text-primary border border-accent-primary/30 hover:bg-accent-primary/40'
+                  ? 'gradient-bg text-white shadow-lg shadow-[var(--color-shadow-accent)]'
+                  : 'bg-[var(--color-accent-muted)] text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-accent)]/40'
               }`}
             >
               {filter}
@@ -68,11 +68,11 @@ export default function ProjectsGrid() {
           {placeholderProjects.map((project) => (
             <div
               key={project.id}
-              className="bg-dark-primary/80 rounded-xl overflow-hidden border border-accent-primary/20 hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-accent-primary/20 group"
+              className="bg-[var(--color-background)]/80 rounded-xl overflow-hidden border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] group"
             >
               {/* Project Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-accent-primary/30 to-accent-secondary/30 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-text-secondary">
+              <div className="h-48 bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center text-[var(--color-foreground-muted)]">
                   <svg
                     className="w-16 h-16 opacity-50"
                     fill="none"
@@ -87,15 +87,15 @@ export default function ProjectsGrid() {
                     />
                   </svg>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-background)]/80 to-transparent" />
               </div>
 
               {/* Project Info */}
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-text-primary mb-3 group-hover:text-accent-primary transition-colors">
+                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-3 group-hover:text-[var(--color-accent)] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-text-secondary text-sm mb-4 line-clamp-3">
+                <p className="text-[var(--color-foreground-muted)] text-sm mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
@@ -104,7 +104,7 @@ export default function ProjectsGrid() {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-accent-primary/20 text-text-primary text-xs rounded-full"
+                      className="px-3 py-1 bg-[var(--color-accent-muted)] text-[var(--color-foreground)] text-xs rounded-full"
                     >
                       {tech}
                     </span>
@@ -115,13 +115,13 @@ export default function ProjectsGrid() {
                 <div className="flex gap-3">
                   <a
                     href="#"
-                    className="flex-1 py-2 text-center border-2 border-accent-primary text-accent-primary rounded-full text-sm font-medium hover:bg-accent-primary/20 transition-all duration-300"
+                    className="flex-1 py-2 text-center border-2 border-[var(--color-accent)] text-[var(--color-accent)] rounded-full text-sm font-medium hover:bg-[var(--color-accent-muted)] transition-all duration-300"
                   >
                     Live Demo
                   </a>
                   <a
                     href="#"
-                    className="flex-1 py-2 text-center border-2 border-accent-primary text-accent-primary rounded-full text-sm font-medium hover:bg-accent-primary/20 transition-all duration-300"
+                    className="flex-1 py-2 text-center border-2 border-[var(--color-accent)] text-[var(--color-accent)] rounded-full text-sm font-medium hover:bg-[var(--color-accent-muted)] transition-all duration-300"
                   >
                     View Code
                   </a>
@@ -133,9 +133,7 @@ export default function ProjectsGrid() {
 
         {/* View More Button */}
         <div className="text-center mt-12">
-          <button className="px-8 py-3 gradient-bg text-white font-semibold rounded-full shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/50 hover:scale-105 transition-all duration-300">
-            View All Projects
-          </button>
+          <button className="btn-primary px-8 py-3">View All Projects</button>
         </div>
       </div>
     </section>

@@ -91,17 +91,17 @@ export default function Contact() {
   };
 
   return (
-    <section className="min-h-screen py-24 pt-32 bg-dark-primary">
+    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background)]">
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Get in Touch</h2>
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
             <div>
-              <h3 className="text-2xl font-semibold text-text-primary mb-6">
+              <h3 className="text-2xl font-semibold text-[var(--color-foreground)] mb-6">
                 Let&apos;s work together
               </h3>
-              <p className="text-text-secondary mb-8">
+              <p className="text-[var(--color-foreground-muted)] mb-8">
                 I&apos;m always open to discussing new projects, creative ideas,
                 or opportunities to be part of your vision.
               </p>
@@ -111,16 +111,18 @@ export default function Contact() {
                   <a
                     key={info.title}
                     href={info.href}
-                    className="flex items-center gap-4 p-4 bg-dark-secondary rounded-xl border border-accent-primary/20 hover:border-accent-primary/50 hover:-translate-x-1 transition-all duration-300 group"
+                    className="flex items-center gap-4 p-4 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:-translate-x-1 transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center text-accent-primary group-hover:bg-gradient-to-r group-hover:from-accent-primary group-hover:to-accent-secondary group-hover:text-white transition-all duration-300">
+                    <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:bg-gradient-to-r group-hover:from-[var(--color-accent)] group-hover:to-[var(--color-accent-secondary)] group-hover:text-white transition-all duration-300">
                       {info.icon}
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-text-primary">
+                      <h4 className="text-sm font-semibold text-[var(--color-foreground)]">
                         {info.title}
                       </h4>
-                      <p className="text-text-secondary">{info.value}</p>
+                      <p className="text-[var(--color-foreground-muted)]">
+                        {info.value}
+                      </p>
                     </div>
                   </a>
                 ))}
@@ -133,7 +135,7 @@ export default function Contact() {
                     <a
                       key={social}
                       href="#"
-                      className="w-10 h-10 rounded-full bg-accent-primary/20 border border-accent-primary/30 flex items-center justify-center text-text-primary hover:bg-gradient-to-r hover:from-accent-primary hover:to-accent-secondary hover:text-white transition-all duration-300 hover:-translate-y-1"
+                      className="w-10 h-10 rounded-full bg-[var(--color-accent-muted)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-foreground)] hover:bg-gradient-to-r hover:from-[var(--color-accent)] hover:to-[var(--color-accent-secondary)] hover:text-white transition-all duration-300 hover:-translate-y-1"
                     >
                       <span className="text-xs font-bold">{social[0]}</span>
                     </a>
@@ -145,10 +147,10 @@ export default function Contact() {
             {/* Contact Form */}
             <form
               onSubmit={handleSubmit}
-              className="bg-dark-secondary p-8 rounded-xl border border-accent-primary/20"
+              className="bg-[var(--color-background-alt)] p-8 rounded-xl border border-[var(--color-border-muted)]"
             >
               <div className="mb-6">
-                <label className="block text-text-primary text-sm font-medium mb-2">
+                <label className="block text-[var(--color-foreground)] text-sm font-medium mb-2">
                   Name
                 </label>
                 <input
@@ -157,12 +159,12 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-primary border border-accent-primary/30 rounded-lg text-text-primary placeholder-text-secondary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] placeholder-[var(--color-foreground-muted)]/50 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] focus:outline-none transition-colors"
                   placeholder="Your Name"
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-text-primary text-sm font-medium mb-2">
+                <label className="block text-[var(--color-foreground)] text-sm font-medium mb-2">
                   Email
                 </label>
                 <input
@@ -171,12 +173,12 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-primary border border-accent-primary/30 rounded-lg text-text-primary placeholder-text-secondary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] placeholder-[var(--color-foreground-muted)]/50 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] focus:outline-none transition-colors"
                   placeholder="your@email.com"
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-text-primary text-sm font-medium mb-2">
+                <label className="block text-[var(--color-foreground)] text-sm font-medium mb-2">
                   Message
                 </label>
                 <textarea
@@ -185,14 +187,11 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-dark-primary border border-accent-primary/30 rounded-lg text-text-primary placeholder-text-secondary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] placeholder-[var(--color-foreground-muted)]/50 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] focus:outline-none transition-colors resize-none"
                   placeholder="Your message..."
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full py-4 gradient-bg text-white font-semibold rounded-full shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/50 hover:scale-[1.02] transition-all duration-300"
-              >
+              <button type="submit" className="w-full btn-primary py-4">
                 Send Message
               </button>
             </form>
