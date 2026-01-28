@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 
+import Image from 'next/image';
+
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
@@ -56,9 +58,17 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="relative flex items-center text-xl md:text-2xl font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-secondary)] transition-colors duration-normal"
+            className="flex items-center gap-3 text-xl md:text-2xl font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-secondary)] transition-colors duration-normal"
           >
-            <span className="absolute -left-3 w-1 h-6 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] rounded-full" />
+            <div className="relative w-16 h-16 md:w-20 md:h-20">
+              <Image
+                src="/images/logo.png"
+                alt="ABID.Dev Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             &lt; ABID.Dev/&gt;
           </Link>
 

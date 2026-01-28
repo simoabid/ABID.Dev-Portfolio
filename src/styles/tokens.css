@@ -49,28 +49,50 @@
      ========================================================================= */
   --spacing-0: 0;
   --spacing-px: 1px;
-  --spacing-0-5: 0.125rem; /* 2px */
-  --spacing-1: 0.25rem; /* 4px */
-  --spacing-1-5: 0.375rem; /* 6px */
-  --spacing-2: 0.5rem; /* 8px */
-  --spacing-2-5: 0.625rem; /* 10px */
-  --spacing-3: 0.75rem; /* 12px */
-  --spacing-3-5: 0.875rem; /* 14px */
-  --spacing-4: 1rem; /* 16px */
-  --spacing-5: 1.25rem; /* 20px */
-  --spacing-6: 1.5rem; /* 24px */
-  --spacing-7: 1.75rem; /* 28px */
-  --spacing-8: 2rem; /* 32px */
-  --spacing-9: 2.25rem; /* 36px */
-  --spacing-10: 2.5rem; /* 40px */
-  --spacing-11: 2.75rem; /* 44px */
-  --spacing-12: 3rem; /* 48px */
-  --spacing-14: 3.5rem; /* 56px */
-  --spacing-16: 4rem; /* 64px */
-  --spacing-20: 5rem; /* 80px */
-  --spacing-24: 6rem; /* 96px */
-  --spacing-28: 7rem; /* 112px */
-  --spacing-32: 8rem; /* 128px */
+  --spacing-0-5: 0.125rem;
+  /* 2px */
+  --spacing-1: 0.25rem;
+  /* 4px */
+  --spacing-1-5: 0.375rem;
+  /* 6px */
+  --spacing-2: 0.5rem;
+  /* 8px */
+  --spacing-2-5: 0.625rem;
+  /* 10px */
+  --spacing-3: 0.75rem;
+  /* 12px */
+  --spacing-3-5: 0.875rem;
+  /* 14px */
+  --spacing-4: 1rem;
+  /* 16px */
+  --spacing-5: 1.25rem;
+  /* 20px */
+  --spacing-6: 1.5rem;
+  /* 24px */
+  --spacing-7: 1.75rem;
+  /* 28px */
+  --spacing-8: 2rem;
+  /* 32px */
+  --spacing-9: 2.25rem;
+  /* 36px */
+  --spacing-10: 2.5rem;
+  /* 40px */
+  --spacing-11: 2.75rem;
+  /* 44px */
+  --spacing-12: 3rem;
+  /* 48px */
+  --spacing-14: 3.5rem;
+  /* 56px */
+  --spacing-16: 4rem;
+  /* 64px */
+  --spacing-20: 5rem;
+  /* 80px */
+  --spacing-24: 6rem;
+  /* 96px */
+  --spacing-28: 7rem;
+  /* 112px */
+  --spacing-32: 8rem;
+  /* 128px */
 
   /* =========================================================================
      TYPOGRAPHY TOKENS
@@ -83,19 +105,32 @@
   --font-mono: 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', monospace;
 
   /* Font Sizes */
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-  --font-size-4xl: 2.25rem; /* 36px */
-  --font-size-5xl: 3rem; /* 48px */
-  --font-size-6xl: 3.75rem; /* 60px */
-  --font-size-7xl: 4.5rem; /* 72px */
-  --font-size-8xl: 6rem; /* 96px */
-  --font-size-9xl: 8rem; /* 128px */
+  --font-size-xs: 0.75rem;
+  /* 12px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-lg: 1.125rem;
+  /* 18px */
+  --font-size-xl: 1.25rem;
+  /* 20px */
+  --font-size-2xl: 1.5rem;
+  /* 24px */
+  --font-size-3xl: 1.875rem;
+  /* 30px */
+  --font-size-4xl: 2.25rem;
+  /* 36px */
+  --font-size-5xl: 3rem;
+  /* 48px */
+  --font-size-6xl: 3.75rem;
+  /* 60px */
+  --font-size-7xl: 4.5rem;
+  /* 72px */
+  --font-size-8xl: 6rem;
+  /* 96px */
+  --font-size-9xl: 8rem;
+  /* 128px */
 
   /* Font Weights */
   --font-weight-light: 300;
@@ -124,12 +159,18 @@
      BORDER RADIUS TOKENS
      ========================================================================= */
   --radius-none: 0;
-  --radius-sm: 0.25rem; /* 4px */
-  --radius-md: 0.375rem; /* 6px */
-  --radius-lg: 0.5rem; /* 8px */
-  --radius-xl: 0.75rem; /* 12px */
-  --radius-2xl: 1rem; /* 16px */
-  --radius-3xl: 1.5rem; /* 24px */
+  --radius-sm: 0.25rem;
+  /* 4px */
+  --radius-md: 0.375rem;
+  /* 6px */
+  --radius-lg: 0.5rem;
+  /* 8px */
+  --radius-xl: 0.75rem;
+  /* 12px */
+  --radius-2xl: 1rem;
+  /* 16px */
+  --radius-3xl: 1.5rem;
+  /* 24px */
   --radius-full: 9999px;
 
   /* =========================================================================
@@ -155,6 +196,30 @@
   --shadow-2xl: 0 25px 50px -12px var(--color-shadow);
   --shadow-accent: 0 4px 14px 0 var(--color-shadow-accent);
   --shadow-glow: 0 0 20px var(--color-shadow-glow);
+
+  /* =========================================================================
+     BREAKPOINT TOKENS
+     ========================================================================= */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* =========================================================================
+     CONTAINER TOKENS
+     ========================================================================= */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1400px;
+  --container-gutter: var(--spacing-4);
+  /* 16px on mobile */
+  --container-gutter-md: var(--spacing-6);
+  /* 24px on tablet+ */
+  --container-gutter-lg: var(--spacing-8);
+  /* 32px on desktop */
 
   /* =========================================================================
      Z-INDEX TOKENS
