@@ -4,15 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
-
 import Image from 'next/image';
 
 const navLinks = [
   { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
   { href: '/about', label: 'About' },
   { href: '/skills', label: 'Skills' },
-  { href: '/experience', label: 'Experience' },
-  { href: '/projects', label: 'Projects' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -23,7 +21,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -46,97 +44,114 @@ export default function Header() {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-normal ${
-        isScrolled
-          ? 'bg-[var(--color-background-alt)]/95 backdrop-blur-sm shadow-lg shadow-[var(--color-shadow-accent)]'
-          : 'bg-[var(--color-background)]/95'
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+    <>
+      <header
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 flex justify-center ${
+          isScrolled ? 'top-4' : 'top-6'
+        }`}
+      >
+        <nav
+          className={`
+            relative flex items-center justify-between 
+            w-[92%] max-w-6xl 
+            rounded-full 
+            border border-white/20 dark:border-white/10 
+            bg-white/10 dark:bg-black/20 
+            backdrop-blur-lg 
+            shadow-lg shadow-black/5 
+            transition-all duration-300
+            ${isScrolled ? 'py-2.5 px-6' : 'py-3.5 px-8'}
+          `}
+        >
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 text-xl md:text-2xl font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-secondary)] transition-colors duration-normal"
+            className="flex items-center gap-2 text-xl font-bold text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
           >
-            <div className="relative w-16 h-16 md:w-20 md:h-20">
-              <Image
-                src="/images/logo.png"
-                alt="ABID.Dev Logo"
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10">
+              {/* Use a simple text fallback if image fails, or keep the Image component */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-secondary)] flex items-center justify-center text-white text-xs">
+                AB
+              </div>
             </div>
-            &lt; ABID.Dev/&gt;
+            <span className="tracking-tight">
+              ABID<span className="text-[var(--color-accent)]">.Dev</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`relative py-2 transition-colors duration-normal group ${
-                    isActiveLink(link.href)
-                      ? 'text-[var(--color-accent)] font-medium'
-                      : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)]'
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] transition-all duration-normal ${
-                      isActiveLink(link.href)
-                        ? 'w-full'
-                        : 'w-0 group-hover:w-full'
-                    }`}
-                  />
-                </Link>
-              </li>
-            ))}
+          <ul className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const active = isActiveLink(link.href);
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`
+                      relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+                      ${
+                        active
+                          ? 'text-white bg-[var(--color-accent)] shadow-md shadow-[var(--color-accent)]/20'
+                          : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)] hover:bg-white/5 dark:hover:bg-white/5'
+                      }
+                    `}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
-          {/* Theme Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-4">
-            {/* Theme Toggle Button */}
+          {/* Right Actions */}
+          <div className="flex items-center gap-3">
             <ThemeToggle />
+
+            <Link
+              href="/contact"
+              className="hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300"
+            >
+              Hire Me
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden flex flex-col gap-1.5 p-2 hover:scale-110 transition-transform"
+              className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
               aria-label="Toggle mobile menu"
-              aria-expanded={isMobileMenuOpen}
             >
-              <span
-                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
-                  isMobileMenuOpen
-                    ? 'rotate-45 translate-y-2 bg-[var(--color-accent)]'
-                    : ''
-                }`}
-              />
-              <span
-                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
-                  isMobileMenuOpen ? 'opacity-0' : ''
-                }`}
-              />
-              <span
-                className={`w-6 h-0.5 bg-[var(--color-foreground)] transition-all duration-normal ${
-                  isMobileMenuOpen
-                    ? '-rotate-45 -translate-y-2 bg-[var(--color-accent)]'
-                    : ''
-                }`}
-              />
+              <div className="relative w-6 h-5 flex flex-col justify-between">
+                <span
+                  className={`w-full h-0.5 bg-current rounded-full transition-transform duration-300 origin-left ${isMobileMenuOpen ? 'rotate-45 translate-x-1' : ''}`}
+                />
+                <span
+                  className={`w-full h-0.5 bg-current rounded-full transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}
+                />
+                <span
+                  className={`w-full h-0.5 bg-current rounded-full transition-transform duration-300 origin-left ${isMobileMenuOpen ? '-rotate-45 translate-x-1' : ''}`}
+                />
+              </div>
             </button>
           </div>
-        </div>
+        </nav>
+      </header>
 
-        {/* Mobile Navigation */}
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-xl transition-opacity duration-300 md:hidden ${
+          isMobileMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMobileMenu}
+      >
         <div
-          className={`md:hidden overflow-hidden transition-all duration-normal ${
-            isMobileMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
+          className={`absolute top-24 left-4 right-4 bg-[var(--color-background-alt)] rounded-2xl border border-white/10 p-4 transition-transform duration-300 ${
+            isMobileMenuOpen
+              ? 'translate-y-0 scale-100'
+              : '-translate-y-4 scale-95'
           }`}
+          onClick={(e) => e.stopPropagation()}
         >
           <ul className="flex flex-col gap-2">
             {navLinks.map((link) => (
@@ -144,19 +159,31 @@ export default function Header() {
                 <Link
                   href={link.href}
                   onClick={closeMobileMenu}
-                  className={`block py-3 px-4 rounded-lg transition-all duration-normal ${
-                    isActiveLink(link.href)
-                      ? 'text-[var(--color-accent)] bg-[var(--color-accent-muted)] font-medium'
-                      : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)] hover:bg-[var(--color-accent-muted)]'
-                  }`}
+                  className={`
+                    block px-4 py-3 rounded-xl transition-all
+                    ${
+                      isActiveLink(link.href)
+                        ? 'bg-[var(--color-accent)] text-white shadow-lg shadow-[var(--color-accent)]/20'
+                        : 'hover:bg-white/5 text-[var(--color-foreground)]'
+                    }
+                  `}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
+            <li className="pt-2 border-t border-white/10 mt-2">
+              <Link
+                href="/contact"
+                onClick={closeMobileMenu}
+                className="block px-4 py-3 rounded-xl text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)]"
+              >
+                Hire Me
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
