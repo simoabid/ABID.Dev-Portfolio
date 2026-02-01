@@ -39,7 +39,10 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]">
+    <section
+      id="experience"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]"
+    >
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Experience</h2>
         <div className="max-w-3xl mx-auto relative">

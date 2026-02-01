@@ -2,26 +2,43 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import Image from 'next/image';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/about', label: 'About' },
-  { href: '/skills', label: 'Skills' },
-  { href: '/contact', label: 'Contact' },
+  { href: '#home', label: 'Home' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState('#home');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Detect active section based on scroll position
+      const sections = ['home', 'projects', 'about', 'skills', 'contact'];
+      const scrollPosition = window.scrollY + 100; // Offset for header
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(`#${section}`);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -37,10 +54,25 @@ export default function Header() {
   };
 
   const isActiveLink = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
+    return activeSection === href;
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offsetTop = element.offsetTop - 80; // Account for fixed header
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+      setActiveSection(href);
+      closeMobileMenu();
     }
-    return pathname.startsWith(href);
   };
 
   return (
@@ -68,11 +100,14 @@ export default function Header() {
             href="/"
             className="flex items-center gap-2 text-xl font-bold text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
           >
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10">
-              {/* Use a simple text fallback if image fails, or keep the Image component */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-secondary)] flex items-center justify-center text-white text-xs">
-                AB
-              </div>
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10">
+              <Image
+                src="/images/logo.png"
+                alt="ABID.Dev Logo"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
             <span className="tracking-tight">
               ABID<span className="text-[var(--color-accent)]">.Dev</span>
@@ -87,6 +122,7 @@ export default function Header() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`
                       relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
                       ${
@@ -108,10 +144,11 @@ export default function Header() {
             <ThemeToggle />
 
             <Link
-              href="/contact"
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '#contact')}
               className="hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300"
             >
-              Hire Me
+              Let&apos;s Talk
             </Link>
 
             {/* Mobile Menu Button */}
@@ -158,7 +195,7 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  onClick={closeMobileMenu}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`
                     block px-4 py-3 rounded-xl transition-all
                     ${
@@ -174,11 +211,11 @@ export default function Header() {
             ))}
             <li className="pt-2 border-t border-white/10 mt-2">
               <Link
-                href="/contact"
-                onClick={closeMobileMenu}
+                href="#contact"
+                onClick={(e) => handleNavClick(e, '#contact')}
                 className="block px-4 py-3 rounded-xl text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)]"
               >
-                Hire Me
+                Let&apos;s Talk
               </Link>
             </li>
           </ul>

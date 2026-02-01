@@ -18,7 +18,10 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background)]">
+    <section
+      id="skills"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
+    >
       <Container size="xl">
         <h2 className="section-heading">My Skills</h2>
         <Grid

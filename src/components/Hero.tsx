@@ -1,6 +1,10 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CodeSnippet from './CodeSnippet';
+import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 /**
  * Hero Section Component
@@ -10,11 +14,241 @@ import CodeSnippet from './CodeSnippet';
  * - Center: Hero portrait image
  * - Right: Code snippet widget (aligned to right edge)
  *
+ * Features:
+ * - GSAP ScrollTrigger animations for scroll-driven effects
+ * - Typographic reveal animations with staggered text
+ * - Parallax floating elements
+ * - Fade/translate out on scroll
+ *
  * Responsive: Stacks on mobile, side-by-side on desktop
  */
+
+// Name split into parts for animation
+const nameFirstPart = ['Mohamed', 'Amine'];
+const nameLastPart = ['Abid'];
+const titleWords = ['Full-Stack', 'Web', 'Developer'];
+
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const codeSnippetRef = useRef<HTMLDivElement>(null);
+  const floatingRef1 = useRef<HTMLDivElement>(null);
+  const floatingRef2 = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const greetingRef = useRef<HTMLParagraphElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const socialsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // SSR guard
+    if (typeof window === 'undefined') return;
+
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Create GSAP context for proper cleanup
+    const ctx = gsap.context(() => {
+      // ========================================
+      // INTRO ANIMATIONS (on page load)
+      // ========================================
+
+      const introTl = gsap.timeline({ delay: 0.3 });
+
+      // Greeting fade in
+      if (greetingRef.current) {
+        gsap.set(greetingRef.current, { opacity: 0, y: 20 });
+        introTl.to(greetingRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+        });
+      }
+
+      // Name words staggered reveal
+      if (nameRef.current) {
+        const nameWords = nameRef.current.querySelectorAll('.name-word');
+        gsap.set(nameWords, {
+          opacity: 0,
+          y: 50,
+          rotateX: -30,
+        });
+        introTl.to(
+          nameWords,
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'power3.out',
+          },
+          '-=0.2'
+        );
+      }
+
+      // Title words staggered reveal
+      if (titleRef.current) {
+        const titleParts = titleRef.current.querySelectorAll('.title-word');
+        gsap.set(titleParts, {
+          opacity: 0,
+          y: 30,
+          rotateX: -20,
+        });
+        introTl.to(
+          titleParts,
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+          },
+          '-=0.4'
+        );
+      }
+
+      // Tagline fade in
+      if (taglineRef.current) {
+        gsap.set(taglineRef.current, { opacity: 0, y: 20 });
+        introTl.to(
+          taglineRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        );
+      }
+
+      // CTAs fade in
+      if (ctaRef.current) {
+        gsap.set(ctaRef.current, { opacity: 0, y: 20 });
+        introTl.to(
+          ctaRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+          },
+          '-=0.2'
+        );
+      }
+
+      // Socials fade in
+      if (socialsRef.current) {
+        const socialLinks = socialsRef.current.querySelectorAll('a');
+        gsap.set(socialLinks, { opacity: 0, scale: 0.5 });
+        introTl.to(
+          socialLinks,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            stagger: 0.08,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.2'
+        );
+      }
+
+      // ========================================
+      // SCROLL ANIMATIONS (on scroll)
+      // ========================================
+
+      // Hero content fades out and translates up as user scrolls
+      if (contentRef.current) {
+        gsap.to(contentRef.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+          y: -80,
+          opacity: 0,
+          ease: 'none',
+        });
+      }
+
+      // Portrait has a slight parallax effect
+      if (portraitRef.current) {
+        gsap.to(portraitRef.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+          },
+          y: -50,
+          scale: 0.95,
+          opacity: 0.5,
+          ease: 'none',
+        });
+      }
+
+      // Code snippet slides out with different timing
+      if (codeSnippetRef.current) {
+        gsap.to(codeSnippetRef.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'center top',
+            scrub: 1.2,
+          },
+          y: -60,
+          x: 30,
+          opacity: 0,
+          ease: 'none',
+        });
+      }
+
+      // Floating elements with faster parallax
+      if (floatingRef1.current) {
+        gsap.to(floatingRef1.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.8,
+          },
+          y: -120,
+          x: 20,
+          rotation: 180,
+          ease: 'none',
+        });
+      }
+
+      if (floatingRef2.current) {
+        gsap.to(floatingRef2.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+          y: -100,
+          x: -15,
+          rotation: -90,
+          ease: 'none',
+        });
+      }
+    }, sectionRef);
+
+    // Cleanup on unmount
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden"
       aria-label="Hero section - Introduction"
@@ -38,41 +272,108 @@ export default function Hero() {
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 xl:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center min-h-[calc(100vh-10rem)]">
           {/* Left Column - Info & CTAs (spans 4 columns, left-aligned) */}
-          <div className="lg:col-span-4 text-center lg:text-left order-2 lg:order-1">
+          <div
+            ref={contentRef}
+            className="lg:col-span-4 text-center lg:text-left order-2 lg:order-1"
+          >
             {/* Greeting */}
-            <p className="text-[var(--color-foreground-muted)] text-xl md:text-2xl mb-2 animate-fade-in">
+            <p
+              ref={greetingRef}
+              className="text-[var(--color-foreground-muted)] text-xl md:text-2xl mb-2"
+            >
               Hi, I&apos;m
             </p>
-            {/* Name */}
-            <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold mb-4 animate-slide-up font-mono">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
-                Mohamed Amine{' '}
+
+            {/* Name with split text animation */}
+            <h1
+              ref={nameRef}
+              className="text-4xl md:text-5xl xl:text-6xl font-bold mb-4 font-mono"
+              style={{ perspective: '1000px' }}
+            >
+              {/* Screen reader text */}
+              <span className="sr-only">Mohamed Amine Abid</span>
+
+              {/* Visual split text */}
+              <span aria-hidden="true">
+                {nameFirstPart.map((word, index) => (
+                  <span
+                    key={word}
+                    className="name-word inline-block text-white"
+                    style={{
+                      willChange: 'transform',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  >
+                    {word}
+                    {index < nameFirstPart.length - 1 && '\u00A0'}
+                  </span>
+                ))}
+                {'\u00A0'}
+                {nameLastPart.map((word) => (
+                  <span
+                    key={word}
+                    className="name-word inline-block gradient-text"
+                    style={{
+                      willChange: 'transform',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
               </span>
-              <span className="gradient-text">Abid</span>
             </h1>
 
-            {/* Title */}
-            <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-[var(--color-accent)] mb-6 animate-slide-up">
-              Full-Stack Web Developer
+            {/* Title with split text animation */}
+            <h2
+              ref={titleRef}
+              className="text-xl md:text-2xl xl:text-3xl font-semibold text-[var(--color-accent)] mb-6"
+              style={{ perspective: '800px' }}
+            >
+              {/* Screen reader text */}
+              <span className="sr-only">Full-Stack Web Developer</span>
+
+              {/* Visual split text */}
+              <span aria-hidden="true">
+                {titleWords.map((word, index) => (
+                  <span
+                    key={word}
+                    className="title-word inline-block"
+                    style={{
+                      willChange: 'transform, opacity',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  >
+                    {word}
+                    {index < titleWords.length - 1 && '\u00A0'}
+                  </span>
+                ))}
+              </span>
             </h2>
 
             {/* Tagline */}
-            <p className="text-[var(--color-foreground-muted)] text-base md:text-lg max-w-sm mb-8 animate-slide-up">
+            <p
+              ref={taglineRef}
+              className="text-[var(--color-foreground-muted)] text-base md:text-lg max-w-sm mb-8"
+            >
               Building modern web applications with clean code and elegant
               solutions.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start animate-slide-up">
+            <div
+              ref={ctaRef}
+              className="flex flex-wrap gap-4 justify-center lg:justify-start"
+            >
               <Link
-                href="/contact"
+                href="#contact"
                 className="btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label="Contact me to discuss hiring opportunities"
               >
                 Contact Me
               </Link>
               <Link
-                href="/projects"
+                href="#projects"
                 className="btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label="View my portfolio projects"
               >
@@ -81,7 +382,10 @@ export default function Hero() {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-4 justify-center lg:justify-start mt-8 animate-slide-up">
+            <div
+              ref={socialsRef}
+              className="flex gap-4 justify-center lg:justify-start mt-8"
+            >
               {[
                 {
                   href: 'https://github.com/simoabid',
@@ -125,7 +429,10 @@ export default function Hero() {
           </div>
 
           {/* Center Column - Portrait Image (spans 4 columns) */}
-          <div className="lg:col-span-4 relative flex justify-center order-1 lg:order-2">
+          <div
+            ref={portraitRef}
+            className="lg:col-span-4 relative flex justify-center order-1 lg:order-2"
+          >
             {/* Glow effect behind image */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-64 h-64 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 blur-3xl" />
@@ -143,13 +450,22 @@ export default function Hero() {
               />
             </div>
 
-            {/* Floating decorative elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-[var(--color-accent)] animate-pulse-slow opacity-60" />
-            <div className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-[var(--color-accent-secondary)] animate-pulse-slow opacity-60" />
+            {/* Floating decorative elements with parallax */}
+            <div
+              ref={floatingRef1}
+              className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-[var(--color-accent)] animate-pulse-slow opacity-60"
+            />
+            <div
+              ref={floatingRef2}
+              className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-[var(--color-accent-secondary)] animate-pulse-slow opacity-60"
+            />
           </div>
 
           {/* Right Column - Code Snippet (spans 4 columns, right-aligned) */}
-          <div className="lg:col-span-4 hidden lg:flex justify-end order-3 animate-slide-up">
+          <div
+            ref={codeSnippetRef}
+            className="lg:col-span-4 hidden lg:flex justify-end order-3 animate-slide-up"
+          >
             <CodeSnippet />
           </div>
         </div>

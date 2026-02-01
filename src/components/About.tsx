@@ -1,6 +1,9 @@
 export default function About() {
   return (
-    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]">
+    <section
+      id="about"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]"
+    >
       <div className="container mx-auto px-4">
         <h2 className="section-heading">About Me</h2>
         <div className="max-w-4xl mx-auto">

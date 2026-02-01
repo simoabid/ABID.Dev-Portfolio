@@ -87,11 +87,15 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Form submission logic would go here
+    // eslint-disable-next-line no-console
     console.log('Form submitted:', formData);
   };
 
   return (
-    <section className="min-h-screen py-24 pt-32 bg-[var(--color-background)]">
+    <section
+      id="contact"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
+    >
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Get in Touch</h2>
         <div className="max-w-5xl mx-auto">

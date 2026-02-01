@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/context/ThemeProvider';
+import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -78,9 +79,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider defaultTheme="dark">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
+          <SmoothScrollProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>
