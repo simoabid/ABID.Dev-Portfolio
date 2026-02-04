@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 
-const poppins = Poppins({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-poppins',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-jetbrains',
   display: 'swap',
 });
 
@@ -72,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={poppins.variable} suppressHydrationWarning>
+    <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#1a1a2e" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
