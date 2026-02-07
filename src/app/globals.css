@@ -200,4 +200,102 @@ ul {
     background: var(--color-accent-muted);
     transform: scale(1.05);
   }
+
+  /* Glass card - glassmorphic effect */
+  .glass-card {
+    background: var(--color-background-elevated);
+    background: linear-gradient(
+      135deg,
+      rgba(108, 99, 255, 0.08) 0%,
+      rgba(0, 212, 255, 0.04) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .light .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--color-border);
+    box-shadow:
+      0 8px 32px rgba(90, 74, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* =============================================================================
+   ABOUT SECTION ANIMATIONS
+   ============================================================================= */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) translateX(-15px) scale(1.05);
+  }
+}
+
+@keyframes float-delayed {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-25px) translateX(-20px);
+  }
+}
+
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 7s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-gradient-rotate {
+  background-size: 200% 200%;
+  animation: gradient-rotate 3s ease infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-gradient-rotate {
+    animation: none;
+  }
 }
