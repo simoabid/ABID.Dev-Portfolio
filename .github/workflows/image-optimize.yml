@@ -1,0 +1,183 @@
+name: Image Optimization
+
+# Triggers when images are added/modified in a PR
+on:
+  pull_request:
+    paths:
+      - 'public/images/**'
+      - '!public/optimized/**'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  optimize-images:
+    name: Optimize Images
+    runs-on: ubuntu-latest
+    
+    # Only run if images were actually changed
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.changed_files, 'public/images/')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch only the PR branch to save time
+          fetch-depth: 1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      
+      - name: Install sharp
+        run: npm install sharp --no-save
+      
+      - name: Get changed image files
+        id: changed-images
+        uses: tj-actions/changed-files@v42
+        with:
+          files: |
+            public/images/**/*.{jpg,jpeg,png,webp,tiff}
+            !public/optimized/**
+      
+      - name: Display changed images
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: |
+          echo "🖼️ Changed images:"
+          echo "${{ steps.changed-images.outputs.all_changed_files }}" | tr ' ' '\n'
+      
+      - name: Create raw images directory
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: mkdir -p public/images/raw
+      
+      - name: Copy changed images to raw directory
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: |
+          for file in ${{ steps.changed-images.outputs.all_changed_files }}; do
+            if [ -f "$file" ]; then
+              cp "$file" public/images/raw/
+              echo "📋 Copied: $file"
+            fi
+          done
+      
+      - name: Run image optimization
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: node scripts/optimize-images.js --source ./public/images/raw --output ./public/optimized
+      
+      - name: Check optimization results
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: |
+          if [ -d "public/optimized" ] && [ "$(ls -A public/optimized)" ]; then
+            echo "✅ Optimized images generated successfully"
+            du -sh public/optimized
+            find public/optimized -type f | wc -l | xargs echo "Total files:"
+          else
+            echo "⚠️ No optimized images were generated"
+            exit 1
+          fi
+      
+      - name: Upload optimized images as artifact
+        if: steps.changed-images.outputs.any_changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: optimized-images
+          path: public/optimized/
+          retention-days: 30
+      
+      - name: Calculate size savings
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: |
+          echo "📊 Optimization Report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Original size
+          ORIGINAL_SIZE=$(du -sb public/images/raw 2>/dev/null | cut -f1)
+          ORIGINAL_MB=$(echo "scale=2; $ORIGINAL_SIZE / 1048576" | bc)
+          
+          # Optimized size
+          OPTIMIZED_SIZE=$(du -sb public/optimized 2>/dev/null | cut -f1)
+          OPTIMIZED_MB=$(echo "scale=2; $OPTIMIZED_SIZE / 1048576" | bc)
+          
+          # Calculate savings
+          SAVED_SIZE=$(($ORIGINAL_SIZE - $OPTIMIZED_SIZE))
+          SAVED_MB=$(echo "scale=2; $SAVED_SIZE / 1048576" | bc)
+          SAVED_PERCENT=$(echo "scale=1; ($SAVED_SIZE * 100) / $ORIGINAL_SIZE" | bc)
+          
+          echo "Original size:   ${ORIGINAL_MB} MB"
+          echo "Optimized size:  ${OPTIMIZED_MB} MB"
+          echo "Space saved:     ${SAVED_MB} MB (${SAVED_PERCENT}%)"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      
+      - name: Comment PR with results
+        if: |
+          github.event_name == 'pull_request' &&
+          steps.changed-images.outputs.any_changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            let optimizedCount = 0;
+            if (fs.existsSync('public/optimized')) {
+              const countFiles = (dir) => {
+                let count = 0;
+                const files = fs.readdirSync(dir, { withFileTypes: true });
+                for (const file of files) {
+                  if (file.isDirectory()) {
+                    count += countFiles(path.join(dir, file.name));
+                  } else {
+                    count++;
+                  }
+                }
+                return count;
+              };
+              optimizedCount = countFiles('public/optimized');
+            }
+            
+            const body = `## 🖼️ Image Optimization Complete
+            
+            ✅ **${optimizedCount} optimized variants generated**
+            
+            ### Formats Generated
+            - AVIF (best compression, modern browsers)
+            - WebP (good compression, wide support)  
+            - PNG (fallback, universal support)
+            
+            ### Sizes Available
+            - thumbnail (400px)
+            - small (800px)
+            - medium (1200px)
+            - large (1920px)
+            - xlarge (2560px)
+            
+            📦 Optimized images are available as build artifacts.
+            
+            ---
+            *Automated by Image Optimization Pipeline*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+      
+      - name: Success message
+        if: steps.changed-images.outputs.any_changed == 'true'
+        run: |
+          echo ""
+          echo "✨ Image optimization completed successfully!"
+          echo "📦 Optimized images available in artifacts"
+          echo ""
+      
+      - name: No images changed
+        if: steps.changed-images.outputs.any_changed != 'true'
+        run: |
+          echo "ℹ️ No image files were changed in this PR"
+          echo "   Skipping optimization"

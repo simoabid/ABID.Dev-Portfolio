@@ -36,7 +36,10 @@ next-env.d.ts
 *.swp
 *.swo
 
-Legacy files (to be migrated)
+# Optimized images (generated during build)
+public/optimized/
+
+# Legacy files (to be migrated)
 # index.html
 #styles.css
 # script.js
@@ -44,4 +47,4 @@ Context/
 .agent/
 first-chat-session.md
 second-chat-session.md
-.github/
+.github/skills/*
