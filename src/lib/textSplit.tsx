@@ -58,7 +58,7 @@ export interface SplitTextProps {
   /** Initial rotation for animation */
   fromRotation?: number;
   /** Tag to use for wrapper (default: span) */
-  as?: keyof JSX.IntrinsicElements;
+  as?: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
 export interface SplitTextRef {

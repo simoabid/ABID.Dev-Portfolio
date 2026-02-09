@@ -22,6 +22,7 @@ import SectionHeading from './SectionHeading';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import ProjectCard from './ProjectCard';
 import ProjectFilter from './ProjectFilter';
+import HelmetContainer from './Three/HelmetContainer';
 import {
   projects,
   getFeaturedProject,
@@ -260,8 +261,13 @@ export default function Projects() {
           Selected Work
         </SectionHeading>
 
-        {/* ── Filter Pills ── */}
+        {/* ── Phase 9: 3D Viewer Skeleton Preview ── */}
         <div className="mt-10 mb-14">
+          <HelmetContainer />
+        </div>
+
+        {/* ── Filter Pills ── */}
+        <div className="mb-14">
           <ProjectFilter
             ref={filterRef}
             categories={categories}
