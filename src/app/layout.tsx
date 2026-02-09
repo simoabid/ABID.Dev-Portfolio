@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
+import PageEntryLoader from '@/components/PageEntryLoader';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -79,11 +80,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider defaultTheme="dark">
-          <SmoothScrollProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </SmoothScrollProvider>
+          <PageEntryLoader>
+            <SmoothScrollProvider>
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </SmoothScrollProvider>
+          </PageEntryLoader>
         </ThemeProvider>
       </body>
     </html>
