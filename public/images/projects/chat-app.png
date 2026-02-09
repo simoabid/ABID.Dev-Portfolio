@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#24243e"/>
+  <rect x="60" y="40" width="1080" height="595" rx="12" fill="#1a1a2e" stroke="#6c63ff" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="80" y="60" width="250" height="555" rx="8" fill="#6c63ff" opacity="0.04"/>
+  <rect x="350" y="60" width="770" height="555" rx="8" fill="#24243e" stroke="#6c63ff" stroke-width="0.5" stroke-opacity="0.2"/>
+  <circle cx="205" cy="120" r="24" fill="#00d4ff" opacity="0.12"/>
+  <rect x="100" y="165" width="180" height="10" rx="3" fill="#e0e0e0" opacity="0.08"/>
+  <rect x="100" y="200" width="160" height="40" rx="6" fill="#6c63ff" opacity="0.08"/>
+  <rect x="100" y="260" width="160" height="40" rx="6" fill="#6c63ff" opacity="0.06"/>
+  <rect x="100" y="320" width="160" height="40" rx="6" fill="#6c63ff" opacity="0.06"/>
+  <rect x="380" y="80" width="500" height="16" rx="4" fill="#e0e0e0" opacity="0.06"/>
+  <rect x="380" y="120" width="700" height="60" rx="8" fill="#00d4ff" opacity="0.04"/>
+  <rect x="380" y="200" width="700" height="60" rx="8" fill="#6c63ff" opacity="0.04"/>
+  <rect x="380" y="280" width="700" height="60" rx="8" fill="#00d4ff" opacity="0.04"/>
+  <text x="710" y="500" font-family="monospace" font-size="14" fill="#c0c0ff" text-anchor="middle" opacity="0.5">Real-Time Chat</text>
+</svg>

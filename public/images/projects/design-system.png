@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#24243e"/>
+  <rect x="60" y="40" width="1080" height="595" rx="12" fill="#1a1a2e" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="100" y="80" width="240" height="240" rx="8" fill="#6c63ff" opacity="0.06"/>
+  <rect x="360" y="80" width="240" height="240" rx="8" fill="#00d4ff" opacity="0.05"/>
+  <rect x="620" y="80" width="240" height="240" rx="8" fill="#6c63ff" opacity="0.06"/>
+  <rect x="880" y="80" width="240" height="240" rx="8" fill="#00d4ff" opacity="0.05"/>
+  <rect x="100" y="340" width="240" height="240" rx="8" fill="#00d4ff" opacity="0.05"/>
+  <rect x="360" y="340" width="240" height="240" rx="8" fill="#6c63ff" opacity="0.06"/>
+  <rect x="620" y="340" width="240" height="240" rx="8" fill="#00d4ff" opacity="0.05"/>
+  <rect x="880" y="340" width="240" height="240" rx="8" fill="#6c63ff" opacity="0.06"/>
+  <circle cx="220" cy="200" r="30" fill="#6c63ff" opacity="0.12"/>
+  <rect cx="480" cy="200" width="160" height="16" x="400" y="192" rx="4" fill="#e0e0e0" opacity="0.08"/>
+  <text x="600" y="340" font-family="monospace" font-size="14" fill="#c0c0ff" text-anchor="middle" opacity="0.5">Design System</text>
+</svg>
