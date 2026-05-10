@@ -9,6 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,css,md}\"",
+    "test:a11y": "node scripts/test-a11y.js",
     "optimize:images": "node scripts/optimize-images.js",
     "prepare": "husky"
   },
@@ -24,16 +25,20 @@
     "three": "^0.184.0"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.3",
+    "@axe-core/puppeteer": "^4.11.3",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",
+    "axe-core": "^4.11.4",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
     "postcss": "^8.4.0",
     "prettier": "^3.2.0",
+    "puppeteer": "^24.43.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.0.0"

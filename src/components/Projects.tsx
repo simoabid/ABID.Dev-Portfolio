@@ -224,9 +224,10 @@ export default function Projects() {
       ref={sectionRef}
       id="projects"
       className="relative py-24 pt-32 bg-[var(--color-background-alt)] overflow-hidden"
+      aria-label="Selected projects"
     >
       {/* ── Decorative Background ── */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         {/* Subtle top gradient fade from hero */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[var(--color-background)] to-transparent" />
 

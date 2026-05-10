@@ -80,11 +80,16 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <ThemeProvider defaultTheme="dark">
           <PageEntryLoader>
             <SmoothScrollProvider>
               <Header />
-              <main className="flex-grow">{children}</main>
+              <main id="main-content" className="flex-grow" tabIndex={-1}>
+                {children}
+              </main>
               <Footer />
             </SmoothScrollProvider>
           </PageEntryLoader>

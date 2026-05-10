@@ -17,8 +17,8 @@
 
   /* Foreground / Text Colors */
   --color-foreground: #e0e0e0;
-  --color-foreground-muted: #c0c0ff;
-  --color-foreground-subtle: #d0d0ff;
+  --color-foreground-muted: #c8c8ff;
+  --color-foreground-subtle: #b8b8e0;
   --color-foreground-inverted: #1a1a2e;
 
   /* Accent Colors */
@@ -248,8 +248,8 @@
 
   /* Foreground / Text Colors */
   --color-foreground: #1a1a2e;
-  --color-foreground-muted: #555566;
-  --color-foreground-subtle: #666677;
+  --color-foreground-muted: #4a4a5e;
+  --color-foreground-subtle: #5a5a70;
   --color-foreground-inverted: #ffffff;
 
   /* Accent Colors */

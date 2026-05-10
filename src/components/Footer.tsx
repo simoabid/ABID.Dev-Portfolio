@@ -75,15 +75,22 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-20 pb-8 px-4 sm:px-8 overflow-hidden font-sans">
+    <footer
+      className="relative mt-20 pb-8 px-4 sm:px-8 overflow-hidden font-sans"
+      aria-label="Site footer"
+    >
       {/* Decorative Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--color-accent)]/20 blur-[120px] rounded-full pointer-events-none" />
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--color-accent)]/20 blur-[120px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
 
       {/* Main Glass Container */}
       <div className="relative max-w-7xl mx-auto bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 rounded-[3rem] p-6 md:p-10 overflow-hidden shadow-2xl shadow-black/5">
         {/* Decorative Grid Background (Subtle) */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          aria-hidden="true"
           style={{
             backgroundImage:
               'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
@@ -107,7 +114,10 @@ export default function Footer() {
             </div>
 
             {/* Code Snippet Card */}
-            <div className="bg-black/40 rounded-xl p-4 border border-white/5 font-mono text-xs text-blue-300 overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300">
+            <div
+              className="bg-black/40 rounded-xl p-4 border border-white/5 font-mono text-xs text-blue-300 overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300"
+              aria-hidden="true"
+            >
               <div className="flex gap-1.5 mb-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
@@ -125,8 +135,8 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-foreground)] hover:bg-[var(--color-accent)] hover:text-white hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm"
-                  aria-label={social.label}
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-foreground)] hover:bg-[var(--color-accent)] hover:text-white hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  aria-label={`Visit ${social.label} profile`}
                 >
                   {social.icon}
                 </Link>
