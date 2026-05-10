@@ -480,4 +480,57 @@ select:focus-visible,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Restore native cursor when reduced motion is preferred */
+  html,
+  a,
+  button,
+  [role='button'] {
+    cursor: auto !important;
+  }
+
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* =============================================================================
+   CUSTOM CURSOR STYLES
+   Only active on non-touch devices with motion enabled
+   ============================================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* =============================================================================
+   SVG DIVIDER STYLES
+   ============================================================================= */
+
+.svg-divider svg {
+  display: block;
+}
+
+/* =============================================================================
+   CTA HOVER EFFECT STYLES
+   ============================================================================= */
+
+.cta-hover-effect {
+  will-change: transform;
+}
+
+.cta-particle {
+  will-change: transform, opacity;
 }

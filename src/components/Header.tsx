@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import ThemeToggle from './ThemeToggle';
+import AnimatedThemeToggle from './UI/AnimatedThemeToggle';
 import Image from 'next/image';
 
 const navLinks = [
@@ -154,7 +154,7 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
+            <AnimatedThemeToggle />
 
             <Link
               href="#contact"
