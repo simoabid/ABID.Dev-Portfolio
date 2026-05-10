@@ -3,6 +3,7 @@ import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import PageEntryLoader from '@/components/PageEntryLoader';
@@ -87,6 +88,7 @@ export default function RootLayout({
               <Footer />
             </SmoothScrollProvider>
           </PageEntryLoader>
+          <CookieBanner />
         </ThemeProvider>
       </body>
     </html>
