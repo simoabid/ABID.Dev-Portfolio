@@ -33,7 +33,8 @@ async function verifyRecaptcha(token: string): Promise<CaptchaResult> {
   });
   const data = await response.json();
   const score = data.score as number | undefined;
-  const isValid = Boolean(data.success) && (score ?? 1) >= RECAPTCHA_SCORE_THRESHOLD;
+  const isValid =
+    Boolean(data.success) && (score ?? 1) >= RECAPTCHA_SCORE_THRESHOLD;
   return { isValid, score, provider: 'recaptcha' };
 }
 
@@ -49,7 +50,9 @@ async function verifyHcaptcha(token: string): Promise<CaptchaResult> {
 }
 
 /** Verify a captcha token. Skips verification when no provider is configured. */
-export async function verifyCaptchaToken(token: string | undefined): Promise<CaptchaResult> {
+export async function verifyCaptchaToken(
+  token: string | undefined
+): Promise<CaptchaResult> {
   const provider = detectProvider();
   if (provider === 'none' || !token) {
     return { isValid: true, provider: 'none' };

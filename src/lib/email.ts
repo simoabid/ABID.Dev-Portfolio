@@ -76,12 +76,17 @@ function escapeHtml(text: string): string {
 
 async function sendViaResend(data: ContactMessage): Promise<SendResult> {
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return { isSuccess: false, error: 'RESEND_API_KEY is not configured' };
+  if (!apiKey)
+    return { isSuccess: false, error: 'RESEND_API_KEY is not configured' };
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
-      from: process.env.RESEND_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>',
+      from:
+        process.env.RESEND_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL || DEFAULT_RECIPIENT,
       reply_to: data.email,
       subject: `[Portfolio] New message from ${data.name}`,
@@ -89,18 +94,25 @@ async function sendViaResend(data: ContactMessage): Promise<SendResult> {
     }),
   });
   const result = await response.json();
-  if (!response.ok) return { isSuccess: false, error: result.message || 'Resend API error' };
+  if (!response.ok)
+    return { isSuccess: false, error: result.message || 'Resend API error' };
   return { isSuccess: true, messageId: result.id };
 }
 
 async function sendViaSendGrid(data: ContactMessage): Promise<SendResult> {
   const apiKey = process.env.SENDGRID_API_KEY;
-  if (!apiKey) return { isSuccess: false, error: 'SENDGRID_API_KEY is not configured' };
+  if (!apiKey)
+    return { isSuccess: false, error: 'SENDGRID_API_KEY is not configured' };
   const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
-      personalizations: [{ to: [{ email: process.env.CONTACT_EMAIL || DEFAULT_RECIPIENT }] }],
+      personalizations: [
+        { to: [{ email: process.env.CONTACT_EMAIL || DEFAULT_RECIPIENT }] },
+      ],
       from: { email: process.env.SENDGRID_FROM_EMAIL || 'noreply@abid.dev' },
       reply_to: { email: data.email, name: data.name },
       subject: `[Portfolio] New message from ${data.name}`,
@@ -124,14 +136,18 @@ function sendViaConsole(data: ContactMessage): SendResult {
   console.log(`║  Email:   ${data.email}`);
   console.log(`║  Date:    ${data.submittedAt}`);
   console.log('║──────────────────────────────────────────────────║');
-  console.log(`║  Message: ${data.message.slice(0, 60)}${data.message.length > 60 ? '…' : ''}`);
+  console.log(
+    `║  Message: ${data.message.slice(0, 60)}${data.message.length > 60 ? '…' : ''}`
+  );
   console.log('╚══════════════════════════════════════════════════╝\n');
   /* eslint-enable no-console */
   return { isSuccess: true, messageId: `mock-${Date.now()}` };
 }
 
 /** Send a contact form email using the configured provider. */
-export async function sendContactEmail(data: ContactMessage): Promise<SendResult> {
+export async function sendContactEmail(
+  data: ContactMessage
+): Promise<SendResult> {
   const provider = getProvider();
   switch (provider) {
     case 'resend':

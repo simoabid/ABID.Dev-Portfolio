@@ -161,7 +161,9 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
               <a
                 ref={linkRef}
                 href={project.liveUrl ?? '#'}
-                onClick={() => trackProjectClick(project.title, project.liveUrl)}
+                onClick={() =>
+                  trackProjectClick(project.title, project.liveUrl)
+                }
                 className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 hover:border-white/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black/50"
                 aria-label={`View project: ${project.title}`}
                 tabIndex={0}
@@ -185,7 +187,9 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
               {project.repoUrl && (
                 <a
                   href={project.repoUrl}
-                  onClick={() => trackProjectClick(project.title, project.repoUrl)}
+                  onClick={() =>
+                    trackProjectClick(project.title, project.repoUrl)
+                  }
                   className="inline-flex items-center justify-center w-10 h-10 text-white hover:text-white/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black/50 rounded-lg"
                   aria-label={`View ${project.title} repository`}
                   tabIndex={0}

@@ -104,7 +104,10 @@ function flushEventQueue(): void {
 /* ─── Event Tracking ────────────────────────────────────────────────── */
 
 /** Push an event to the dataLayer. Queues if consent not yet granted. */
-export function trackEvent(event: string, data?: Record<string, unknown>): void {
+export function trackEvent(
+  event: string,
+  data?: Record<string, unknown>
+): void {
   if (typeof window === 'undefined') return;
   const payload: AnalyticsEvent = { event, ...data };
   const consent = getConsentStatus();

@@ -33,8 +33,10 @@ export function validateField(
     case 'name': {
       const trimmed = value.trim();
       if (!trimmed) return 'Name is required';
-      if (trimmed.length < NAME_MIN_LENGTH) return `Name must be at least ${NAME_MIN_LENGTH} characters`;
-      if (value.length > NAME_MAX_LENGTH) return `Name must be under ${NAME_MAX_LENGTH} characters`;
+      if (trimmed.length < NAME_MIN_LENGTH)
+        return `Name must be at least ${NAME_MIN_LENGTH} characters`;
+      if (value.length > NAME_MAX_LENGTH)
+        return `Name must be under ${NAME_MAX_LENGTH} characters`;
       return undefined;
     }
     case 'email': {
@@ -45,8 +47,10 @@ export function validateField(
     case 'message': {
       const trimmed = value.trim();
       if (!trimmed) return 'Message is required';
-      if (trimmed.length < MESSAGE_MIN_LENGTH) return `Message must be at least ${MESSAGE_MIN_LENGTH} characters`;
-      if (value.length > MESSAGE_MAX_LENGTH) return `Message must be under ${MESSAGE_MAX_LENGTH} characters`;
+      if (trimmed.length < MESSAGE_MIN_LENGTH)
+        return `Message must be at least ${MESSAGE_MIN_LENGTH} characters`;
+      if (value.length > MESSAGE_MAX_LENGTH)
+        return `Message must be under ${MESSAGE_MAX_LENGTH} characters`;
       return undefined;
     }
   }
