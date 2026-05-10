@@ -21,6 +21,7 @@ export default function Skills() {
     <section
       id="skills"
       className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
+      aria-label="Technical skills"
     >
       <Container size="xl">
         <h2 className="section-heading">My Skills</h2>
@@ -39,7 +40,10 @@ export default function Skills() {
               >
                 {/* Icon */}
                 <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-[var(--color-accent-muted)] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <span className="gradient-text text-xl font-bold">
+                  <span
+                    className="gradient-text text-xl font-bold"
+                    aria-hidden="true"
+                  >
                     {skill.icon}
                   </span>
                 </div>
@@ -50,7 +54,14 @@ export default function Skills() {
                 </h3>
 
                 {/* Progress Bar */}
-                <div className="relative h-2 bg-[var(--color-background)] rounded-full overflow-hidden">
+                <div
+                  className="relative h-2 bg-[var(--color-background)] rounded-full overflow-hidden"
+                  role="progressbar"
+                  aria-valuenow={skill.level}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${skill.name} proficiency: ${skill.level}%`}
+                >
                   <div
                     className="absolute inset-y-0 left-0 gradient-bg rounded-full transition-all duration-1000"
                     style={{ width: `${skill.level}%` }}
@@ -58,7 +69,10 @@ export default function Skills() {
                 </div>
 
                 {/* Percentage */}
-                <p className="text-center text-sm text-[var(--color-accent)] mt-2 font-medium">
+                <p
+                  className="text-center text-sm text-[var(--color-accent)] mt-2 font-medium"
+                  aria-hidden="true"
+                >
                   {skill.level}%
                 </p>
               </div>

@@ -26,13 +26,17 @@ const FeaturedProjectCard = forwardRef<
   FeaturedProjectCardProps
 >(function FeaturedProjectCard({ project }, ref) {
   return (
-    <div
+    <article
       ref={ref}
       className="featured-card group relative grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-500 hover:border-[var(--color-border-accent)] hover:shadow-2xl hover:shadow-[var(--color-shadow-accent)]"
       style={{ willChange: 'transform, opacity' }}
+      aria-label={`Featured project: ${project.title}`}
     >
       {/* Accent gradient border-bottom glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+        aria-hidden="true"
+      />
 
       {/* ── Image Area (Left 7/12 ≈ 58%) ── */}
       <div className="relative lg:col-span-7 aspect-[16/10] lg:aspect-auto overflow-hidden">
@@ -49,10 +53,16 @@ const FeaturedProjectCard = forwardRef<
         </div>
 
         {/* Blending overlay from right */}
-        <div className="hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background-alt)] to-transparent" />
+        <div
+          className="hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background-alt)] to-transparent"
+          aria-hidden="true"
+        />
 
         {/* Blending overlay from bottom (mobile) */}
-        <div className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-alt)] to-transparent" />
+        <div
+          className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-alt)] to-transparent"
+          aria-hidden="true"
+        />
       </div>
 
       {/* ── Content Area (Right 5/12 ≈ 42%) ── */}
@@ -101,7 +111,7 @@ const FeaturedProjectCard = forwardRef<
           {project.liveUrl && (
             <a
               href={project.liveUrl}
-              className="btn-primary px-6 py-2.5 text-sm font-semibold"
+              className="btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               aria-label={`View live demo of ${project.title}`}
             >
               View Case Study
@@ -110,7 +120,7 @@ const FeaturedProjectCard = forwardRef<
           {project.repoUrl && (
             <a
               href={project.repoUrl}
-              className="btn-outline px-6 py-2.5 text-sm font-semibold"
+              className="btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               aria-label={`View source code of ${project.title}`}
             >
               Source Code
@@ -118,7 +128,7 @@ const FeaturedProjectCard = forwardRef<
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 });
 

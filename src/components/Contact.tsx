@@ -166,6 +166,7 @@ export default function Contact() {
       ref={sectionRef}
       className="relative py-24 pt-32 overflow-hidden"
       style={{ background: 'var(--color-background)' }}
+      aria-label="Contact me"
     >
       {/* Decorative background orbs */}
       <div

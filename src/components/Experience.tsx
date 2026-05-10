@@ -42,12 +42,16 @@ export default function Experience() {
     <section
       id="experience"
       className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]"
+      aria-label="Work experience"
     >
       <div className="container mx-auto px-4">
         <h2 className="section-heading">Experience</h2>
         <div className="max-w-3xl mx-auto relative">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] transform md:-translate-x-1/2" />
+          <div
+            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-secondary)] transform md:-translate-x-1/2"
+            aria-hidden="true"
+          />
 
           {experiences.map((exp, index) => (
             <div
@@ -63,6 +67,7 @@ export default function Experience() {
                     ? 'left-0 md:left-auto md:-right-2 md:translate-x-1/2'
                     : 'left-0 md:-left-2 md:-translate-x-1/2'
                 }`}
+                aria-hidden="true"
               />
 
               {/* Content card */}
@@ -85,7 +90,10 @@ export default function Experience() {
                       key={i}
                       className="text-sm text-[var(--color-foreground-muted)] flex items-center gap-2"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-secondary)] flex-shrink-0" />
+                      <span
+                        className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-secondary)] flex-shrink-0"
+                        aria-hidden="true"
+                      />
                       {highlight}
                     </li>
                   ))}

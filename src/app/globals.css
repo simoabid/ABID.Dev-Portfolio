@@ -113,6 +113,47 @@ ul {
 }
 
 /* =============================================================================
+   ACCESSIBILITY — GLOBAL FOCUS-VISIBLE & SKIP LINK
+   ============================================================================= */
+
+/* Global focus-visible ring for ALL interactive elements.
+   Covers anything that can be tabbed to and isn't already styled. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:not([tabindex='-1']):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip-to-content link — visually hidden until focused */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: white;
+  background: var(--color-accent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: top var(--transition-duration-fast)
+    var(--transition-timing-default);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  outline: 2px solid var(--color-accent-secondary);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
    COMPONENT CLASSES
    ============================================================================= */
 
@@ -429,5 +470,14 @@ ul {
   .entry-loader-skeleton,
   .entry-loader-orb {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -165,7 +165,52 @@ The GitHub Actions workflow automatically:
 | `npm run lint`            | Run ESLint to check for issues                                      |
 | `npm run format`          | Format code with Prettier                                           |
 | `npm run format:check`    | Check if code is formatted correctly                                |
+| `npm run test:a11y`       | Run axe-core accessibility audit against dev server                 |
 | `npm run optimize:images` | Run image optimization pipeline                                     |
+
+## ♿ Accessibility Compliance
+
+This portfolio targets **WCAG 2.1 Level AA** conformance. Accessibility is treated as a first-class requirement, not an afterthought.
+
+### Compliance Status
+
+| Criterion                        | Status |
+| -------------------------------- | ------ |
+| No critical axe-core violations  | ✅     |
+| No serious axe-core violations   | ✅     |
+| Keyboard-only full navigation    | ✅     |
+| Skip-to-content link             | ✅     |
+| Color contrast ≥ 4.5:1 (body)    | ✅     |
+| Focus-visible on all controls    | ✅     |
+| Screen reader landmark structure | ✅     |
+| prefers-reduced-motion support   | ✅     |
+| Modal focus trap (mobile menu)   | ✅     |
+| ARIA progressbar roles           | ✅     |
+
+### Implemented Features
+
+- **Skip link**: First focusable element — `Tab` jumps straight to `#main-content`
+- **Landmark roles**: All sections have `aria-label` for screen reader navigation (`nav`, `main`, `footer`)
+- **Focus-visible rings**: 2px accent outline on every interactive element (links, buttons, inputs)
+- **Keyboard operability**: Mobile nav opens/closes with `Escape`, cookie banner dismissible with `Escape`, all tab stops reachable
+- **Color contrast**: `--color-foreground-muted` boosted to ≥ 4.5:1 ratio on both dark and light backgrounds
+- **ARIA attributes**: Progress bars have `role="progressbar"` + `aria-valuenow`, decorative elements use `aria-hidden="true"`, nav links use `aria-current="page"`
+- **Reduced motion**: `prefers-reduced-motion: reduce` disables all GSAP and CSS animations globally
+
+### Running the Audit
+
+```bash
+# Start dev server first
+npm run dev
+
+# In a separate terminal, run the audit
+npm run test:a11y
+
+# Or specify a custom URL
+A11Y_BASE_URL=https://abid.dev npm run test:a11y
+```
+
+The audit script (`scripts/test-a11y.js`) uses axe-core + Puppeteer to test against WCAG 2.1 AA tags. It exits with code 1 if any critical or serious violations are found, making it CI-ready.
 
 ## 📝 Development Workflow
 
