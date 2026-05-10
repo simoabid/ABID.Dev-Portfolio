@@ -251,41 +251,41 @@
    ============================================================================= */
 
 .light {
-  /* Background Colors — muted lavender-gray, never pure white */
-  --color-background: #e8e8f4;
-  --color-background-alt: #ededf8;
-  --color-background-elevated: #f2f2fc;
-  --color-background-overlay: rgba(232, 232, 244, 0.95);
+  /* Background Colors — deeper muted lavender-gray, never pure white or bright */
+  --color-background: #cdd0de;
+  --color-background-alt: #d5d8e5;
+  --color-background-elevated: #e0e2ed;
+  --color-background-overlay: rgba(205, 208, 222, 0.95);
 
   /* Foreground / Text Colors — deep navy for readability */
-  --color-foreground: #1a1a2e;
-  --color-foreground-muted: #3d3d5c;
-  --color-foreground-subtle: #5a5a78;
-  --color-foreground-inverted: #e8e8f4;
+  --color-foreground: #10101c;
+  --color-foreground-muted: #2d2d4c;
+  --color-foreground-subtle: #4a4a68;
+  --color-foreground-inverted: #cdd0de;
 
   /* Accent Colors — slightly deeper to pop on muted backgrounds */
   --color-accent: #4a3aef;
-  --color-accent-secondary: #0099cc;
+  --color-accent-secondary: #0088b3;
   --color-accent-hover: #3a2adf;
-  --color-accent-muted: rgba(74, 58, 239, 0.1);
+  --color-accent-muted: rgba(74, 58, 239, 0.15);
 
   /* Border Colors — visible but soft */
-  --color-border: rgba(74, 58, 239, 0.14);
-  --color-border-muted: rgba(74, 58, 239, 0.08);
-  --color-border-accent: rgba(74, 58, 239, 0.28);
+  --color-border: rgba(74, 58, 239, 0.18);
+  --color-border-muted: rgba(74, 58, 239, 0.12);
+  --color-border-accent: rgba(74, 58, 239, 0.35);
 
   /* Shadow Colors — violet-tinted, never gray */
-  --color-shadow: rgba(74, 58, 239, 0.06);
-  --color-shadow-accent: rgba(74, 58, 239, 0.16);
-  --color-shadow-glow: rgba(74, 58, 239, 0.28);
+  --color-shadow: rgba(74, 58, 239, 0.08);
+  --color-shadow-accent: rgba(74, 58, 239, 0.2);
+  --color-shadow-glow: rgba(74, 58, 239, 0.35);
 
   /* Code / Terminal surface tokens — stays dark */
-  --color-code-bg: #1a1a2e;
-  --color-code-header: #14142a;
+  --color-code-bg: #151525;
+  --color-code-header: #0f0f1b;
   --color-code-text: #c0b8ff;
   --color-terminal-prompt: #4a3aef;
-  --color-terminal-command: #e8e8f0;
-  --color-terminal-output: #0099cc;
+  --color-terminal-command: #cdd0de;
+  --color-terminal-output: #0088b3;
   --color-dot-red: rgba(255, 95, 86, 0.8);
   --color-dot-yellow: rgba(255, 189, 46, 0.8);
   --color-dot-green: rgba(39, 202, 64, 0.7);
