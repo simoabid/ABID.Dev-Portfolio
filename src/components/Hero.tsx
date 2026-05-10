@@ -375,7 +375,7 @@ export default function Hero() {
               <Link
                 href="#projects"
                 className="btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                aria-label="View my portfolio projects"
+                aria-label="View Projects — browse my portfolio"
               >
                 View Projects
               </Link>

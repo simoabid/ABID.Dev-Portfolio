@@ -1,0 +1,208 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Capture build output
+        id: build_output
+        run: |
+          echo "## 📦 Build Output" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          npm run build 2>&1 | grep -E "^(├|┌|└|Route|\+|  ├)" >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.14.x
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.startServerCommand="npm run start" \
+            --collect.startServerReadyPattern="started server" \
+            --collect.startServerReadyTimeout=30000 \
+            --collect.url="http://localhost:3000/" \
+            --collect.numberOfRuns=3 \
+            --collect.settings.preset="desktop" \
+            --collect.settings.chromeFlags="--no-sandbox --headless" \
+            --assert.preset="lighthouse:no-pwa" \
+            --assert.assertions.categories:performance="warn" \
+            --assert.assertions.categories:accessibility="error" \
+            --assert.assertions.categories:best-practices="warn" \
+            --assert.assertions.categories:seo="warn" \
+            --upload.target="temporary-public-storage"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Parse Lighthouse results
+        if: always()
+        id: lighthouse_results
+        run: |
+          # Find the latest results JSON
+          RESULTS_DIR=".lighthouseci"
+          if [ -d "$RESULTS_DIR" ]; then
+            LATEST=$(ls -t "$RESULTS_DIR"/lhr-*.json 2>/dev/null | head -1)
+            if [ -n "$LATEST" ]; then
+              PERF=$(jq '.categories.performance.score * 100 | round' "$LATEST")
+              A11Y=$(jq '.categories.accessibility.score * 100 | round' "$LATEST")
+              BP=$(jq '.categories["best-practices"].score * 100 | round' "$LATEST")
+              SEO=$(jq '.categories.seo.score * 100 | round' "$LATEST")
+              LCP=$(jq '.audits["largest-contentful-paint"].numericValue | round' "$LATEST")
+              TBT=$(jq '.audits["total-blocking-time"].numericValue | round' "$LATEST")
+              CLS=$(jq '.audits["cumulative-layout-shift"].numericValue * 1000 | round / 1000' "$LATEST")
+
+              echo "perf=$PERF" >> $GITHUB_OUTPUT
+              echo "a11y=$A11Y" >> $GITHUB_OUTPUT
+              echo "bp=$BP" >> $GITHUB_OUTPUT
+              echo "seo=$SEO" >> $GITHUB_OUTPUT
+              echo "lcp=$LCP" >> $GITHUB_OUTPUT
+              echo "tbt=$TBT" >> $GITHUB_OUTPUT
+              echo "cls=$CLS" >> $GITHUB_OUTPUT
+
+              # Job summary
+              echo "## 🔦 Lighthouse Results (Desktop)" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "| Category | Score |" >> $GITHUB_STEP_SUMMARY
+              echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+              echo "| Performance | **${PERF}** |" >> $GITHUB_STEP_SUMMARY
+              echo "| Accessibility | **${A11Y}** |" >> $GITHUB_STEP_SUMMARY
+              echo "| Best Practices | **${BP}** |" >> $GITHUB_STEP_SUMMARY
+              echo "| SEO | **${SEO}** |" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### Core Web Vitals" >> $GITHUB_STEP_SUMMARY
+              echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+              echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+              echo "| LCP | ${LCP}ms |" >> $GITHUB_STEP_SUMMARY
+              echo "| TBT | ${TBT}ms |" >> $GITHUB_STEP_SUMMARY
+              echo "| CLS | ${CLS} |" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const perf = '${{ steps.lighthouse_results.outputs.perf }}' || 'N/A';
+            const a11y = '${{ steps.lighthouse_results.outputs.a11y }}' || 'N/A';
+            const bp = '${{ steps.lighthouse_results.outputs.bp }}' || 'N/A';
+            const seo = '${{ steps.lighthouse_results.outputs.seo }}' || 'N/A';
+            const lcp = '${{ steps.lighthouse_results.outputs.lcp }}' || 'N/A';
+            const tbt = '${{ steps.lighthouse_results.outputs.tbt }}' || 'N/A';
+            const cls = '${{ steps.lighthouse_results.outputs.cls }}' || 'N/A';
+
+            const getEmoji = (score) => {
+              const n = parseInt(score);
+              if (isNaN(n)) return '❓';
+              if (n >= 90) return '🟢';
+              if (n >= 50) return '🟠';
+              return '🔴';
+            };
+
+            const body = `## 🔦 Lighthouse Report (Desktop)
+
+            | Category | Score |
+            |----------|-------|
+            | ${getEmoji(perf)} Performance | **${perf}** |
+            | ${getEmoji(a11y)} Accessibility | **${a11y}** |
+            | ${getEmoji(bp)} Best Practices | **${bp}** |
+            | ${getEmoji(seo)} SEO | **${seo}** |
+
+            ### Core Web Vitals
+            | Metric | Value |
+            |--------|-------|
+            | LCP | ${lcp}ms |
+            | TBT | ${tbt}ms |
+            | CLS | ${cls} |
+
+            > Scores are median of 3 desktop runs.`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c =>
+              c.body?.includes('🔦 Lighthouse Report')
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 30
+
+      - name: Assert minimum scores
+        if: always()
+        run: |
+          PERF="${{ steps.lighthouse_results.outputs.perf }}"
+          A11Y="${{ steps.lighthouse_results.outputs.a11y }}"
+          BP="${{ steps.lighthouse_results.outputs.bp }}"
+
+          FAILED=0
+
+          if [ -n "$PERF" ] && [ "$PERF" -lt 80 ]; then
+            echo "::warning::Performance score ($PERF) is below 80 threshold"
+          fi
+
+          if [ -n "$A11Y" ] && [ "$A11Y" -lt 90 ]; then
+            echo "::error::Accessibility score ($A11Y) is below 90 threshold"
+            FAILED=1
+          fi
+
+          if [ -n "$BP" ] && [ "$BP" -lt 90 ]; then
+            echo "::warning::Best Practices score ($BP) is below 90 threshold"
+          fi
+
+          exit $FAILED
