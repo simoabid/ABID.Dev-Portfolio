@@ -9,17 +9,17 @@
      COLOR TOKENS - Dark Theme (Default)
      ========================================================================= */
 
-  /* Background Colors */
-  --color-background: #1a1a2e;
-  --color-background-alt: #24243e;
-  --color-background-elevated: #2a2a4e;
-  --color-background-overlay: rgba(26, 26, 46, 0.95);
+  /* Background Colors — subtle luminance steps for section rhythm */
+  --color-background: #0f0f1a;
+  --color-background-alt: #16162d;
+  --color-background-elevated: #1e1e3a;
+  --color-background-overlay: rgba(15, 15, 26, 0.95);
 
-  /* Foreground / Text Colors */
-  --color-foreground: #e0e0e0;
-  --color-foreground-muted: #c8c8ff;
-  --color-foreground-subtle: #b8b8e0;
-  --color-foreground-inverted: #1a1a2e;
+  /* Foreground / Text Colors — violet-tinted for cohesion */
+  --color-foreground: #e8e8f0;
+  --color-foreground-muted: #a0a0c8;
+  --color-foreground-subtle: #7878a0;
+  --color-foreground-inverted: #0f0f1a;
 
   /* Accent Colors */
   --color-accent: #6c63ff;
@@ -28,9 +28,9 @@
   --color-accent-muted: rgba(108, 99, 255, 0.2);
 
   /* Border Colors */
-  --color-border: rgba(108, 99, 255, 0.3);
-  --color-border-muted: rgba(108, 99, 255, 0.15);
-  --color-border-accent: rgba(108, 99, 255, 0.5);
+  --color-border: rgba(108, 99, 255, 0.2);
+  --color-border-muted: rgba(108, 99, 255, 0.1);
+  --color-border-accent: rgba(108, 99, 255, 0.4);
 
   /* Shadow Colors */
   --color-shadow: rgba(0, 0, 0, 0.3);
@@ -42,6 +42,17 @@
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
+
+  /* Code / Terminal surface tokens */
+  --color-code-bg: #0a0a14;
+  --color-code-header: #080810;
+  --color-code-text: #c0b8ff;
+  --color-terminal-prompt: #6c63ff;
+  --color-terminal-command: #e8e8f0;
+  --color-terminal-output: #00d4ff;
+  --color-dot-red: rgba(255, 95, 86, 0.6);
+  --color-dot-yellow: rgba(255, 189, 46, 0.6);
+  --color-dot-green: rgba(39, 202, 64, 0.6);
 
   /* =========================================================================
      SPACING TOKENS
@@ -241,30 +252,41 @@
 
 .light {
   /* Background Colors */
-  --color-background: #f8f9fc;
+  --color-background: #f4f4fb;
   --color-background-alt: #ffffff;
   --color-background-elevated: #ffffff;
-  --color-background-overlay: rgba(248, 249, 252, 0.95);
+  --color-background-overlay: rgba(244, 244, 251, 0.95);
 
   /* Foreground / Text Colors */
   --color-foreground: #1a1a2e;
-  --color-foreground-muted: #4a4a5e;
-  --color-foreground-subtle: #5a5a70;
+  --color-foreground-muted: #4a4a6a;
+  --color-foreground-subtle: #6a6a88;
   --color-foreground-inverted: #ffffff;
 
   /* Accent Colors */
   --color-accent: #5a4aff;
   --color-accent-secondary: #00aadd;
   --color-accent-hover: #6a5aff;
-  --color-accent-muted: rgba(90, 74, 255, 0.15);
+  --color-accent-muted: rgba(90, 74, 255, 0.12);
 
   /* Border Colors */
-  --color-border: rgba(90, 74, 255, 0.2);
-  --color-border-muted: rgba(90, 74, 255, 0.1);
-  --color-border-accent: rgba(90, 74, 255, 0.4);
+  --color-border: rgba(90, 74, 255, 0.15);
+  --color-border-muted: rgba(90, 74, 255, 0.08);
+  --color-border-accent: rgba(90, 74, 255, 0.3);
 
   /* Shadow Colors */
-  --color-shadow: rgba(90, 74, 255, 0.1);
-  --color-shadow-accent: rgba(90, 74, 255, 0.25);
-  --color-shadow-glow: rgba(90, 74, 255, 0.4);
+  --color-shadow: rgba(90, 74, 255, 0.08);
+  --color-shadow-accent: rgba(90, 74, 255, 0.2);
+  --color-shadow-glow: rgba(90, 74, 255, 0.35);
+
+  /* Code / Terminal surface tokens */
+  --color-code-bg: #1a1a2e;
+  --color-code-header: #14142a;
+  --color-code-text: #c0b8ff;
+  --color-terminal-prompt: #5a4aff;
+  --color-terminal-command: #e8e8f0;
+  --color-terminal-output: #00aadd;
+  --color-dot-red: rgba(255, 95, 86, 0.7);
+  --color-dot-yellow: rgba(255, 189, 46, 0.7);
+  --color-dot-green: rgba(39, 202, 64, 0.7);
 }

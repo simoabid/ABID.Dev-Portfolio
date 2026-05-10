@@ -90,7 +90,7 @@ export default function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]"
       aria-label="Technical skills"
     >
       <Container size="xl">

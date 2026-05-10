@@ -203,8 +203,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative min-h-screen py-24 pt-32 overflow-hidden"
-      style={{ background: 'var(--color-background-alt)' }}
+      className="relative min-h-screen py-24 pt-32 overflow-hidden bg-[var(--color-background)]"
     >
       {/* Floating gradient orbs - decorative background */}
       <div

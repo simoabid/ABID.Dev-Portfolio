@@ -86,14 +86,14 @@ export default function Footer() {
       />
 
       {/* Main Glass Container */}
-      <div className="relative max-w-7xl mx-auto bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 rounded-[3rem] p-6 md:p-10 overflow-hidden shadow-2xl shadow-black/5">
+      <div className="relative max-w-7xl mx-auto bg-[var(--color-background-elevated)]/50 backdrop-blur-xl border border-[var(--color-border-muted)] rounded-[3rem] p-6 md:p-10 overflow-hidden shadow-2xl shadow-[var(--color-shadow)]">
         {/* Decorative Grid Background (Subtle) */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           aria-hidden="true"
           style={{
             backgroundImage:
-              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+              'linear-gradient(var(--color-foreground-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--color-foreground-subtle) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
@@ -115,13 +115,13 @@ export default function Footer() {
 
             {/* Code Snippet Card */}
             <div
-              className="bg-black/40 rounded-xl p-4 border border-white/5 font-mono text-xs text-blue-300 overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300"
+              className="bg-[var(--color-code-bg)] rounded-xl p-4 border border-[var(--color-border-muted)] font-mono text-xs text-[var(--color-code-text)] overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300"
               aria-hidden="true"
             >
               <div className="flex gap-1.5 mb-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-dot-red)]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-dot-yellow)]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-dot-green)]" />
               </div>
               <pre>
                 <code>{codeSnippet}</code>
@@ -135,7 +135,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-foreground)] hover:bg-[var(--color-accent)] hover:text-white hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="w-10 h-10 rounded-full bg-[var(--color-background)]/50 border border-[var(--color-border-muted)] flex items-center justify-center text-[var(--color-foreground-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-foreground)] hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label={`Visit ${social.label} profile`}
                 >
                   {social.icon}
@@ -174,13 +174,17 @@ export default function Footer() {
             {/* Bottom: Terminal & Headline */}
             <div className="flex flex-col gap-6">
               {/* Terminal Box - Right Aligned */}
-              <div className="w-full md:w-[55%] ml-auto font-mono text-xs space-y-3 p-4 rounded-xl bg-black/40 border border-white/5 text-[var(--color-foreground-muted)] shadow-inner transform hover:scale-[1.01] transition-transform duration-300">
+              <div className="w-full md:w-[55%] ml-auto font-mono text-xs space-y-3 p-4 rounded-xl bg-[var(--color-code-bg)] border border-[var(--color-border-muted)] text-[var(--color-foreground-muted)] shadow-inner transform hover:scale-[1.01] transition-transform duration-300">
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
-                    <span className="text-green-500">root@developer:~#</span>
-                    <span className="text-white">contact</span>
+                    <span className="text-[var(--color-terminal-prompt)]">
+                      root@developer:~#
+                    </span>
+                    <span className="text-[var(--color-terminal-command)]">
+                      contact
+                    </span>
                   </div>
-                  <div className="pl-4 text-[var(--color-accent-secondary)]">
+                  <div className="pl-4 text-[var(--color-terminal-output)]">
                     <a
                       href="mailto:contact@abid.dev"
                       className="hover:underline hover:text-[var(--color-accent)] transition-colors"
@@ -191,17 +195,21 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
-                    <span className="text-green-500">root@developer:~#</span>
-                    <span className="text-white">location</span>
+                    <span className="text-[var(--color-terminal-prompt)]">
+                      root@developer:~#
+                    </span>
+                    <span className="text-[var(--color-terminal-command)]">
+                      location
+                    </span>
                   </div>
-                  <div className="pl-4 text-[var(--color-accent-secondary)]">
+                  <div className="pl-4 text-[var(--color-terminal-output)]">
                     <span>Distributed / Global</span>
                   </div>
                 </div>
               </div>
 
               {/* Headline */}
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white leading-tight">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--color-foreground)] leading-tight">
                 Building the <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)]">
                   Full Stack future.
@@ -214,7 +222,7 @@ export default function Footer() {
           <div className="col-span-1 lg:col-span-12 mt-4 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[var(--color-foreground-muted)]">
             <p>© {currentYear} ABID.Dev. All rights reserved.</p>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[var(--color-success)] animate-pulse" />
               <span>Operational</span>
             </div>
           </div>

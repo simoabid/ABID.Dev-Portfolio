@@ -7,14 +7,14 @@
 export default function CodeSnippet() {
   return (
     <div
-      className="w-full max-w-md bg-[#1e1e3f] rounded-2xl overflow-hidden shadow-2xl shadow-[var(--color-shadow-accent)] border border-[var(--color-border-muted)]"
+      className="w-full max-w-md bg-[var(--color-code-bg)] rounded-2xl overflow-hidden shadow-2xl shadow-[var(--color-shadow-accent)] border border-[var(--color-border-muted)]"
       aria-hidden="true"
     >
       {/* Terminal Header */}
-      <div className="flex items-center gap-2 px-4 py-3 bg-[#15152a] border-b border-[var(--color-border-muted)]">
-        <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-        <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-        <span className="w-3 h-3 rounded-full bg-[#27ca40]" />
+      <div className="flex items-center gap-2 px-4 py-3 bg-[var(--color-code-header)] border-b border-[var(--color-border-muted)]">
+        <span className="w-3 h-3 rounded-full bg-[var(--color-dot-red)]" />
+        <span className="w-3 h-3 rounded-full bg-[var(--color-dot-yellow)]" />
+        <span className="w-3 h-3 rounded-full bg-[var(--color-dot-green)]" />
       </div>
 
       {/* Code Content */}

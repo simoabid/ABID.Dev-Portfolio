@@ -98,10 +98,10 @@ export default function Header() {
             relative flex items-center justify-between 
             w-[92%] max-w-6xl 
             rounded-full 
-            border border-white/20 dark:border-white/10 
-            bg-white/10 dark:bg-black/20 
+            border border-[var(--color-border-muted)] 
+            bg-[var(--color-background-overlay)] 
             backdrop-blur-lg 
-            shadow-lg shadow-black/5 
+            shadow-lg shadow-[var(--color-shadow)] 
             transition-all duration-300
             ${isScrolled ? 'py-2.5 px-6' : 'py-3.5 px-8'}
           `}
@@ -111,7 +111,7 @@ export default function Header() {
             href="/"
             className="flex items-center gap-2 text-xl font-bold text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
           >
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10">
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[var(--color-border-muted)]">
               <Image
                 src="/images/logo.png"
                 alt="ABID.Dev Logo"
@@ -140,8 +140,8 @@ export default function Header() {
                       focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] focus:outline-none
                       ${
                         active
-                          ? 'text-white bg-[var(--color-accent)] shadow-md shadow-[var(--color-accent)]/20'
-                          : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)] hover:bg-white/5 dark:hover:bg-white/5'
+                          ? 'text-[var(--color-foreground-inverted)] bg-[var(--color-accent)] shadow-md shadow-[var(--color-shadow-accent)]'
+                          : 'text-[var(--color-foreground)] hover:text-[var(--color-accent)] hover:bg-[var(--color-accent-muted)]'
                       }
                     `}
                   >
@@ -167,7 +167,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              className="md:hidden p-2 rounded-full hover:bg-[var(--color-accent-muted)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               aria-label={
                 isMobileMenuOpen
                   ? 'Close navigation menu'
@@ -195,7 +195,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xl md:hidden"
+          className="fixed inset-0 z-40 bg-[var(--color-background-overlay)] backdrop-blur-xl md:hidden"
           onClick={closeMobileMenu}
           aria-hidden="true"
         >
@@ -204,7 +204,7 @@ export default function Header() {
             role="dialog"
             aria-label="Mobile navigation"
             aria-modal="true"
-            className="absolute top-24 left-4 right-4 bg-[var(--color-background-alt)] rounded-2xl border border-white/10 p-4"
+            className="absolute top-24 left-4 right-4 bg-[var(--color-background-alt)] rounded-2xl border border-[var(--color-border-muted)] p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <ul className="flex flex-col gap-2" role="list">
@@ -218,8 +218,8 @@ export default function Header() {
                       block px-4 py-3 rounded-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]
                       ${
                         isActiveLink(link.href)
-                          ? 'bg-[var(--color-accent)] text-white shadow-lg shadow-[var(--color-accent)]/20'
-                          : 'hover:bg-white/5 text-[var(--color-foreground)]'
+                          ? 'bg-[var(--color-accent)] text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-shadow-accent)]'
+                          : 'hover:bg-[var(--color-accent-muted)] text-[var(--color-foreground)]'
                       }
                     `}
                   >
@@ -227,7 +227,7 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
-              <li className="pt-2 border-t border-white/10 mt-2">
+              <li className="pt-2 border-t border-[var(--color-border-muted)] mt-2">
                 <Link
                   href="#contact"
                   onClick={(e) => handleNavClick(e, '#contact')}

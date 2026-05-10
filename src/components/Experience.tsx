@@ -114,7 +114,7 @@ export default function Experience() {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen py-24 pt-32 bg-[var(--color-background-alt)]"
+      className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
       aria-label="Work experience"
     >
       <div className="container mx-auto px-4">
@@ -140,7 +140,7 @@ export default function Experience() {
             >
               {/* Timeline dot */}
               <div
-                className={`absolute top-0 w-4 h-4 rounded-full bg-[var(--color-background-alt)] border-4 border-[var(--color-accent)] shadow-lg shadow-[var(--color-shadow-accent)] ${
+                className={`absolute top-0 w-4 h-4 rounded-full bg-[var(--color-background)] border-4 border-[var(--color-accent)] shadow-lg shadow-[var(--color-shadow-accent)] ${
                   index % 2 === 0
                     ? 'left-0 md:left-auto md:-right-2 md:translate-x-1/2'
                     : 'left-0 md:-left-2 md:-translate-x-1/2'

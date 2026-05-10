@@ -28,7 +28,7 @@ const About = dynamic(() => import('@/components/About'), {
 const Skills = dynamic(() => import('@/components/Skills'), {
   loading: () => (
     <div
-      className="min-h-screen bg-[var(--color-background)]"
+      className="min-h-screen bg-[var(--color-background-alt)]"
       aria-hidden="true"
     />
   ),
@@ -37,7 +37,7 @@ const Skills = dynamic(() => import('@/components/Skills'), {
 const Experience = dynamic(() => import('@/components/Experience'), {
   loading: () => (
     <div
-      className="min-h-screen bg-[var(--color-background-alt)]"
+      className="min-h-screen bg-[var(--color-background)]"
       aria-hidden="true"
     />
   ),
@@ -46,7 +46,7 @@ const Experience = dynamic(() => import('@/components/Experience'), {
 const Contact = dynamic(() => import('@/components/Contact'), {
   loading: () => (
     <div
-      className="min-h-screen bg-[var(--color-background)]"
+      className="min-h-screen bg-[var(--color-background-alt)]"
       aria-hidden="true"
     />
   ),
