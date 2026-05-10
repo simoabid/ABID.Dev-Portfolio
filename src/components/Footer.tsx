@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import HoverRollText from './UI/HoverRollText';
 
 const socialLinks = [
   {
@@ -161,7 +162,7 @@ export default function Footer() {
                           className="group flex items-center gap-2 text-sm text-[var(--color-foreground)]/80 hover:text-[var(--color-accent)] transition-colors"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                          {link.label}
+                          <HoverRollText text={link.label} />
                         </Link>
                       </li>
                     ))}

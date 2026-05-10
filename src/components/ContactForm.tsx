@@ -22,6 +22,7 @@ import {
   MESSAGE_CHAR_LIMIT,
 } from '@/lib/validation';
 import type { ContactFormData, ValidationErrors } from '@/lib/validation';
+import HoverRollText from './UI/HoverRollText';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -431,7 +432,7 @@ export default function ContactForm() {
           className="relative w-full btn-primary py-4 text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden group"
           aria-busy={isSubmitting}
         >
-          <span
+          <HoverRollText
             className={`inline-flex items-center gap-2 transition-all duration-300 ${
               isSubmitting ? 'opacity-0' : 'opacity-100'
             }`}
@@ -451,7 +452,7 @@ export default function ContactForm() {
               />
             </svg>
             Send Message
-          </span>
+          </HoverRollText>
           {/* Loading spinner */}
           {isSubmitting && (
             <span className="absolute inset-0 flex items-center justify-center">
@@ -541,10 +542,10 @@ export default function ContactForm() {
         </p>
         <button
           onClick={handleReset}
-          className="btn-outline px-8 py-3 text-sm"
+          className="group btn-outline px-8 py-3 text-sm"
           type="button"
         >
-          Send Another Message
+          <HoverRollText text="Send Another Message" />
         </button>
       </div>
     </div>

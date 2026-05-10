@@ -6,6 +6,7 @@ import Link from 'next/link';
 import CodeSnippet from './CodeSnippet';
 import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
 import CtaHoverEffect from './UI/CtaHoverEffect';
+import HoverRollText from './UI/HoverRollText';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 /**
@@ -300,13 +301,13 @@ export default function Hero() {
                 {nameFirstPart.map((word, index) => (
                   <span
                     key={word}
-                    className="name-word inline-block text-[var(--color-foreground)]"
+                    className="group name-word inline-block text-[var(--color-foreground)]"
                     style={{
                       willChange: 'transform',
                       transformStyle: 'preserve-3d',
                     }}
                   >
-                    {word}
+                    <HoverRollText text={word} />
                     {index < nameFirstPart.length - 1 && '\u00A0'}
                   </span>
                 ))}
@@ -314,13 +315,15 @@ export default function Hero() {
                 {nameLastPart.map((word) => (
                   <span
                     key={word}
-                    className="name-word inline-block gradient-text"
+                    className="group name-word inline-block"
                     style={{
                       willChange: 'transform',
                       transformStyle: 'preserve-3d',
                     }}
                   >
-                    {word}
+                    <HoverRollText>
+                      <span className="gradient-text">{word}</span>
+                    </HoverRollText>
                   </span>
                 ))}
               </span>
@@ -340,13 +343,13 @@ export default function Hero() {
                 {titleWords.map((word, index) => (
                   <span
                     key={word}
-                    className="title-word inline-block"
+                    className="group title-word inline-block"
                     style={{
                       willChange: 'transform, opacity',
                       transformStyle: 'preserve-3d',
                     }}
                   >
-                    {word}
+                    <HoverRollText text={word} />
                     {index < titleWords.length - 1 && '\u00A0'}
                   </span>
                 ))}
@@ -370,19 +373,19 @@ export default function Hero() {
               <CtaHoverEffect>
                 <Link
                   href="#contact"
-                  className="btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="group btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label="Contact me to discuss hiring opportunities"
                 >
-                  Contact Me
+                  <HoverRollText text="Contact Me" />
                 </Link>
               </CtaHoverEffect>
               <CtaHoverEffect>
                 <Link
                   href="#projects"
-                  className="btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="group btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label="View Projects — browse my portfolio"
                 >
-                  View Projects
+                  <HoverRollText text="View Projects" />
                 </Link>
               </CtaHoverEffect>
             </div>

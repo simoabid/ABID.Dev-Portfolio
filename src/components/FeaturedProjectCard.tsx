@@ -17,6 +17,7 @@ import { forwardRef } from 'react';
 import Image from 'next/image';
 import type { Project } from '@/data/projects';
 import CtaHoverEffect from './UI/CtaHoverEffect';
+import HoverRollText from './UI/HoverRollText';
 
 interface FeaturedProjectCardProps {
   project: Project;
@@ -113,10 +114,10 @@ const FeaturedProjectCard = forwardRef<
             <CtaHoverEffect>
               <a
                 href={project.liveUrl}
-                className="btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                className="group btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label={`View live demo of ${project.title}`}
               >
-                View Case Study
+                <HoverRollText text="View Case Study" />
               </a>
             </CtaHoverEffect>
           )}
@@ -124,10 +125,10 @@ const FeaturedProjectCard = forwardRef<
             <CtaHoverEffect>
               <a
                 href={project.repoUrl}
-                className="btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                className="group btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label={`View source code of ${project.title}`}
               >
-                Source Code
+                <HoverRollText text="Source Code" />
               </a>
             </CtaHoverEffect>
           )}

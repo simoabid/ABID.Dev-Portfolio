@@ -20,6 +20,7 @@ import Image from 'next/image';
 import { gsap } from '@/lib/scroll';
 import { trackProjectClick } from '@/lib/analytics';
 import type { Project } from '@/data/projects';
+import HoverRollText from './UI/HoverRollText';
 
 interface ProjectCardProps {
   project: Project;
@@ -164,25 +165,27 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
                 onClick={() =>
                   trackProjectClick(project.title, project.liveUrl)
                 }
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 hover:border-white/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black/50"
+                className="group inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 hover:border-white/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black/50"
                 aria-label={`View project: ${project.title}`}
                 tabIndex={0}
               >
-                View Project
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
+                <HoverRollText>
+                  View Project
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </HoverRollText>
               </a>
               {project.repoUrl && (
                 <a

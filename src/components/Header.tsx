@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import AnimatedThemeToggle from './UI/AnimatedThemeToggle';
 import Image from 'next/image';
+import HoverRollText from './UI/HoverRollText';
 
 const navLinks = [
   { href: '#home', label: 'Home' },
@@ -136,7 +137,7 @@ export default function Header() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     aria-current={active ? 'page' : undefined}
                     className={`
-                      relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+                      group relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
                       focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] focus:outline-none
                       ${
                         active
@@ -145,7 +146,7 @@ export default function Header() {
                       }
                     `}
                   >
-                    {link.label}
+                    <HoverRollText text={link.label} />
                   </Link>
                 </li>
               );
@@ -159,9 +160,9 @@ export default function Header() {
             <Link
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              className="group hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
             >
-              Let&apos;s Talk
+              <HoverRollText text="Let's Talk" />
             </Link>
 
             {/* Mobile Menu Button */}
@@ -215,7 +216,7 @@ export default function Header() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     aria-current={isActiveLink(link.href) ? 'page' : undefined}
                     className={`
-                      block px-4 py-3 rounded-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]
+                      group block px-4 py-3 rounded-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]
                       ${
                         isActiveLink(link.href)
                           ? 'bg-[var(--color-accent)] text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-shadow-accent)]'
@@ -223,7 +224,10 @@ export default function Header() {
                       }
                     `}
                   >
-                    {link.label}
+                    <HoverRollText
+                      text={link.label}
+                      className="w-full justify-start"
+                    />
                   </Link>
                 </li>
               ))}
@@ -231,9 +235,9 @@ export default function Header() {
                 <Link
                   href="#contact"
                   onClick={(e) => handleNavClick(e, '#contact')}
-                  className="block px-4 py-3 rounded-xl text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                  className="group block px-4 py-3 rounded-xl text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 >
-                  Let&apos;s Talk
+                  <HoverRollText text="Let's Talk" />
                 </Link>
               </li>
             </ul>
