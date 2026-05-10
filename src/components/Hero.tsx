@@ -300,7 +300,7 @@ export default function Hero() {
                 {nameFirstPart.map((word, index) => (
                   <span
                     key={word}
-                    className="name-word inline-block text-white"
+                    className="name-word inline-block text-[var(--color-foreground)]"
                     style={{
                       willChange: 'transform',
                       transformStyle: 'preserve-3d',

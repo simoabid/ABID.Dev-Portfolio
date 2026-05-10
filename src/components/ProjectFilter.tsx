@@ -53,7 +53,7 @@ const ProjectFilter = forwardRef<HTMLDivElement, ProjectFilterProps>(
                 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]
                 ${
                   isActive
-                    ? 'gradient-bg text-white shadow-lg shadow-[var(--color-shadow-accent)]'
+                    ? 'gradient-bg text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-shadow-accent)]'
                     : 'bg-transparent text-[var(--color-foreground-muted)] border border-[var(--color-border)] hover:border-[var(--color-border-accent)] hover:text-[var(--color-foreground)]'
                 }
               `}

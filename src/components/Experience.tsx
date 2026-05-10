@@ -159,7 +159,7 @@ export default function Experience() {
                 <p className="text-[var(--color-accent)] font-medium mb-2">
                   {exp.company}
                 </p>
-                <span className="inline-block px-3 py-1 gradient-bg text-white text-xs rounded-full mb-4">
+                <span className="inline-block px-3 py-1 gradient-bg text-[var(--color-foreground-inverted)] text-xs rounded-full mb-4">
                   {exp.date}
                 </span>
                 <p className="text-[var(--color-foreground-muted)] text-sm mb-4 md:text-left">

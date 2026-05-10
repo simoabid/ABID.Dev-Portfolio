@@ -251,42 +251,42 @@
    ============================================================================= */
 
 .light {
-  /* Background Colors */
-  --color-background: #f4f4fb;
-  --color-background-alt: #ffffff;
-  --color-background-elevated: #ffffff;
-  --color-background-overlay: rgba(244, 244, 251, 0.95);
+  /* Background Colors — muted lavender-gray, never pure white */
+  --color-background: #e8e8f4;
+  --color-background-alt: #ededf8;
+  --color-background-elevated: #f2f2fc;
+  --color-background-overlay: rgba(232, 232, 244, 0.95);
 
-  /* Foreground / Text Colors */
+  /* Foreground / Text Colors — deep navy for readability */
   --color-foreground: #1a1a2e;
-  --color-foreground-muted: #4a4a6a;
-  --color-foreground-subtle: #6a6a88;
-  --color-foreground-inverted: #ffffff;
+  --color-foreground-muted: #3d3d5c;
+  --color-foreground-subtle: #5a5a78;
+  --color-foreground-inverted: #e8e8f4;
 
-  /* Accent Colors */
-  --color-accent: #5a4aff;
-  --color-accent-secondary: #00aadd;
-  --color-accent-hover: #6a5aff;
-  --color-accent-muted: rgba(90, 74, 255, 0.12);
+  /* Accent Colors — slightly deeper to pop on muted backgrounds */
+  --color-accent: #4a3aef;
+  --color-accent-secondary: #0099cc;
+  --color-accent-hover: #3a2adf;
+  --color-accent-muted: rgba(74, 58, 239, 0.1);
 
-  /* Border Colors */
-  --color-border: rgba(90, 74, 255, 0.15);
-  --color-border-muted: rgba(90, 74, 255, 0.08);
-  --color-border-accent: rgba(90, 74, 255, 0.3);
+  /* Border Colors — visible but soft */
+  --color-border: rgba(74, 58, 239, 0.14);
+  --color-border-muted: rgba(74, 58, 239, 0.08);
+  --color-border-accent: rgba(74, 58, 239, 0.28);
 
-  /* Shadow Colors */
-  --color-shadow: rgba(90, 74, 255, 0.08);
-  --color-shadow-accent: rgba(90, 74, 255, 0.2);
-  --color-shadow-glow: rgba(90, 74, 255, 0.35);
+  /* Shadow Colors — violet-tinted, never gray */
+  --color-shadow: rgba(74, 58, 239, 0.06);
+  --color-shadow-accent: rgba(74, 58, 239, 0.16);
+  --color-shadow-glow: rgba(74, 58, 239, 0.28);
 
-  /* Code / Terminal surface tokens */
+  /* Code / Terminal surface tokens — stays dark */
   --color-code-bg: #1a1a2e;
   --color-code-header: #14142a;
   --color-code-text: #c0b8ff;
-  --color-terminal-prompt: #5a4aff;
+  --color-terminal-prompt: #4a3aef;
   --color-terminal-command: #e8e8f0;
-  --color-terminal-output: #00aadd;
-  --color-dot-red: rgba(255, 95, 86, 0.7);
-  --color-dot-yellow: rgba(255, 189, 46, 0.7);
+  --color-terminal-output: #0099cc;
+  --color-dot-red: rgba(255, 95, 86, 0.8);
+  --color-dot-yellow: rgba(255, 189, 46, 0.8);
   --color-dot-green: rgba(39, 202, 64, 0.7);
 }

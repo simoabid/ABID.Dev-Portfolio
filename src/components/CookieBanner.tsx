@@ -113,7 +113,7 @@ export default function CookieBanner() {
             aria-hidden="true"
           >
             <svg
-              className="w-5 h-5 text-white"
+              className="w-5 h-5 text-[var(--color-foreground-inverted)]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -151,7 +151,7 @@ export default function CookieBanner() {
             <button
               ref={acceptBtnRef}
               onClick={handleAccept}
-              className="flex-1 sm:flex-initial px-5 py-2.5 text-sm font-semibold rounded-xl gradient-bg text-white shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-[var(--color-accent)]/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              className="flex-1 sm:flex-initial px-5 py-2.5 text-sm font-semibold rounded-xl gradient-bg text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-[var(--color-accent)]/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               type="button"
               aria-label="Accept cookies and analytics"
             >

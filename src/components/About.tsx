@@ -314,7 +314,7 @@ export default function About() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Visit my ${app.label} profile`}
-                          className="social-icon group w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] bg-[var(--color-background)]/50 text-[var(--color-foreground-muted)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                          className="social-icon group w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] bg-[var(--color-background)]/50 text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground-inverted)] hover:border-[var(--color-accent)] transition-all duration-300 relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                         >
                           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/80 to-[var(--color-accent-secondary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                           {app.icon === 'github' && (
