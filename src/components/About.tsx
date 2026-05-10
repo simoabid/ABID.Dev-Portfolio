@@ -292,20 +292,29 @@ export default function About() {
                     {/* Social Media Icons */}
                     <div className="flex items-center gap-4">
                       {[
-                        { icon: 'github', href: 'https://github.com/simoabid' },
-                        { icon: 'twitter', href: 'https://twitter.com' },
+                        {
+                          icon: 'github',
+                          label: 'GitHub',
+                          href: 'https://github.com/simoabid',
+                        },
+                        {
+                          icon: 'twitter',
+                          label: 'Twitter',
+                          href: 'https://twitter.com',
+                        },
                         {
                           icon: 'linkedin',
+                          label: 'LinkedIn',
                           href: 'https://linkedin.com/in/mohamed-amine-abid-313262174/',
                         },
-                      ].map((app, i) => (
+                      ].map((app) => (
                         <a
                           key={app.icon}
                           href={app.href}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`Visit my ${app.label} profile`}
                           className="social-icon group w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] bg-[var(--color-background)]/50 text-[var(--color-foreground-muted)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                          aria-label={`Visit my ${app.icon === 'github' ? 'GitHub' : app.icon === 'twitter' ? 'Twitter' : 'LinkedIn'} profile`}
                         >
                           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/80 to-[var(--color-accent-secondary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                           {app.icon === 'github' && (

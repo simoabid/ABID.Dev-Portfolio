@@ -1,18 +1,29 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/context/ThemeProvider';
-import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import PageEntryLoader from '@/components/PageEntryLoader';
+
+/** Non-critical: deferred until after hydration */
+const CookieBanner = dynamic(() => import('@/components/CookieBanner'), {
+  ssr: false,
+});
+
+/** Client-only: defers gsap + lenis from the SSR critical path */
+const SmoothScrollProvider = dynamic(
+  () => import('@/components/SmoothScrollProvider'),
+  { ssr: false }
+);
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-jetbrains',
   display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -77,6 +88,12 @@ export default function RootLayout({
     <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#1a1a2e" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-screen flex flex-col">
