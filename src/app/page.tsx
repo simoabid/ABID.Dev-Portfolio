@@ -52,6 +52,15 @@ const Contact = dynamic(() => import('@/components/Contact'), {
   ),
 });
 
+const Socials = dynamic(() => import('@/components/Socials'), {
+  loading: () => (
+    <div
+      className="min-h-[600px] bg-[var(--color-background)]"
+      aria-hidden="true"
+    />
+  ),
+});
+
 /** Animated SVG section dividers — decorative, zero-impact when offscreen */
 const SvgDivider = dynamic(() => import('@/components/UI/SvgDivider'), {
   ssr: false,
@@ -68,6 +77,7 @@ export default function HomePage() {
       <Skills />
       <SvgDivider variant="wave" />
       <Experience />
+      <Socials />
       <SvgDivider variant="circuit" />
       <Contact />
     </>
