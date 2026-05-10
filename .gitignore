@@ -44,7 +44,11 @@ public/optimized/
 #styles.css
 # script.js
 Context/
-.agent/
+.agent/*
+.agents/*
+.qwen/*
+.skills/*
+skills/*
 first-chat-session.md
 second-chat-session.md
 .github/skills/*
