@@ -1,5 +1,9 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Container from './Container';
 import { Grid, GridItem } from './Grid';
+import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 const skills = [
   { name: 'HTML5', level: 95, icon: 'H' },
@@ -17,8 +21,74 @@ const skills = [
 ];
 
 export default function Skills() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+      if (cards.length === 0) return;
+
+      if (prefersReducedMotion) {
+        gsap.set(cards, { opacity: 1, y: 0 });
+        return;
+      }
+
+      // Staggered card entrance with rotation
+      gsap.fromTo(
+        cards,
+        { autoAlpha: 0, y: 40, rotateY: -10, scale: 0.95 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          rotateY: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: 'back.out(1.4)',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      // Animate progress bar widths from 0
+      cards.forEach((card, index) => {
+        const bar = card.querySelector('.skill-bar-fill') as HTMLElement;
+        if (!bar) return;
+        gsap.fromTo(
+          bar,
+          { width: '0%' },
+          {
+            width: `${skills[index].level}%`,
+            duration: 1.2,
+            delay: index * 0.06,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="skills"
       className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
       aria-label="Technical skills"
@@ -35,11 +105,15 @@ export default function Skills() {
           {skills.map((skill, index) => (
             <GridItem key={skill.name}>
               <div
-                className="group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                className="group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300 opacity-0"
+                style={{ perspective: '600px' }}
+                data-cursor="view"
               >
                 {/* Icon */}
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-[var(--color-accent-muted)] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-[var(--color-accent-muted)] flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <span
                     className="gradient-text text-xl font-bold"
                     aria-hidden="true"
@@ -63,8 +137,8 @@ export default function Skills() {
                   aria-label={`${skill.name} proficiency: ${skill.level}%`}
                 >
                   <div
-                    className="absolute inset-y-0 left-0 gradient-bg rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
+                    className="skill-bar-fill absolute inset-y-0 left-0 gradient-bg rounded-full"
+                    style={{ width: 0 }}
                   />
                 </div>
 

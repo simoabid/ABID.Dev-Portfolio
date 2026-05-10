@@ -16,6 +16,7 @@
 import { forwardRef } from 'react';
 import Image from 'next/image';
 import type { Project } from '@/data/projects';
+import CtaHoverEffect from './UI/CtaHoverEffect';
 
 interface FeaturedProjectCardProps {
   project: Project;
@@ -109,22 +110,26 @@ const FeaturedProjectCard = forwardRef<
         {/* CTAs */}
         <div className="flex flex-wrap gap-3 pt-2">
           {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              className="btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-              aria-label={`View live demo of ${project.title}`}
-            >
-              View Case Study
-            </a>
+            <CtaHoverEffect>
+              <a
+                href={project.liveUrl}
+                className="btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                aria-label={`View live demo of ${project.title}`}
+              >
+                View Case Study
+              </a>
+            </CtaHoverEffect>
           )}
           {project.repoUrl && (
-            <a
-              href={project.repoUrl}
-              className="btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-              aria-label={`View source code of ${project.title}`}
-            >
-              Source Code
-            </a>
+            <CtaHoverEffect>
+              <a
+                href={project.repoUrl}
+                className="btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                aria-label={`View source code of ${project.title}`}
+              >
+                Source Code
+              </a>
+            </CtaHoverEffect>
           )}
         </div>
       </div>

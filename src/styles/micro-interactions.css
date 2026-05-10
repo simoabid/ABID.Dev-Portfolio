@@ -1,0 +1,508 @@
+/* =============================================================================
+   MICRO-INTERACTIONS DESIGN SYSTEM
+   
+   Each section has a unique animation personality:
+   - Hero:       Magnetic pull + particle burst (GSAP, see CtaHoverEffect)
+   - Projects:   Tilt 3D perspective + shimmer sweep
+   - About:      Elastic bounce + gradient border pulse
+   - Skills:     Orbital glow + progress bar wave
+   - Experience: Timeline pulse + card slide reveal
+   - Contact:    Ripple expand + icon spin
+   - Footer:     Neon flicker + underline slide
+   
+   All animations respect prefers-reduced-motion via globals.css
+   ============================================================================= */
+
+/* =============================================================================
+   1. SHARED BUTTON MICRO-INTERACTIONS
+   ============================================================================= */
+
+/* Primary buttons: gradient shift on hover */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-secondary) 0%,
+    var(--color-accent) 50%,
+    var(--color-accent-secondary) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+/* Outline buttons: fill sweep from left */
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.btn-outline:hover::before {
+  width: 100%;
+}
+
+.btn-outline:hover {
+  color: white;
+  border-color: var(--color-accent);
+}
+
+/* =============================================================================
+   2. PROJECTS SECTION — 3D Tilt + Shimmer
+   ============================================================================= */
+
+/* Shimmer sweep overlay on project cards */
+.project-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover::after {
+  left: 120%;
+}
+
+/* Featured card accent line animation */
+.featured-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-secondary)
+  );
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 2;
+}
+
+.featured-card:hover::before {
+  width: 100%;
+}
+
+/* Filter pills: press & spring */
+[role='tab'] {
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+[role='tab']:active {
+  transform: scale(0.94);
+}
+
+[role='tab']:not([aria-selected='true']):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-shadow-accent);
+}
+
+/* Tech tag pills: glow border on hover */
+.project-card .flex-wrap span {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-card:hover .flex-wrap span {
+  box-shadow: 0 0 6px var(--color-accent-muted);
+}
+
+/* =============================================================================
+   3. ABOUT SECTION — Elastic Bounce + Gradient Pulse
+   ============================================================================= */
+
+/* Stats cards: counter bounce on hover */
+.glass-card {
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.glass-card:hover {
+  box-shadow:
+    0 8px 30px var(--color-shadow-accent),
+    0 0 0 1px var(--color-border-accent);
+}
+
+/* Social icons in About: rotate + scale on hover */
+.social-icon {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-4px) rotate(-5deg) scale(1.15);
+  box-shadow: 0 6px 20px var(--color-shadow-accent);
+}
+
+/* Feature highlight cards: left border grow */
+.glass-card .rounded-xl {
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.glass-card .rounded-xl::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent),
+    var(--color-accent-secondary)
+  );
+  border-radius: 3px;
+  transition:
+    height 0.3s ease,
+    top 0.3s ease;
+}
+
+.glass-card .rounded-xl:hover::after {
+  height: 60%;
+  top: 20%;
+}
+
+.glass-card .rounded-xl:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 15px var(--color-shadow-accent);
+}
+
+/* =============================================================================
+   4. SKILLS SECTION — Orbital Glow + Bar Wave
+   ============================================================================= */
+
+/* Skill icon container: orbital glow ring on hover */
+.group:hover .rounded-xl:first-child {
+  box-shadow:
+    0 0 0 3px var(--color-accent-muted),
+    0 0 15px var(--color-accent-muted);
+}
+
+/* Skill card: unique stagger-ready lift */
+[id='skills'] .group {
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+[id='skills'] .group:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Progress bar shimmer */
+[role='progressbar'] .gradient-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+[role='progressbar'] .gradient-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes progress-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* =============================================================================
+   5. EXPERIENCE SECTION — Timeline Pulse + Slide Reveal
+   ============================================================================= */
+
+/* Timeline dot: pulse ring */
+[id='experience'] .rounded-full[aria-hidden='true'] {
+  position: relative;
+}
+
+[id='experience'] .rounded-full[aria-hidden='true']::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  opacity: 0;
+  animation: timeline-pulse 2s ease-in-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.4;
+  }
+}
+
+/* Experience cards: hover slide + glow */
+[id='experience'] .bg-\[var\(--color-background\)\]\/80 {
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+[id='experience'] .bg-\[var\(--color-background\)\]\/80:hover {
+  transform: translateX(6px);
+}
+
+/* Highlight bullets: stagger glow */
+[id='experience'] li .rounded-full {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+[id='experience'] li:hover .rounded-full {
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--color-accent-secondary);
+}
+
+/* =============================================================================
+   6. CONTACT SECTION — Ripple Expand + Icon Spin
+   ============================================================================= */
+
+/* Contact info cards: ripple background on hover */
+.contact-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--color-accent-muted);
+  opacity: 0;
+  transition:
+    height 0.4s ease,
+    top 0.4s ease,
+    opacity 0.4s ease;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.contact-card:hover::before {
+  height: 100%;
+  top: 0;
+  opacity: 0.15;
+}
+
+/* Contact card icon: spin + scale on hover */
+.contact-card .flex-shrink-0 {
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+
+.contact-card:hover .flex-shrink-0 {
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 4px 15px var(--color-shadow-accent);
+}
+
+/* Social links in Contact: bounce up + glow trail */
+.social-link {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow:
+    0 8px 25px var(--color-shadow-accent),
+    0 0 0 2px var(--color-accent);
+}
+
+/* Contact form submit button: pulse glow */
+.contact-form-submit {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form-submit::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent),
+    var(--color-accent-secondary),
+    var(--color-accent)
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.contact-form-submit:hover::after {
+  opacity: 0.6;
+}
+
+/* =============================================================================
+   7. FOOTER — Neon Flicker + Underline Slide
+   ============================================================================= */
+
+/* Footer nav links: underline slide from left */
+footer .group {
+  position: relative;
+}
+
+footer .group::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+footer .group:hover::after {
+  width: 100%;
+}
+
+/* Footer social icons: neon glow + lift */
+footer .rounded-full {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+footer a.rounded-full:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow:
+    0 0 15px var(--color-accent),
+    0 0 30px var(--color-accent-muted);
+}
+
+/* Footer code snippet: subtle float */
+footer .font-mono {
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+footer .font-mono:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    inset 0 0 20px rgba(108, 99, 255, 0.1),
+    0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================================================
+   8. HEADER — Nav Link Hover Indicator
+   ============================================================================= */
+
+/* Desktop nav links: bottom dot indicator on hover */
+nav ul li a:not([aria-current='page']) {
+  position: relative;
+}
+
+nav ul li a:not([aria-current='page'])::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+nav ul li a:not([aria-current='page']):hover::after {
+  transform: translateX(-50%) scale(1);
+}
+
+/* =============================================================================
+   9. SCROLL INDICATOR — Breathing Glow
+   ============================================================================= */
+
+.animate-bounce {
+  filter: drop-shadow(0 0 8px var(--color-accent-muted));
+}
