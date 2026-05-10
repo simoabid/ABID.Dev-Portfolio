@@ -79,17 +79,17 @@ export async function POST(request: NextRequest) {
       message: body.message ?? '',
     });
     if (hasErrors(errors)) {
-      return NextResponse.json(
-        { success: false, errors },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
     // ── 5. Captcha verification ──
     const captchaResult = await verifyCaptchaToken(body.captchaToken);
     if (!captchaResult.isValid) {
       return NextResponse.json(
-        { success: false, error: 'Captcha verification failed. Please try again.' },
+        {
+          success: false,
+          error: 'Captcha verification failed. Please try again.',
+        },
         { status: 403 }
       );
     }
@@ -105,7 +105,10 @@ export async function POST(request: NextRequest) {
     if (!sendResult.isSuccess) {
       console.error('[Contact API] Email send failed:', sendResult.error);
       return NextResponse.json(
-        { success: false, error: 'Failed to send message. Please try again later.' },
+        {
+          success: false,
+          error: 'Failed to send message. Please try again later.',
+        },
         { status: 500 }
       );
     }
@@ -117,7 +120,10 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error('[Contact API] Unexpected error:', err);
     return NextResponse.json(
-      { success: false, error: 'An unexpected error occurred. Please try again.' },
+      {
+        success: false,
+        error: 'An unexpected error occurred. Please try again.',
+      },
       { status: 500 }
     );
   }

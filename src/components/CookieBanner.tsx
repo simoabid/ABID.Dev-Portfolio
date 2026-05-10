@@ -57,29 +57,32 @@ export default function CookieBanner() {
     acceptBtnRef.current?.focus();
   }, [isVisible]);
 
-  const handleDismiss = useCallback(
-    (consent: 'granted' | 'denied') => {
-      if (!bannerRef.current) {
+  const handleDismiss = useCallback((consent: 'granted' | 'denied') => {
+    if (!bannerRef.current) {
+      setConsentStatus(consent);
+      setIsVisible(false);
+      return;
+    }
+    gsap.to(bannerRef.current, {
+      autoAlpha: 0,
+      y: 40,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
         setConsentStatus(consent);
         setIsVisible(false);
-        return;
-      }
-      gsap.to(bannerRef.current, {
-        autoAlpha: 0,
-        y: 40,
-        duration: 0.3,
-        ease: 'power2.in',
-        onComplete: () => {
-          setConsentStatus(consent);
-          setIsVisible(false);
-        },
-      });
-    },
-    []
-  );
+      },
+    });
+  }, []);
 
-  const handleAccept = useCallback(() => handleDismiss('granted'), [handleDismiss]);
-  const handleDecline = useCallback(() => handleDismiss('denied'), [handleDismiss]);
+  const handleAccept = useCallback(
+    () => handleDismiss('granted'),
+    [handleDismiss]
+  );
+  const handleDecline = useCallback(
+    () => handleDismiss('denied'),
+    [handleDismiss]
+  );
 
   // Keyboard: Escape = decline
   useEffect(() => {

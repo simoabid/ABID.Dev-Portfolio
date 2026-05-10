@@ -1,5 +1,8 @@
 # ABID.Dev Portfolio
 
+[![CI](https://github.com/simoabid/ABID.Dev-Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/simoabid/ABID.Dev-Portfolio/actions/workflows/ci.yml)
+[![Lighthouse](https://github.com/simoabid/ABID.Dev-Portfolio/actions/workflows/lighthouse-ci.yml/badge.svg)](https://github.com/simoabid/ABID.Dev-Portfolio/actions/workflows/lighthouse-ci.yml)
+
 > Premium portfolio built with Next.js, TypeScript, Tailwind CSS, GSAP, and Lenis smooth scroll.
 
 ## 🚀 Quick Start
@@ -163,10 +166,12 @@ The GitHub Actions workflow automatically:
 | `npm run build`           | Create production build                                             |
 | `npm start`               | Start production server                                             |
 | `npm run lint`            | Run ESLint to check for issues                                      |
+| `npm run typecheck`       | TypeScript type-check without emitting                              |
 | `npm run format`          | Format code with Prettier                                           |
 | `npm run format:check`    | Check if code is formatted correctly                                |
 | `npm run test:a11y`       | Run axe-core accessibility audit against dev server                 |
 | `npm run optimize:images` | Run image optimization pipeline                                     |
+| `npm run analyze`         | Bundle analysis visualization                                       |
 
 ## ♿ Accessibility Compliance
 
@@ -238,9 +243,11 @@ The audit script (`scripts/test-a11y.js`) uses axe-core + Puppeteer to test agai
 
 ### Vercel (Recommended)
 
-1. Push to GitHub
-2. Import project on [Vercel](https://vercel.com)
-3. Deploy automatically on every push
+This project deploys automatically on Vercel:
+
+- **Production:** Every merge to `main` triggers a production deployment
+- **Preview:** Every PR gets a unique preview URL
+- **Rollback:** Use the Vercel dashboard to promote a previous deployment
 
 ### Manual Deployment
 
@@ -248,6 +255,8 @@ The audit script (`scripts/test-a11y.js`) uses axe-core + Puppeteer to test agai
 npm run build
 npm start
 ```
+
+See [RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md) for pre-deployment verification steps.
 
 ## 🔧 Configuration
 
@@ -331,7 +340,11 @@ MIT License - feel free to use this portfolio as a template for your own project
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
+Contributions, issues, and feature requests are welcome! See:
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — guidelines, conventions, and how-tos
+- [DEVSETUP.md](./DEVSETUP.md) — local development setup
+- [RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md) — pre-release verification
 
 ---
 
