@@ -208,12 +208,68 @@ npm start
 
 ### Environment Variables
 
-Create `.env.local` for local development:
+Copy `.env.example` to `.env.local` and configure:
 
-```env
-# Add your environment variables here
-NEXT_PUBLIC_SITE_URL=https://yoursite.com
+```bash
+cp .env.example .env.local
 ```
+
+### 📬 Contact Form Setup
+
+The contact form works **out of the box** in mock mode — submissions are logged to the server console. To enable real email delivery:
+
+#### Option A: Resend (Recommended)
+
+1. Create a free account at [resend.com](https://resend.com) (3,000 emails/month)
+2. Get your API key from the dashboard
+3. Update `.env.local`:
+   ```env
+   MAIL_PROVIDER=resend
+   RESEND_API_KEY=re_xxxxxxxxxxxx
+   RESEND_FROM_EMAIL=Portfolio <onboarding@resend.dev>
+   CONTACT_EMAIL=your@email.com
+   ```
+
+#### Option B: SendGrid
+
+1. Create an account at [sendgrid.com](https://sendgrid.com) (100 emails/day free)
+2. Create an API key with "Mail Send" permission
+3. Update `.env.local`:
+   ```env
+   MAIL_PROVIDER=sendgrid
+   SENDGRID_API_KEY=SG.xxxxxxxxxxxx
+   SENDGRID_FROM_EMAIL=noreply@yourdomain.com
+   CONTACT_EMAIL=your@email.com
+   ```
+
+#### Option C: Console (Default / Development)
+
+No configuration needed. Submissions are printed to the terminal.
+
+### 🛡️ Captcha Setup (Optional)
+
+Captcha is **disabled by default**. To enable spam protection:
+
+#### reCAPTCHA v3
+
+1. Register at [google.com/recaptcha](https://www.google.com/recaptcha/admin)
+2. Choose **reCAPTCHA v3** and add your domain
+3. Update `.env.local`:
+   ```env
+   NEXT_PUBLIC_CAPTCHA_PROVIDER=recaptcha
+   NEXT_PUBLIC_CAPTCHA_SITE_KEY=6Le...
+   RECAPTCHA_SECRET_KEY=6Le...
+   ```
+
+#### hCaptcha
+
+1. Register at [hcaptcha.com](https://dashboard.hcaptcha.com)
+2. Update `.env.local`:
+   ```env
+   NEXT_PUBLIC_CAPTCHA_PROVIDER=hcaptcha
+   NEXT_PUBLIC_CAPTCHA_SITE_KEY=xxxx
+   HCAPTCHA_SECRET_KEY=xxxx
+   ```
 
 ### Image Optimization Settings
 
