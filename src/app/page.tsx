@@ -52,14 +52,23 @@ const Contact = dynamic(() => import('@/components/Contact'), {
   ),
 });
 
+/** Animated SVG section dividers — decorative, zero-impact when offscreen */
+const SvgDivider = dynamic(() => import('@/components/UI/SvgDivider'), {
+  ssr: false,
+});
+
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <SvgDivider variant="circuit" />
       <Projects />
+      <SvgDivider variant="pulse" />
       <About />
       <Skills />
+      <SvgDivider variant="wave" />
       <Experience />
+      <SvgDivider variant="circuit" />
       <Contact />
     </>
   );

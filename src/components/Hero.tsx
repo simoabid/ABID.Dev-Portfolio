@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CodeSnippet from './CodeSnippet';
+import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
+import CtaHoverEffect from './UI/CtaHoverEffect';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 /**
@@ -365,20 +367,24 @@ export default function Hero() {
               ref={ctaRef}
               className="flex flex-wrap gap-4 justify-center lg:justify-start"
             >
-              <Link
-                href="#contact"
-                className="btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                aria-label="Contact me to discuss hiring opportunities"
-              >
-                Contact Me
-              </Link>
-              <Link
-                href="#projects"
-                className="btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                aria-label="View Projects — browse my portfolio"
-              >
-                View Projects
-              </Link>
+              <CtaHoverEffect>
+                <Link
+                  href="#contact"
+                  className="btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  aria-label="Contact me to discuss hiring opportunities"
+                >
+                  Contact Me
+                </Link>
+              </CtaHoverEffect>
+              <CtaHoverEffect>
+                <Link
+                  href="#projects"
+                  className="btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  aria-label="View Projects — browse my portfolio"
+                >
+                  View Projects
+                </Link>
+              </CtaHoverEffect>
             </div>
 
             {/* Social Links */}
@@ -459,6 +465,11 @@ export default function Hero() {
               ref={floatingRef2}
               className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-[var(--color-accent-secondary)] animate-pulse-slow opacity-60"
             />
+
+            {/* Animated code brackets decoration */}
+            <div className="absolute -bottom-10 right-0 opacity-40 hidden lg:block">
+              <AnimatedCodeBrackets size={56} />
+            </div>
           </div>
 
           {/* Right Column - Code Snippet (spans 4 columns, right-aligned) */}
