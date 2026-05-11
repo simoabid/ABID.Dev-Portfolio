@@ -185,7 +185,7 @@ export default function Socials() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-32 px-4 overflow-hidden bg-[var(--color-background)] relative"
+      className="py-24 md:py-32 px-4 overflow-hidden bg-[var(--color-background-alt)] relative"
       id="socials"
       aria-label="Social media gallery"
     >

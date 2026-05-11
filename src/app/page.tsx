@@ -71,9 +71,9 @@ export default function HomePage() {
     <>
       <Hero />
       <SvgDivider variant="circuit" />
-      <Projects />
-      <SvgDivider variant="pulse" />
       <About />
+      <SvgDivider variant="pulse" />
+      <Projects />
       <Skills />
       <SvgDivider variant="wave" />
       <Experience />

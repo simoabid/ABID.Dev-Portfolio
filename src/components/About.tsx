@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
@@ -204,7 +205,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative min-h-screen py-24 pt-32 overflow-hidden bg-[var(--color-background)]"
+      className="relative min-h-screen py-24 pt-32 overflow-hidden bg-[var(--color-background-alt)]"
     >
       {/* Floating gradient orbs - decorative background */}
       <div
@@ -235,7 +236,13 @@ export default function About() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="section-heading">About Me</h2>
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
+            ABOUT
+            <br />
+            <span className="gradient-text">ME</span>
+          </h2>
+        </div>
 
         {/* Bento Grid Layout */}
         <div className="max-w-6xl mx-auto">
@@ -259,22 +266,15 @@ export default function About() {
                 {/* Animated gradient border ring */}
                 <div className="relative mb-6 mt-8">
                   <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent-secondary)] to-[var(--color-accent)] opacity-75 blur-sm animate-gradient-rotate" />
-                  <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--color-background)] bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 flex items-center justify-center">
-                    {/* Profile placeholder */}
-                    <svg
-                      className="w-20 h-20 text-[var(--color-foreground-muted)] opacity-60"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
+                  <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--color-background)] bg-[var(--color-background)] flex items-center justify-center">
+                    <Image
+                      src="/images/logo.png"
+                      alt="ABID.Dev Profile"
+                      fill
+                      className="object-contain p-4"
+                      sizes="(max-width: 768px) 192px, 192px"
+                      priority
+                    />
                   </div>
                 </div>
 

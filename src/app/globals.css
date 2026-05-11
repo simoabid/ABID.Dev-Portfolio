@@ -166,32 +166,6 @@ select:focus-visible,
     padding: 0 var(--spacing-5);
   }
 
-  .section-heading {
-    text-align: center;
-    margin-bottom: var(--spacing-12);
-    font-size: var(--font-size-4xl);
-    color: var(--color-foreground-muted);
-    position: relative;
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wide);
-  }
-
-  .section-heading::after {
-    content: '';
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(
-      90deg,
-      var(--color-accent),
-      var(--color-accent-secondary)
-    );
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: var(--radius-sm);
-  }
-
   /* Card component base */
   .card {
     background-color: var(--color-background-alt);

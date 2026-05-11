@@ -13,7 +13,7 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
-import SectionHeading from './SectionHeading';
+
 import ContactForm from './ContactForm';
 
 const contactInfo = [
@@ -164,7 +164,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-24 pt-32 overflow-hidden bg-[var(--color-background-alt)]"
+      className="relative py-24 pt-32 overflow-hidden bg-[var(--color-background)]"
       aria-label="Contact me"
     >
       {/* Decorative background orbs */}
@@ -189,12 +189,16 @@ export default function Contact() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeading
-          subtitle="Have a project in mind? Let's make something great together"
-          gradient
-        >
-          Get in Touch
-        </SectionHeading>
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
+            GET IN
+            <br />
+            <span className="gradient-text">TOUCH</span>
+          </h2>
+          <p className="text-[var(--color-foreground-muted)] mt-6 text-lg md:text-xl max-w-2xl mx-auto">
+            Have a project in mind? Let&apos;s make something great together
+          </p>
+        </div>
 
         <div className="max-w-5xl mx-auto mt-16">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16">

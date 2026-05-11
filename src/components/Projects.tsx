@@ -18,7 +18,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Container from './Container';
-import SectionHeading from './SectionHeading';
+
 import FeaturedProjectCard from './FeaturedProjectCard';
 import ProjectCard from './ProjectCard';
 import ProjectFilter from './ProjectFilter';
@@ -223,7 +223,7 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative py-24 pt-32 bg-[var(--color-background-alt)] overflow-hidden"
+      className="relative py-24 pt-32 bg-[var(--color-background)] overflow-hidden"
       aria-label="Selected projects"
     >
       {/* ── Decorative Background ── */}
@@ -254,12 +254,16 @@ export default function Projects() {
 
       <Container size="xl" className="relative z-10">
         {/* ── Section Heading ── */}
-        <SectionHeading
-          subtitle="Handpicked projects that showcase real impact, not just code"
-          gradient
-        >
-          Selected Work
-        </SectionHeading>
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
+            SELECTED
+            <br />
+            <span className="gradient-text">WORK</span>
+          </h2>
+          <p className="text-[var(--color-foreground-muted)] mt-6 text-lg md:text-xl max-w-2xl mx-auto">
+            Handpicked projects that showcase real impact, not just code
+          </p>
+        </div>
 
         {/* ── Filter Pills ── */}
         <div className="mt-10 mb-14">

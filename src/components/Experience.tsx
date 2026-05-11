@@ -118,7 +118,13 @@ export default function Experience() {
       aria-label="Work experience"
     >
       <div className="container mx-auto px-4">
-        <h2 className="section-heading">Experience</h2>
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
+            MY
+            <br />
+            <span className="gradient-text">EXPERIENCE</span>
+          </h2>
+        </div>
         <div className="max-w-3xl mx-auto relative">
           {/* Timeline line */}
           <div

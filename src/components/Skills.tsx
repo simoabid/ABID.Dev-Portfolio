@@ -94,7 +94,13 @@ export default function Skills() {
       aria-label="Technical skills"
     >
       <Container size="xl">
-        <h2 className="section-heading">My Skills</h2>
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
+            MY
+            <br />
+            <span className="gradient-text">SKILLS</span>
+          </h2>
+        </div>
         <Grid
           cols={2}
           colsMd={3}
