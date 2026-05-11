@@ -205,7 +205,7 @@ export default function Contact() {
             {/* ── Left: Contact Info ── */}
             <div ref={infoRef} className="opacity-0">
               <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-3">
-                Let&apos;s work together
+                Let&apos;s work <span className="gradient-text">TOGETHER</span>
               </h3>
               <p className="text-[var(--color-foreground-muted)] mb-8 leading-relaxed">
                 I&apos;m always open to discussing new projects, creative ideas,

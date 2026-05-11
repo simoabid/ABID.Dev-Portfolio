@@ -134,13 +134,14 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
         style={{ willChange: 'transform' }}
       >
         {/* ── Image Area ── */}
-        <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/10">
-          <div ref={imageRef} className="absolute inset-0">
+        <div className="relative w-full overflow-hidden flex items-start bg-black/20">
+          <div ref={imageRef} className="w-full">
             <Image
               src={project.image}
               alt={`Screenshot of ${project.title}`}
-              fill
-              className="object-cover"
+              width={1920}
+              height={1080}
+              className="w-full h-auto"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
             />

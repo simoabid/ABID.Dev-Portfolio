@@ -428,7 +428,8 @@ export default function About() {
           >
             <CtaHoverEffect>
               <a
-                href="/resume.pdf"
+                href="/mohamed-amine-abid-resume.pdf"
+                download
                 className="group btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label="Download my resume as PDF"
               >
