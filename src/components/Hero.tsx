@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import CodeSnippet from './CodeSnippet';
@@ -8,6 +9,12 @@ import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
+
+// Three.js portrait is client-only and lazy-loaded so the WebGL bundle stays
+// out of the initial critical path.
+const HeroPortrait3D = dynamic(() => import('./UI/HeroPortrait3D'), {
+  ssr: false,
+});
 
 /**
  * Hero Section Component
@@ -456,6 +463,10 @@ export default function Hero() {
                 sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, (max-width: 1280px) 352px, 416px"
                 className="object-cover object-center"
                 priority
+              />
+              <HeroPortrait3D
+                textureA="/images/hero-portrait.png"
+                textureB="/images/hero-portrait-2.png"
               />
             </div>
 
