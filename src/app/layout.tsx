@@ -67,6 +67,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  appleWebApp: {
+    title: 'ABID.Dev',
+  },
 };
 
 // Inline script to prevent flash of incorrect theme (FOIT)
