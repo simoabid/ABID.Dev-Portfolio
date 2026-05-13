@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -29,6 +30,7 @@ body {
   line-height: var(--line-height-normal);
   font-size: var(--font-size-base);
   letter-spacing: var(--letter-spacing-wide);
+  overflow-x: hidden;
   transition:
     background-color var(--transition-duration-normal)
       var(--transition-timing-default),

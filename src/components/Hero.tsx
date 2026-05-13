@@ -260,7 +260,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-32 md:pt-28 lg:pt-20 pb-12 overflow-hidden"
       aria-label="Hero section - Introduction"
     >
       {/* Background gradient */}
@@ -447,20 +447,20 @@ export default function Hero() {
           {/* Center Column - Portrait Image (spans 4 columns) */}
           <div
             ref={portraitRef}
-            className="lg:col-span-4 relative flex justify-center order-1 lg:order-2"
+            className="lg:col-span-4 relative flex justify-center order-1 lg:order-2 pt-2 lg:pt-0"
           >
             {/* Glow effect behind image */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 blur-3xl" />
+              <div className="w-48 h-48 md:w-60 md:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full bg-gradient-to-br from-[var(--color-accent)]/30 to-[var(--color-accent-secondary)]/30 blur-3xl" />
             </div>
 
             {/* Portrait */}
-            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border-4 border-[var(--color-border-accent)] shadow-2xl shadow-[var(--color-shadow-accent)] animate-fade-in">
+            <div className="relative w-48 h-48 md:w-60 md:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border-4 border-[var(--color-border-accent)] shadow-2xl shadow-[var(--color-shadow-accent)] animate-fade-in">
               <Image
                 src="/images/hero-portrait.png"
                 alt="Mohamed Amine Abid - Full-Stack Developer"
                 fill
-                sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, (max-width: 1280px) 352px, 416px"
+                sizes="(max-width: 768px) 192px, (max-width: 1024px) 240px, (max-width: 1280px) 352px, 416px"
                 className="object-cover object-center"
                 priority
               />

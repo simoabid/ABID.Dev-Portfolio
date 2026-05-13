@@ -252,28 +252,40 @@ export default function About() {
               ref={profileRef}
               className="lg:col-span-5 lg:row-span-2 opacity-0"
             >
-              <div className="relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center glass-card overflow-hidden">
-                {/* Availability Badge - Moved to top */}
-                <div className="absolute top-6 left-1/2 -translate-x-1/2">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 backdrop-blur-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
-                    <span className="text-[9px] font-bold tracking-widest text-[var(--color-accent)] uppercase">
+              <div className="relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
+                {/* Availability Badge — in-flow so it never wraps on mobile */}
+                <div className="mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 backdrop-blur-md whitespace-nowrap">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]" />
+                    </span>
+                    <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--color-accent)] uppercase">
                       Available for projects
                     </span>
                   </div>
                 </div>
 
                 {/* Animated gradient border ring */}
-                <div className="relative mb-6 mt-8">
-                  <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent-secondary)] to-[var(--color-accent)] opacity-75 blur-sm animate-gradient-rotate" />
-                  <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--color-background)] bg-[var(--color-background)] flex items-center justify-center">
+                <div className="relative mb-6">
+                  <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent-secondary)] to-[var(--color-accent)] opacity-80 blur-sm animate-gradient-rotate" />
+                  {/* Logo container — background matches card so logo blends naturally */}
+                  <div className="relative w-44 h-44 rounded-full overflow-hidden border-4 border-[var(--color-background)] bg-[var(--color-background-alt)] shadow-xl flex items-center justify-center">
                     <Image
                       src="/images/logo.png"
-                      alt="ABID.Dev Profile"
+                      alt="ABID.Dev logo"
                       fill
-                      className="object-contain p-4"
-                      sizes="(max-width: 768px) 192px, 192px"
+                      className="object-contain p-3"
+                      sizes="176px"
                       priority
+                    />
+                    {/* Subtle accent glow overlay to tie logo into theme */}
+                    <div
+                      className="absolute inset-0 rounded-full pointer-events-none"
+                      style={{
+                        background:
+                          'radial-gradient(circle at 60% 40%, rgba(108,99,255,0.12) 0%, transparent 70%)',
+                      }}
                     />
                   </div>
                 </div>

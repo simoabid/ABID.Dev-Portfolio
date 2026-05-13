@@ -4,6 +4,10 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 import HoverRollText from './UI/HoverRollText';
 
+/* ─── Mobile grid card tilts ────────────────────────────────────────────────── */
+/** Slight alternating tilts so the grid still feels organic on mobile */
+const MOBILE_ROTATIONS = [-3, 2, -2, 3, -1, 2, -3] as const;
+
 /* ─── Social Media Links ────────────────────────────────────────────────────── */
 
 interface SocialLink {
@@ -128,11 +132,13 @@ export default function Socials() {
   const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [layout, setLayout] = useState<FanPosition[]>([...FAN_LAYOUT]);
+  const [isMobile, setIsMobile] = useState(false);
 
   /** Pick layout breakpoint based on viewport width */
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
+      setIsMobile(width < 640);
       if (width < 640) {
         setLayout([...FAN_LAYOUT_SM]);
       } else if (width < 1024) {
@@ -198,92 +204,172 @@ export default function Socials() {
         </h2>
       </div>
 
-      {/* Card fan container */}
-      <div
-        ref={cardsContainerRef}
-        className="relative mx-auto flex items-center justify-center"
-        style={{ height: 'clamp(420px, 58vw, 680px)' }}
-      >
-        {SOCIAL_CARDS.map((card, index) => {
-          const pos = layout[index];
-          const isHovered = hoveredIndex === index;
-          const isAnyHovered = hoveredIndex !== null;
-          const isSiblingDimmed = isAnyHovered && !isHovered;
+      {/* ─── Mobile grid layout (< 640 px) ───────────────────────────────────── */}
+      {isMobile && (
+        <div
+          ref={cardsContainerRef}
+          className="grid grid-cols-2 gap-3 px-2 mx-auto w-full max-w-sm"
+        >
+          {SOCIAL_CARDS.map((card, index) => {
+            const isHovered = hoveredIndex === index;
+            const isAnyHovered = hoveredIndex !== null;
+            const isSiblingDimmed = isAnyHovered && !isHovered;
+            const rotate = MOBILE_ROTATIONS[index] ?? 0;
+            /* Make the first card span both columns as a hero image */
+            const isHero = index === 0;
 
-          return (
-            <a
-              key={`${card.platform}-${index}`}
-              href={card.href}
-              target="_blank"
-              rel="noreferrer"
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-              aria-label={`View ${card.platform} — ${card.alt}`}
-              className="absolute origin-bottom rounded-[28px] overflow-hidden border border-[var(--color-border)] shadow-xl will-change-transform"
-              style={{
-                width: 'clamp(155px, 22vw, 310px)',
-                height: 'clamp(220px, 32vw, 460px)',
-                transform: `
-                  translateX(${pos.x}px)
-                  translateY(${pos.y}px)
-                  rotate(${pos.rotate}deg)
-                  scale(${isHovered ? 1.12 : 1})
-                `,
-                zIndex: isHovered ? 100 : pos.z,
-                transition:
-                  'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s, box-shadow 0.8s ease',
-                boxShadow: isHovered
-                  ? '0 40px 80px -16px rgba(0,0,0,0.6), 0 0 0 1.5px var(--color-accent)'
-                  : '0 10px 30px -8px rgba(0,0,0,0.3)',
-              }}
-            >
-              {/* Image */}
-              <img
-                src={card.src}
-                alt={card.alt}
-                className="w-full h-full object-cover pointer-events-none select-none"
-                style={{
-                  transform: isHovered ? 'scale(1.07)' : 'scale(1)',
-                  transition: 'transform 0.9s cubic-bezier(0.25, 1, 0.5, 1)',
+            return (
+              <a
+                key={`${card.platform}-${index}`}
+                href={card.href}
+                target="_blank"
+                rel="noreferrer"
+                ref={(el) => {
+                  cardsRef.current[index] = el;
                 }}
-                loading="lazy"
-                draggable={false}
-              />
-
-              {/* Dark overlay — lifts on hover to reveal full image */}
-              <div
-                className="absolute inset-0 pointer-events-none"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+                aria-label={`View ${card.platform} — ${card.alt}`}
+                className={`relative rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-lg will-change-transform${
+                  isHero ? ' col-span-2' : ''
+                }`}
                 style={{
-                  background: isHovered
-                    ? 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%)'
-                    : isSiblingDimmed
-                      ? 'rgba(0,0,0,0.5)'
-                      : 'rgba(0,0,0,0.25)',
-                  transition: 'background 0.8s ease',
-                }}
-              />
-
-              {/* Platform label — appears on hover */}
-              <div
-                className="absolute bottom-0 left-0 right-0 p-3 md:p-4 pointer-events-none"
-                style={{
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
+                  height: isHero ? '220px' : '160px',
+                  transform: `rotate(${rotate}deg) scale(${isHovered ? 1.04 : 1})`,
+                  zIndex: isHovered ? 10 : 1,
                   transition:
-                    'opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s',
+                    'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease',
+                  boxShadow: isHovered
+                    ? '0 20px 40px -8px rgba(0,0,0,0.55), 0 0 0 1.5px var(--color-accent)'
+                    : '0 6px 20px -4px rgba(0,0,0,0.35)',
                 }}
               >
-                <span className="text-white text-xs md:text-sm font-semibold tracking-wider uppercase drop-shadow-lg">
-                  {card.platform}
-                </span>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+                {/* Image */}
+                <img
+                  src={card.src}
+                  alt={card.alt}
+                  className="w-full h-full object-cover pointer-events-none select-none"
+                  style={{
+                    transform: isHovered ? 'scale(1.06)' : 'scale(1)',
+                    transition: 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
+                  }}
+                  loading="lazy"
+                  draggable={false}
+                />
+
+                {/* Dark overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: isHovered
+                      ? 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)'
+                      : isSiblingDimmed
+                        ? 'rgba(0,0,0,0.45)'
+                        : 'rgba(0,0,0,0.18)',
+                    transition: 'background 0.5s ease',
+                  }}
+                />
+
+                {/* Platform label — always visible on mobile */}
+                <div className="absolute bottom-0 left-0 right-0 p-2 pointer-events-none">
+                  <span className="text-white text-[10px] font-semibold tracking-widest uppercase drop-shadow-lg">
+                    {card.platform}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ─── Desktop / tablet fan layout (≥ 640 px) ──────────────────────────── */}
+      {!isMobile && (
+        <div
+          ref={cardsContainerRef}
+          className="relative mx-auto flex items-center justify-center"
+          style={{ height: 'clamp(420px, 58vw, 680px)' }}
+        >
+          {SOCIAL_CARDS.map((card, index) => {
+            const pos = layout[index];
+            const isHovered = hoveredIndex === index;
+            const isAnyHovered = hoveredIndex !== null;
+            const isSiblingDimmed = isAnyHovered && !isHovered;
+
+            return (
+              <a
+                key={`${card.platform}-${index}`}
+                href={card.href}
+                target="_blank"
+                rel="noreferrer"
+                ref={(el) => {
+                  cardsRef.current[index] = el;
+                }}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+                aria-label={`View ${card.platform} — ${card.alt}`}
+                className="absolute origin-bottom rounded-[28px] overflow-hidden border border-[var(--color-border)] shadow-xl will-change-transform"
+                style={{
+                  width: 'clamp(155px, 22vw, 310px)',
+                  height: 'clamp(220px, 32vw, 460px)',
+                  transform: `
+                    translateX(${pos.x}px)
+                    translateY(${pos.y}px)
+                    rotate(${pos.rotate}deg)
+                    scale(${isHovered ? 1.12 : 1})
+                  `,
+                  zIndex: isHovered ? 100 : pos.z,
+                  transition:
+                    'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s, box-shadow 0.8s ease',
+                  boxShadow: isHovered
+                    ? '0 40px 80px -16px rgba(0,0,0,0.6), 0 0 0 1.5px var(--color-accent)'
+                    : '0 10px 30px -8px rgba(0,0,0,0.3)',
+                }}
+              >
+                {/* Image */}
+                <img
+                  src={card.src}
+                  alt={card.alt}
+                  className="w-full h-full object-cover pointer-events-none select-none"
+                  style={{
+                    transform: isHovered ? 'scale(1.07)' : 'scale(1)',
+                    transition: 'transform 0.9s cubic-bezier(0.25, 1, 0.5, 1)',
+                  }}
+                  loading="lazy"
+                  draggable={false}
+                />
+
+                {/* Dark overlay — lifts on hover to reveal full image */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: isHovered
+                      ? 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%)'
+                      : isSiblingDimmed
+                        ? 'rgba(0,0,0,0.5)'
+                        : 'rgba(0,0,0,0.25)',
+                    transition: 'background 0.8s ease',
+                  }}
+                />
+
+                {/* Platform label — appears on hover */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-3 md:p-4 pointer-events-none"
+                  style={{
+                    opacity: isHovered ? 1 : 0,
+                    transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
+                    transition:
+                      'opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s',
+                  }}
+                >
+                  <span className="text-white text-xs md:text-sm font-semibold tracking-wider uppercase drop-shadow-lg">
+                    {card.platform}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
 
       {/* Follow section — social links with roll animation */}
       <div className="max-w-4xl mx-auto text-center mt-16 md:mt-24 relative z-10">
