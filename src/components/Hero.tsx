@@ -23,6 +23,10 @@ const AuroraBackground = dynamic(() => import('./UI/Aurora'), {
   ssr: false,
 });
 
+const ASCIIText = dynamic(() => import('./UI/ASCIIText'), {
+  ssr: false,
+});
+
 /**
  * Hero Section Component
  *
@@ -323,12 +327,12 @@ export default function Hero() {
             className="lg:col-span-4 text-center lg:text-left order-2 lg:order-1"
           >
             {/* Greeting */}
-            <p
+            <div
               ref={greetingRef}
-              className="text-[var(--color-foreground-muted)] text-xl md:text-2xl mb-2"
+              className="relative h-12 md:h-16 lg:h-20 w-40 md:w-56 lg:w-64 mx-auto lg:mx-0 mb-0 md:mb-2 opacity-0 lg:-ml-4"
             >
-              Hi, I&apos;m
-            </p>
+              <ASCIIText text="Hi, I'm" enableWaves={false} asciiFontSize={1} />
+            </div>
 
             {/* Name with split text animation */}
             <h1
