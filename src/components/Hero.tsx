@@ -9,6 +9,7 @@ import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import StarBorder from './UI/StarBorder';
+import TextType from './UI/TextType';
 import { MagicContainer } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
@@ -401,10 +402,21 @@ export default function Hero() {
             {/* Tagline */}
             <p
               ref={taglineRef}
-              className="text-[var(--color-foreground-muted)] text-base md:text-lg max-w-sm mb-8"
+              className="text-[var(--color-foreground-muted)] text-base md:text-lg max-w-sm mb-8 min-h-[4rem]"
             >
-              Building modern web applications with clean code and elegant
-              solutions.
+              <TextType
+                as="span"
+                text={[
+                  'Building modern web applications with clean code and elegant solutions.',
+                  'Crafting scalable and maintainable architectures.',
+                  'Delivering seamless digital experiences.',
+                ]}
+                typingSpeed={50}
+                pauseDuration={3000}
+                deletingSpeed={20}
+                showCursor={true}
+                cursorCharacter="|"
+              />
             </p>
 
             {/* CTAs */}
