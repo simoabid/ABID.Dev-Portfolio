@@ -8,6 +8,7 @@ import CodeSnippet from './CodeSnippet';
 import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
+import StarBorder from './UI/StarBorder';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 // Three.js portrait is client-only and lazy-loaded so the WebGL bundle stays
@@ -399,13 +400,17 @@ export default function Hero() {
               className="flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <CtaHoverEffect>
-                <Link
+                <StarBorder
+                  as={Link}
                   href="#contact"
-                  className="cursor-target group btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="cursor-target group rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  innerClassName="btn-primary px-8 py-4"
                   aria-label="Contact me to discuss hiring opportunities"
+                  color="var(--color-background)"
+                  thickness={2}
                 >
                   <HoverRollText text="Contact Me" />
-                </Link>
+                </StarBorder>
               </CtaHoverEffect>
               <CtaHoverEffect>
                 <Link

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AnimatedThemeToggle from './UI/AnimatedThemeToggle';
 import Image from 'next/image';
 import HoverRollText from './UI/HoverRollText';
+import StarBorder from './UI/StarBorder';
 
 const navLinks = [
   { href: '#home', label: 'Home' },
@@ -157,13 +158,20 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <AnimatedThemeToggle />
 
-            <Link
+            <StarBorder
+              as={Link}
               href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
-              className="cursor-target group hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+                handleNavClick(e, '#contact')
+              }
+              className="cursor-target group hidden md:inline-flex rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              innerClassName="px-5 py-2 text-sm font-semibold text-[var(--color-foreground)] bg-[var(--color-background)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300"
+              color="var(--color-accent)"
+              speed="5s"
+              thickness={1.5}
             >
               <HoverRollText text="Let's Talk" />
-            </Link>
+            </StarBorder>
 
             {/* Mobile Menu Button */}
             <button
@@ -232,13 +240,20 @@ export default function Header() {
                 </li>
               ))}
               <li className="pt-2 border-t border-[var(--color-border-muted)] mt-2">
-                <Link
+                <StarBorder
+                  as={Link}
                   href="#contact"
-                  onClick={(e) => handleNavClick(e, '#contact')}
-                  className="group block px-4 py-3 rounded-xl text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+                    handleNavClick(e, '#contact')
+                  }
+                  className="group block w-full rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                  innerClassName="px-4 py-3 text-center font-bold bg-[var(--color-foreground)] text-[var(--color-background)] transition-all"
+                  color="var(--color-accent)"
+                  speed="5s"
+                  thickness={1.5}
                 >
                   <HoverRollText text="Let's Talk" />
-                </Link>
+                </StarBorder>
               </li>
             </ul>
           </nav>
