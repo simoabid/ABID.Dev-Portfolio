@@ -1,73 +1,129 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import gsap from 'gsap';
+import DotField from './UI/DotField';
 
 interface PageEntryLoaderProps {
   children: React.ReactNode;
   minDurationMs?: number;
 }
 
-const OVERLAY_EXIT_MS = 420;
-const FALLBACK_FINISH_MS = 1500;
-
 export default function PageEntryLoader({
   children,
-  minDurationMs = 1100,
+  minDurationMs = 1800,
 }: PageEntryLoaderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const startedAt = performance.now();
-    let finishTimerId: number | null = null;
-    let overlayTimerId: number | null = null;
-    let fallbackTimerId: number | null = null;
+    // Determine when the document is actually fully loaded
+    let documentLoaded = document.readyState === 'complete';
 
-    const finishLoading = () => {
-      const elapsed = performance.now() - startedAt;
-      const remaining = Math.max(0, minDurationMs - elapsed);
-
-      if (finishTimerId) {
-        window.clearTimeout(finishTimerId);
-      }
-      finishTimerId = window.setTimeout(() => {
-        setIsLoading(false);
-        overlayTimerId = window.setTimeout(() => {
-          setShowOverlay(false);
-        }, OVERLAY_EXIT_MS);
-      }, remaining);
+    const handleLoad = () => {
+      documentLoaded = true;
     };
 
-    if (document.readyState === 'complete') {
-      finishLoading();
-    } else {
-      const onLoaded = () => finishLoading();
-      window.addEventListener('load', onLoaded, { once: true });
-      fallbackTimerId = window.setTimeout(() => {
-        finishLoading();
-      }, FALLBACK_FINISH_MS);
-
-      return () => {
-        window.removeEventListener('load', onLoaded);
-        if (fallbackTimerId) {
-          window.clearTimeout(fallbackTimerId);
-        }
-        if (finishTimerId) {
-          window.clearTimeout(finishTimerId);
-        }
-        if (overlayTimerId) {
-          window.clearTimeout(overlayTimerId);
-        }
-      };
+    if (!documentLoaded) {
+      window.addEventListener('load', handleLoad, { once: true });
     }
 
+    // Prepare GSAP timeline
+    const tl = gsap.timeline({
+      paused: true,
+      onComplete: () => {
+        setIsLoading(false);
+        setTimeout(() => setShowOverlay(false), 50);
+      },
+    });
+
+    // 1. Progress from 0 to 100
+    const counter = { value: 0 };
+    tl.to(
+      counter,
+      {
+        value: 100,
+        duration: minDurationMs / 1000,
+        ease: 'power3.inOut',
+        onUpdate: () => {
+          if (counterRef.current) {
+            counterRef.current.textContent = `${Math.round(counter.value)}%`;
+          }
+        },
+      },
+      0
+    );
+
+    tl.to(
+      progressRef.current,
+      {
+        width: '100%',
+        duration: minDurationMs / 1000,
+        ease: 'power3.inOut',
+      },
+      0
+    );
+
+    // Fade in the initialization text briefly
+    tl.fromTo(
+      textRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+      0.2
+    );
+
+    // 2. Hide counter and progress bar
+    tl.to(
+      [counterRef.current, progressRef.current?.parentElement, textRef.current],
+      {
+        opacity: 0,
+        y: -20,
+        duration: 0.5,
+        ease: 'power2.inOut',
+        stagger: 0.1,
+      },
+      '+=0.2'
+    );
+
+    // 3. Reveal Brand
+    tl.fromTo(
+      brandRef.current,
+      { opacity: 0, y: 20, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.5)' }
+    );
+
+    // We can add a dynamic wait here to ensure document is loaded before lifting curtain.
+    tl.add(() => {
+      if (!documentLoaded) {
+        tl.pause();
+        const checkInterval = setInterval(() => {
+          if (documentLoaded) {
+            clearInterval(checkInterval);
+            tl.play();
+          }
+        }, 100);
+      }
+    });
+
+    // 4. Slide curtain up
+    tl.to(containerRef.current, {
+      yPercent: -100,
+      duration: 1,
+      ease: 'power4.inOut',
+      delay: 0.4,
+    });
+
+    tl.play();
+
     return () => {
-      if (finishTimerId) {
-        window.clearTimeout(finishTimerId);
-      }
-      if (overlayTimerId) {
-        window.clearTimeout(overlayTimerId);
-      }
+      window.removeEventListener('load', handleLoad);
+      tl.kill();
     };
   }, [minDurationMs]);
 
@@ -77,7 +133,6 @@ export default function PageEntryLoader({
     } else {
       document.body.style.overflow = '';
     }
-
     return () => {
       document.body.style.overflow = '';
     };
@@ -95,41 +150,62 @@ export default function PageEntryLoader({
 
       {showOverlay && (
         <div
-          className={`fixed inset-0 z-[300] flex items-center justify-center px-6 transition-opacity duration-700 ${
-            isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
-          style={{ background: 'var(--color-background)' }}
+          ref={containerRef}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--color-background)]"
           role="status"
           aria-live="polite"
           aria-label="Loading portfolio"
         >
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="entry-loader-orb entry-loader-orb-left" />
-            <div className="entry-loader-orb entry-loader-orb-right" />
+          {/* Interactive Dot Background */}
+          <div className="absolute inset-0 z-0 pointer-events-auto">
+            <DotField
+              dotRadius={1.5}
+              dotSpacing={14}
+              bulgeStrength={67}
+              glowRadius={160}
+              sparkle={true}
+              waveAmplitude={0}
+            />
           </div>
 
-          <div className="glass-card relative z-10 w-full max-w-xl rounded-[2rem] p-8 md:p-10">
-            <div className="flex flex-col items-center gap-8">
-              <div className="entry-loader-perspective">
-                <div className="entry-loader-cube" aria-hidden="true">
-                  <span className="entry-loader-face entry-loader-face-front" />
-                  <span className="entry-loader-face entry-loader-face-back" />
-                  <span className="entry-loader-face entry-loader-face-right" />
-                  <span className="entry-loader-face entry-loader-face-left" />
-                  <span className="entry-loader-face entry-loader-face-top" />
-                  <span className="entry-loader-face entry-loader-face-bottom" />
-                </div>
-              </div>
+          <div className="relative z-10 flex w-full max-w-sm flex-col items-center justify-center px-6">
+            {/* The Brand Reveal (Hidden initially) */}
+            <div
+              ref={brandRef}
+              className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0"
+            >
+              <h1
+                className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl"
+                style={{ textShadow: '0 0 30px var(--color-accent-muted)' }}
+              >
+                ABID.DEV
+              </h1>
+            </div>
 
-              <div className="w-full max-w-sm space-y-3">
-                <div className="entry-loader-skeleton h-3 w-40 rounded-full" />
-                <div className="entry-loader-skeleton h-2.5 w-full rounded-full" />
-                <div className="entry-loader-skeleton h-2.5 w-4/5 rounded-full" />
-              </div>
+            {/* Percentage Counter */}
+            <div
+              ref={counterRef}
+              className="text-7xl font-black tracking-tighter text-[var(--color-foreground)] md:text-8xl"
+              style={{ fontVariantNumeric: 'tabular-nums' }}
+            >
+              0%
+            </div>
 
-              <p className="text-center text-xs uppercase tracking-[0.2em] text-[var(--color-foreground-muted)]">
-                Building your immersive portfolio experience
-              </p>
+            {/* Progress Bar Container */}
+            <div className="relative mt-8 h-[2px] w-full overflow-hidden rounded-full bg-[var(--color-border)]">
+              <div
+                ref={progressRef}
+                className="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)]"
+                style={{ boxShadow: '0 0 15px var(--color-accent)' }}
+              />
+            </div>
+
+            {/* Loading text */}
+            <div
+              ref={textRef}
+              className="mt-6 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-foreground-muted)] opacity-0"
+            >
+              Initializing Experience
             </div>
           </div>
         </div>
