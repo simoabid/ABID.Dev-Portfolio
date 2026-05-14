@@ -432,7 +432,7 @@ export default function Hero() {
                 <StarBorder
                   as={Link}
                   href="#contact"
-                  className="cursor-target group rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="cursor-target group inline-block rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   innerClassName="btn-primary px-8 py-4"
                   aria-label="Contact me to discuss hiring opportunities"
                   color="var(--color-background)"
@@ -569,7 +569,7 @@ export default function Hero() {
 
         {/* SplashCursor Toggle */}
         <div
-          className="absolute bottom-8 right-6 md:right-12 lg:right-16 xl:right-24 z-20 animate-fade-in"
+          className="hidden lg:block absolute bottom-8 right-6 md:right-12 lg:right-16 xl:right-24 z-20 animate-fade-in"
           style={{ animationDelay: '1s' }}
         >
           <button
