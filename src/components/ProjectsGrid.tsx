@@ -20,6 +20,7 @@
 import { forwardRef } from 'react';
 import ProjectCard from './ProjectCard';
 import type { Project } from '@/data/projects';
+import { MagicContainer } from './UI/MagicBento';
 
 interface ProjectsGridProps {
   projects: Project[];
@@ -38,14 +39,14 @@ const ProjectsGrid = forwardRef<HTMLDivElement, ProjectsGridProps>(
     }
 
     return (
-      <div
+      <MagicContainer
         ref={ref}
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 ${className}`}
       >
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
-      </div>
+      </MagicContainer>
     );
   }
 );

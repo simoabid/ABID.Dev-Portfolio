@@ -13,7 +13,7 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
-
+import { MagicContainer, MagicCard } from './UI/MagicBento';
 import ContactForm from './ContactForm';
 
 const contactInfo = [
@@ -201,7 +201,7 @@ export default function Contact() {
         </div>
 
         <div className="max-w-5xl mx-auto mt-16">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+          <MagicContainer className="grid md:grid-cols-2 gap-12 lg:gap-16">
             {/* ── Left: Contact Info ── */}
             <div ref={infoRef} className="opacity-0">
               <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-3">
@@ -215,7 +215,8 @@ export default function Contact() {
               {/* Contact info cards */}
               <div className="space-y-4 mb-8">
                 {contactInfo.map((info) => (
-                  <a
+                  <MagicCard
+                    as="a"
                     key={info.title}
                     href={info.href}
                     className="cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] hover:-translate-x-1 transition-all duration-300 group"
@@ -253,7 +254,7 @@ export default function Contact() {
                         {info.value}
                       </p>
                     </div>
-                  </a>
+                  </MagicCard>
                 ))}
               </div>
 
@@ -285,7 +286,7 @@ export default function Contact() {
             <div ref={formWrapperRef} className="opacity-0">
               <ContactForm />
             </div>
-          </div>
+          </MagicContainer>
         </div>
       </div>
     </section>

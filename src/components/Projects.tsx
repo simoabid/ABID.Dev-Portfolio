@@ -22,6 +22,7 @@ import FeaturedProjectCard from './FeaturedProjectCard';
 import ProjectCard from './ProjectCard';
 import ProjectFilter from './ProjectFilter';
 import LogoLoop from './UI/LogoLoop';
+import { MagicContainer } from './UI/MagicBento';
 import {
   projects,
   getFeaturedProject,
@@ -306,13 +307,13 @@ export default function Projects() {
 
         {/* ── Featured Project Card ── */}
         {showFeatured && (
-          <div className="mb-10">
+          <MagicContainer className="mb-10">
             <FeaturedProjectCard ref={featuredRef} project={featured} />
-          </div>
+          </MagicContainer>
         )}
 
         {/* ── Secondary Projects Grid ── */}
-        <div
+        <MagicContainer
           ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
@@ -325,7 +326,7 @@ export default function Projects() {
               project={project}
             />
           ))}
-        </div>
+        </MagicContainer>
 
         {/* ── Tech-stack marquee ── */}
         <div className="mt-20 overflow-hidden">

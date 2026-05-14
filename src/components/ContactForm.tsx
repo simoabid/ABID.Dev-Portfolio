@@ -23,6 +23,7 @@ import {
 } from '@/lib/validation';
 import type { ContactFormData, ValidationErrors } from '@/lib/validation';
 import HoverRollText from './UI/HoverRollText';
+import { MagicCard } from './UI/MagicBento';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -223,8 +224,9 @@ export default function ContactForm() {
   return (
     <div className="relative">
       {/* ── Form ── */}
-      <form
-        ref={formRef}
+      <MagicCard
+        as="form"
+        ref={formRef as any}
         onSubmit={handleSubmit}
         noValidate
         className="glass-card rounded-2xl p-8 space-y-6"
@@ -506,7 +508,7 @@ export default function ContactForm() {
             </a>
           </p>
         )}
-      </form>
+      </MagicCard>
 
       {/* ── Success State ── */}
       <div

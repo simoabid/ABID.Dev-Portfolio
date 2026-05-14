@@ -18,6 +18,7 @@ import Image from 'next/image';
 import type { Project } from '@/data/projects';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
+import { MagicCard } from './UI/MagicBento';
 
 interface FeaturedProjectCardProps {
   project: Project;
@@ -28,112 +29,114 @@ const FeaturedProjectCard = forwardRef<
   FeaturedProjectCardProps
 >(function FeaturedProjectCard({ project }, ref) {
   return (
-    <article
-      ref={ref}
-      className="cursor-target featured-card group relative grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-500 hover:border-[var(--color-border-accent)] hover:shadow-2xl hover:shadow-[var(--color-shadow-accent)]"
-      style={{ willChange: 'transform, opacity' }}
-      aria-label={`Featured project: ${project.title}`}
-    >
-      {/* Accent gradient border-bottom glow */}
+    <MagicCard className="cursor-target featured-card group relative grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-500 hover:border-[var(--color-border-accent)] hover:shadow-2xl hover:shadow-[var(--color-shadow-accent)]">
       <div
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
-        aria-hidden="true"
-      />
-
-      {/* ── Image Area (Left 7/12 ≈ 58%) ── */}
-      <div className="relative lg:col-span-7 overflow-hidden flex items-start bg-black/20">
-        {/* Project screenshot */}
-        <Image
-          src={project.image}
-          alt={`Screenshot of ${project.title}`}
-          width={1920}
-          height={3000}
-          className="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105"
-          sizes="(max-width: 1024px) 100vw, 58vw"
-          priority
-        />
-
-        {/* Blending overlay from right */}
+        ref={ref}
+        className="contents"
+        style={{ willChange: 'transform, opacity' }}
+        aria-label={`Featured project: ${project.title}`}
+      >
+        {/* Accent gradient border-bottom glow */}
         <div
-          className="hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background-alt)] to-transparent"
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
           aria-hidden="true"
         />
 
-        {/* Blending overlay from bottom (mobile) */}
-        <div
-          className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-alt)] to-transparent"
-          aria-hidden="true"
-        />
-      </div>
+        {/* ── Image Area (Left 7/12 ≈ 58%) ── */}
+        <div className="relative lg:col-span-7 overflow-hidden flex items-start bg-black/20">
+          {/* Project screenshot */}
+          <Image
+            src={project.image}
+            alt={`Screenshot of ${project.title}`}
+            width={1920}
+            height={3000}
+            className="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105"
+            sizes="(max-width: 1024px) 100vw, 58vw"
+            priority
+          />
 
-      {/* ── Content Area (Right 5/12 ≈ 42%) ── */}
-      <div className="lg:col-span-5 flex flex-col justify-center p-8 lg:p-10 xl:p-12 gap-5">
-        {/* Category label */}
-        <span className="inline-block w-fit text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent-secondary)]">
-          Featured Project
-        </span>
+          {/* Blending overlay from right */}
+          <div
+            className="hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background-alt)] to-transparent"
+            aria-hidden="true"
+          />
 
-        {/* Title */}
-        <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-[var(--color-foreground)] leading-tight group-hover:gradient-text transition-all duration-300">
-          {project.title}
-        </h3>
+          {/* Blending overlay from bottom (mobile) */}
+          <div
+            className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-alt)] to-transparent"
+            aria-hidden="true"
+          />
+        </div>
 
-        {/* Tagline */}
-        <p className="text-base text-[var(--color-foreground-muted)] italic leading-relaxed">
-          &ldquo;{project.tagline}&rdquo;
-        </p>
-
-        {/* Challenge */}
-        <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
-          {project.challenge}
-        </p>
-
-        {/* Outcome stat */}
-        <div className="flex items-center gap-3">
-          <span className="text-2xl font-extrabold gradient-text">
-            {project.outcome}
+        {/* ── Content Area (Right 5/12 ≈ 42%) ── */}
+        <div className="lg:col-span-5 flex flex-col justify-center p-8 lg:p-10 xl:p-12 gap-5">
+          {/* Category label */}
+          <span className="inline-block w-fit text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent-secondary)]">
+            Featured Project
           </span>
-        </div>
 
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 text-xs font-medium rounded-full border border-[var(--color-border)] text-[var(--color-foreground-muted)] bg-[var(--color-background)]/50 transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              {tech}
+          {/* Title */}
+          <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-[var(--color-foreground)] leading-tight group-hover:gradient-text transition-all duration-300">
+            {project.title}
+          </h3>
+
+          {/* Tagline */}
+          <p className="text-base text-[var(--color-foreground-muted)] italic leading-relaxed">
+            &ldquo;{project.tagline}&rdquo;
+          </p>
+
+          {/* Challenge */}
+          <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
+            {project.challenge}
+          </p>
+
+          {/* Outcome stat */}
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold gradient-text">
+              {project.outcome}
             </span>
-          ))}
-        </div>
+          </div>
 
-        {/* CTAs */}
-        <div className="flex flex-wrap gap-3 pt-2">
-          {project.liveUrl && (
-            <CtaHoverEffect>
-              <a
-                href={project.liveUrl}
-                className="group btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                aria-label={`View live demo of ${project.title}`}
+          {/* Tech stack */}
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 text-xs font-medium rounded-full border border-[var(--color-border)] text-[var(--color-foreground-muted)] bg-[var(--color-background)]/50 transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
               >
-                <HoverRollText text="View Case Study" />
-              </a>
-            </CtaHoverEffect>
-          )}
-          {project.repoUrl && (
-            <CtaHoverEffect>
-              <a
-                href={project.repoUrl}
-                className="group btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-                aria-label={`View source code of ${project.title}`}
-              >
-                <HoverRollText text="Source Code" />
-              </a>
-            </CtaHoverEffect>
-          )}
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            {project.liveUrl && (
+              <CtaHoverEffect>
+                <a
+                  href={project.liveUrl}
+                  className="group btn-primary px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  aria-label={`View live demo of ${project.title}`}
+                >
+                  <HoverRollText text="View Case Study" />
+                </a>
+              </CtaHoverEffect>
+            )}
+            {project.repoUrl && (
+              <CtaHoverEffect>
+                <a
+                  href={project.repoUrl}
+                  className="group btn-outline px-6 py-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  aria-label={`View source code of ${project.title}`}
+                >
+                  <HoverRollText text="Source Code" />
+                </a>
+              </CtaHoverEffect>
+            )}
+          </div>
         </div>
       </div>
-    </article>
+    </MagicCard>
   );
 });
 

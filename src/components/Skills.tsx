@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Container from './Container';
 import { Grid, GridItem } from './Grid';
+import { MagicContainer, MagicCard } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 const skills = [
@@ -22,7 +23,7 @@ const skills = [
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -33,7 +34,7 @@ export default function Skills() {
         '(prefers-reduced-motion: reduce)'
       ).matches;
 
-      const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+      const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
       if (cards.length === 0) return;
 
       if (prefersReducedMotion) {
@@ -101,64 +102,66 @@ export default function Skills() {
             <span className="gradient-text">SKILLS</span>
           </h2>
         </div>
-        <Grid
-          cols={2}
-          colsMd={3}
-          colsLg={4}
-          gap={6}
-          className="max-w-5xl mx-auto"
-        >
-          {skills.map((skill, index) => (
-            <GridItem key={skill.name}>
-              <div
-                ref={(el) => {
-                  cardRefs.current[index] = el;
-                }}
-                className="cursor-target group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300 opacity-0"
-                style={{ perspective: '600px' }}
-                data-cursor="view"
-              >
-                {/* Icon */}
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-[var(--color-accent-muted)] flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <span
-                    className="gradient-text text-xl font-bold"
+        <MagicContainer>
+          <Grid
+            cols={2}
+            colsMd={3}
+            colsLg={4}
+            gap={6}
+            className="max-w-5xl mx-auto"
+          >
+            {skills.map((skill, index) => (
+              <GridItem key={skill.name}>
+                <MagicCard
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
+                  className="cursor-target group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300 opacity-0"
+                  style={{ perspective: '600px' }}
+                  data-cursor="view"
+                >
+                  {/* Icon */}
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-[var(--color-accent-muted)] flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <span
+                      className="gradient-text text-xl font-bold"
+                      aria-hidden="true"
+                    >
+                      {skill.icon}
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <h3 className="text-center text-lg font-semibold text-[var(--color-foreground)] mb-3">
+                    {skill.name}
+                  </h3>
+
+                  {/* Progress Bar */}
+                  <div
+                    className="relative h-2 bg-[var(--color-background)] rounded-full overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={skill.level}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label={`${skill.name} proficiency: ${skill.level}%`}
+                  >
+                    <div
+                      className="skill-bar-fill absolute inset-y-0 left-0 gradient-bg rounded-full"
+                      style={{ width: 0 }}
+                    />
+                  </div>
+
+                  {/* Percentage */}
+                  <p
+                    className="text-center text-sm text-[var(--color-accent)] mt-2 font-medium"
                     aria-hidden="true"
                   >
-                    {skill.icon}
-                  </span>
-                </div>
-
-                {/* Name */}
-                <h3 className="text-center text-lg font-semibold text-[var(--color-foreground)] mb-3">
-                  {skill.name}
-                </h3>
-
-                {/* Progress Bar */}
-                <div
-                  className="relative h-2 bg-[var(--color-background)] rounded-full overflow-hidden"
-                  role="progressbar"
-                  aria-valuenow={skill.level}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-label={`${skill.name} proficiency: ${skill.level}%`}
-                >
-                  <div
-                    className="skill-bar-fill absolute inset-y-0 left-0 gradient-bg rounded-full"
-                    style={{ width: 0 }}
-                  />
-                </div>
-
-                {/* Percentage */}
-                <p
-                  className="text-center text-sm text-[var(--color-accent)] mt-2 font-medium"
-                  aria-hidden="true"
-                >
-                  {skill.level}%
-                </p>
-              </div>
-            </GridItem>
-          ))}
-        </Grid>
+                    {skill.level}%
+                  </p>
+                </MagicCard>
+              </GridItem>
+            ))}
+          </Grid>
+        </MagicContainer>
       </Container>
     </section>
   );

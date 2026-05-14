@@ -1,3 +1,5 @@
+import { MagicCard } from './UI/MagicBento';
+
 /**
  * CodeSnippet Component
  *
@@ -6,7 +8,7 @@
  */
 export default function CodeSnippet() {
   return (
-    <div
+    <MagicCard
       className="w-full max-w-md bg-[var(--color-code-bg)] rounded-2xl overflow-hidden shadow-2xl shadow-[var(--color-shadow-accent)] border border-[var(--color-border-muted)]"
       aria-hidden="true"
     >
@@ -123,6 +125,6 @@ export default function CodeSnippet() {
           </code>
         </pre>
       </div>
-    </div>
+    </MagicCard>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { MagicContainer, MagicCard } from './UI/MagicBento';
 
 const experiences = [
   {
@@ -45,7 +46,7 @@ const experiences = [
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -125,7 +126,7 @@ export default function Experience() {
             <span className="gradient-text">EXPERIENCE</span>
           </h2>
         </div>
-        <div className="max-w-3xl mx-auto relative">
+        <MagicContainer className="max-w-3xl mx-auto relative">
           {/* Timeline line */}
           <div
             ref={timelineRef}
@@ -155,7 +156,7 @@ export default function Experience() {
               />
 
               {/* Content card */}
-              <div
+              <MagicCard
                 className="cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
                 data-cursor="pointer"
               >
@@ -185,10 +186,10 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </MagicCard>
             </div>
           ))}
-        </div>
+        </MagicContainer>
       </div>
     </section>
   );

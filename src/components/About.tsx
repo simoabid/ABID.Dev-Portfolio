@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
+import { MagicContainer, MagicCard } from './UI/MagicBento';
 
 /**
  * About Section Component
@@ -43,7 +44,7 @@ const features = [
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const statsRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const statsRefs = useRef<(HTMLElement | null)[]>([]);
   const bioRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -245,14 +246,14 @@ export default function About() {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="max-w-6xl mx-auto">
+        <MagicContainer className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Profile Area - Large card spanning left side */}
             <div
               ref={profileRef}
               className="lg:col-span-5 lg:row-span-2 opacity-0"
             >
-              <div className="cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
+              <MagicCard className="cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
                 {/* Availability Badge — in-flow so it never wraps on mobile */}
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 backdrop-blur-md whitespace-nowrap">
@@ -365,13 +366,13 @@ export default function About() {
 
                 {/* Decorative accent line */}
                 <div className="mt-8 w-16 h-1 rounded-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)]" />
-              </div>
+              </MagicCard>
             </div>
 
             {/* Stats Cards - Right side, top row */}
             <div className="lg:col-span-7 grid grid-cols-3 gap-4">
               {stats.map((stat, index) => (
-                <div
+                <MagicCard
                   key={stat.label}
                   ref={(el) => {
                     statsRefs.current[index] = el;
@@ -389,12 +390,12 @@ export default function About() {
                   <p className="mt-2 text-sm text-[var(--color-foreground-muted)]">
                     {stat.label}
                   </p>
-                </div>
+                </MagicCard>
               ))}
             </div>
 
             {/* Bio Content - Right side, bottom row */}
-            <div
+            <MagicCard
               ref={bioRef}
               className="lg:col-span-7 opacity-0 glass-card rounded-3xl p-8"
             >
@@ -430,7 +431,7 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </div>
+            </MagicCard>
           </div>
 
           {/* CTA Buttons */}
@@ -489,7 +490,7 @@ export default function About() {
               </Link>
             </CtaHoverEffect>
           </div>
-        </div>
+        </MagicContainer>
       </div>
     </section>
   );

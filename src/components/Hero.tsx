@@ -9,11 +9,16 @@ import AnimatedCodeBrackets from './UI/AnimatedCodeBrackets';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import StarBorder from './UI/StarBorder';
+import { MagicContainer } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
 
 // Three.js portrait is client-only and lazy-loaded so the WebGL bundle stays
 // out of the initial critical path.
 const HeroPortrait3D = dynamic(() => import('./UI/HeroPortrait3D'), {
+  ssr: false,
+});
+
+const AuroraBackground = dynamic(() => import('./UI/Aurora'), {
   ssr: false,
 });
 
@@ -287,6 +292,14 @@ export default function Hero() {
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-[var(--color-background)]">
+        <div className="absolute inset-0 opacity-40 mix-blend-screen">
+          <AuroraBackground
+            colorStops={['#677cff', '#B497CF', '#5227FF']}
+            blend={0.67}
+            amplitude={1.0}
+            speed={0.5}
+          />
+        </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_30%,rgba(108,99,255,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_70%,rgba(0,212,255,0.1),transparent_50%)]" />
         {/* Subtle grid pattern */}
@@ -513,12 +526,12 @@ export default function Hero() {
           </div>
 
           {/* Right Column - Code Snippet (spans 4 columns, right-aligned) */}
-          <div
+          <MagicContainer
             ref={codeSnippetRef}
             className="lg:col-span-4 hidden lg:flex justify-end order-3 animate-slide-up"
           >
             <CodeSnippet />
-          </div>
+          </MagicContainer>
         </div>
 
         {/* Scroll indicator */}
