@@ -17,6 +17,11 @@ const TargetCursor = dynamic(() => import('@/components/UI/TargetCursor'), {
   ssr: false,
 });
 
+/** Client-only: fluid simulation cursor effect */
+const SplashCursor = dynamic(() => import('@/components/UI/SplashCursor'), {
+  ssr: false,
+});
+
 /** Client-only: defers gsap + lenis from the SSR critical path */
 const SmoothScrollProvider = dynamic(
   () => import('@/components/SmoothScrollProvider'),
@@ -120,6 +125,7 @@ export default function RootLayout({
           </PageEntryLoader>
           <CookieBanner />
           <TargetCursor />
+          <SplashCursor />
         </ThemeProvider>
       </body>
     </html>

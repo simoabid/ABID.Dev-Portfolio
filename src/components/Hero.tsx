@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -51,6 +51,27 @@ export default function Hero() {
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const socialsRef = useRef<HTMLDivElement>(null);
+
+  const [isSplashCursorEnabled, setIsSplashCursorEnabled] = useState(false);
+
+  useEffect(() => {
+    // Check initial state from local storage so it reflects correctly
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('splashCursorEnabled');
+      if (saved !== null) {
+        setIsSplashCursorEnabled(saved === 'true');
+      }
+    }
+  }, []);
+
+  const toggleSplashCursor = () => {
+    const newState = !isSplashCursorEnabled;
+    setIsSplashCursorEnabled(newState);
+    localStorage.setItem('splashCursorEnabled', String(newState));
+    window.dispatchEvent(
+      new CustomEvent('splashCursorToggle', { detail: { enabled: newState } })
+    );
+  };
 
   useEffect(() => {
     // SSR guard
@@ -510,6 +531,28 @@ export default function Hero() {
               d="M19 14l-7 7m0 0l-7-7m7 7V3"
             />
           </svg>
+        </div>
+
+        {/* SplashCursor Toggle */}
+        <div
+          className="absolute bottom-8 right-6 md:right-12 lg:right-16 xl:right-24 z-20 animate-fade-in"
+          style={{ animationDelay: '1s' }}
+        >
+          <button
+            onClick={toggleSplashCursor}
+            className="cursor-target flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-[var(--color-surface)]/80 backdrop-blur-sm border border-[var(--color-border)] text-xs md:text-sm font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-muted)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] shadow-lg"
+            aria-label={
+              isSplashCursorEnabled
+                ? 'Disable magic cursor'
+                : 'Enable magic cursor'
+            }
+            title="Toggle interactive fluid cursor"
+          >
+            <span
+              className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-colors duration-300 ${isSplashCursorEnabled ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : 'bg-gray-400/80'}`}
+            />
+            Magic Cursor
+          </button>
         </div>
       </div>
     </section>
