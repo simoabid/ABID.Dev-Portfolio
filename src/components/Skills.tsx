@@ -5,6 +5,7 @@ import Container from './Container';
 import { Grid, GridItem } from './Grid';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
+import CurvedLoop from './UI/CurvedLoop';
 
 const skills = [
   { name: 'HTML5', level: 95, icon: 'H' },
@@ -163,6 +164,16 @@ export default function Skills() {
           </Grid>
         </MagicContainer>
       </Container>
+      <div className="w-full overflow-hidden text-[var(--color-foreground)] mt-24 opacity-40 hover:opacity-100 transition-opacity duration-500">
+        <CurvedLoop
+          marqueeText="FRONTEND ✦ BACKEND ✦ SYSTEM DESIGN ✦ FULL STACK ✦ "
+          speed={2.3}
+          curveAmount={170}
+          direction="right"
+          interactive={true}
+          className="text-[var(--color-accent)]"
+        />
+      </div>
     </section>
   );
 }
