@@ -130,7 +130,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
     return (
       <article
         ref={setRefs}
-        className="project-card group relative flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-300 hover:border-[var(--color-border-accent)] hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] focus-within:border-[var(--color-border-accent)] focus-within:-translate-y-2 focus-within:shadow-xl focus-within:shadow-[var(--color-shadow-accent)]"
+        className="cursor-target project-card group relative flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-300 hover:border-[var(--color-border-accent)] hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] focus-within:border-[var(--color-border-accent)] focus-within:-translate-y-2 focus-within:shadow-xl focus-within:shadow-[var(--color-shadow-accent)]"
         style={{ willChange: 'transform' }}
       >
         {/* ── Image Area ── */}

@@ -142,7 +142,7 @@ export default function CookieBanner() {
           <div className="flex items-center gap-3 flex-shrink-0 w-full sm:w-auto">
             <button
               onClick={handleDecline}
-              className="flex-1 sm:flex-initial px-5 py-2.5 text-sm font-medium rounded-xl border border-[var(--color-border)] text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-border-accent)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              className="cursor-target flex-1 sm:flex-initial px-5 py-2.5 text-sm font-medium rounded-xl border border-[var(--color-border)] text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-border-accent)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               type="button"
               aria-label="Decline cookies and analytics"
             >
@@ -151,7 +151,7 @@ export default function CookieBanner() {
             <button
               ref={acceptBtnRef}
               onClick={handleAccept}
-              className="flex-1 sm:flex-initial px-5 py-2.5 text-sm font-semibold rounded-xl gradient-bg text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-[var(--color-accent)]/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              className="cursor-target flex-1 sm:flex-initial px-5 py-2.5 text-sm font-semibold rounded-xl gradient-bg text-[var(--color-foreground-inverted)] shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-[var(--color-accent)]/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               type="button"
               aria-label="Accept cookies and analytics"
             >

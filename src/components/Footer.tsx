@@ -103,7 +103,7 @@ export default function Footer() {
           {/* Left Column: Brand, Desc, Code, Socials */}
           <div className="lg:col-span-5 space-y-6">
             <div className="space-y-4">
-              <Link href="/" className="inline-block">
+              <Link href="/" className="cursor-target inline-block">
                 <h2 className="text-3xl font-bold tracking-tighter">
                   ABID<span className="text-[var(--color-accent)]">.Dev</span>
                 </h2>
@@ -116,7 +116,7 @@ export default function Footer() {
 
             {/* Code Snippet Card */}
             <div
-              className="bg-[var(--color-code-bg)] rounded-xl p-4 border border-[var(--color-border-muted)] font-mono text-xs text-[var(--color-code-text)] overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300"
+              className="cursor-target bg-[var(--color-code-bg)] rounded-xl p-4 border border-[var(--color-border-muted)] font-mono text-xs text-[var(--color-code-text)] overflow-x-auto shadow-inner transform hover:scale-[1.02] transition-transform duration-300"
               aria-hidden="true"
             >
               <div className="flex gap-1.5 mb-3">
@@ -136,7 +136,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-[var(--color-background)]/50 border border-[var(--color-border-muted)] flex items-center justify-center text-[var(--color-foreground-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-foreground)] hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="cursor-target w-10 h-10 rounded-full bg-[var(--color-background)]/50 border border-[var(--color-border-muted)] flex items-center justify-center text-[var(--color-foreground-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-foreground)] hover:border-transparent hover:scale-110 active:scale-95 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label={`Visit ${social.label} profile`}
                 >
                   {social.icon}
@@ -175,7 +175,7 @@ export default function Footer() {
             {/* Bottom: Terminal & Headline */}
             <div className="flex flex-col gap-6">
               {/* Terminal Box - Right Aligned */}
-              <div className="w-full md:w-[55%] ml-auto font-mono text-xs space-y-3 p-4 rounded-xl bg-[var(--color-code-bg)] border border-[var(--color-border-muted)] text-[var(--color-foreground-muted)] shadow-inner transform hover:scale-[1.01] transition-transform duration-300">
+              <div className="cursor-target w-full md:w-[55%] ml-auto font-mono text-xs space-y-3 p-4 rounded-xl bg-[var(--color-code-bg)] border border-[var(--color-border-muted)] text-[var(--color-foreground-muted)] shadow-inner transform hover:scale-[1.01] transition-transform duration-300">
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-2">
                     <span className="text-[var(--color-terminal-prompt)]">

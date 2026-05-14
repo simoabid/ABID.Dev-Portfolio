@@ -380,7 +380,7 @@ export default function Hero() {
               <CtaHoverEffect>
                 <Link
                   href="#contact"
-                  className="group btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="cursor-target group btn-primary px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label="Contact me to discuss hiring opportunities"
                 >
                   <HoverRollText text="Contact Me" />
@@ -389,7 +389,7 @@ export default function Hero() {
               <CtaHoverEffect>
                 <Link
                   href="#projects"
-                  className="group btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                  className="cursor-target group btn-outline px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   aria-label="View Projects — browse my portfolio"
                 >
                   <HoverRollText text="View Projects" />
@@ -455,7 +455,7 @@ export default function Hero() {
             </div>
 
             {/* Portrait */}
-            <div className="relative w-48 h-48 md:w-60 md:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border-4 border-[var(--color-border-accent)] shadow-2xl shadow-[var(--color-shadow-accent)] animate-fade-in">
+            <div className="cursor-target relative w-48 h-48 md:w-60 md:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border-4 border-[var(--color-border-accent)] shadow-2xl shadow-[var(--color-shadow-accent)] animate-fade-in">
               <Image
                 src="/images/hero-portrait.png"
                 alt="Mohamed Amine Abid - Full-Stack Developer"

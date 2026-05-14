@@ -230,7 +230,7 @@ export default function Socials() {
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
                 aria-label={`View ${card.platform} — ${card.alt}`}
-                className={`relative rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-lg will-change-transform${
+                className={`cursor-target relative rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-lg will-change-transform${
                   isHero ? ' col-span-2' : ''
                 }`}
                 style={{
@@ -307,7 +307,7 @@ export default function Socials() {
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
                 aria-label={`View ${card.platform} — ${card.alt}`}
-                className="absolute origin-bottom rounded-[28px] overflow-hidden border border-[var(--color-border)] shadow-xl will-change-transform"
+                className="cursor-target absolute origin-bottom rounded-[28px] overflow-hidden border border-[var(--color-border)] shadow-xl will-change-transform"
                 style={{
                   width: 'clamp(155px, 22vw, 310px)',
                   height: 'clamp(220px, 32vw, 460px)',
@@ -387,7 +387,7 @@ export default function Socials() {
               target="_blank"
               rel="noreferrer"
               aria-label={`Follow on ${link.label}`}
-              className="group text-xs sm:text-sm md:text-base font-bold tracking-[0.15em] text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors duration-300"
+              className="cursor-target group text-xs sm:text-sm md:text-base font-bold tracking-[0.15em] text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors duration-300"
             >
               <HoverRollText text={link.label} />
             </a>

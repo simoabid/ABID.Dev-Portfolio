@@ -156,7 +156,7 @@ export default function Experience() {
 
               {/* Content card */}
               <div
-                className="ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
+                className="cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
                 data-cursor="pointer"
               >
                 <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-1">

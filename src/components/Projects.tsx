@@ -18,10 +18,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Container from './Container';
-
 import FeaturedProjectCard from './FeaturedProjectCard';
 import ProjectCard from './ProjectCard';
 import ProjectFilter from './ProjectFilter';
+import LogoLoop from './UI/LogoLoop';
 import {
   projects,
   getFeaturedProject,
@@ -29,6 +29,35 @@ import {
   getCategories,
 } from '@/data/projects';
 import { gsap, ScrollTrigger } from '@/lib/scroll';
+import {
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiMongodb,
+  SiPython,
+  SiLaravel,
+  SiGit,
+  SiLinux,
+} from 'react-icons/si';
+
+const techLogos = [
+  { node: <SiHtml5 style={{ color: '#e34f26' }} />, title: 'HTML5' },
+  { node: <SiCss style={{ color: '#1572b6' }} />, title: 'CSS3' },
+  { node: <SiJavascript style={{ color: '#f7df1e' }} />, title: 'JavaScript' },
+  { node: <SiTypescript style={{ color: '#3178c6' }} />, title: 'TypeScript' },
+  { node: <SiReact style={{ color: '#61dafb' }} />, title: 'React' },
+  { node: <SiNextdotjs />, title: 'Next.js' },
+  { node: <SiNodedotjs style={{ color: '#5fa04e' }} />, title: 'Node.js' },
+  { node: <SiMongodb style={{ color: '#47a248' }} />, title: 'MongoDB' },
+  { node: <SiPython style={{ color: '#3776ab' }} />, title: 'Python' },
+  { node: <SiLaravel style={{ color: '#ff2d20' }} />, title: 'Laravel' },
+  { node: <SiGit style={{ color: '#f05032' }} />, title: 'Git' },
+  { node: <SiLinux />, title: 'Linux' },
+];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -296,6 +325,39 @@ export default function Projects() {
               project={project}
             />
           ))}
+        </div>
+
+        {/* ── Tech-stack marquee ── */}
+        <div className="mt-20 overflow-hidden">
+          <p className="text-center text-xs uppercase tracking-widest text-[var(--color-foreground-subtle)] mb-8 font-mono">
+            Technologies I work with
+          </p>
+          <LogoLoop
+            logos={techLogos}
+            speed={80}
+            direction="left"
+            logoHeight={32}
+            gap={48}
+            hoverSpeed={20}
+            fadeOut
+            ariaLabel="Technology stack: HTML5, CSS3, JavaScript, TypeScript, React, Next.js, Node.js, MongoDB, Python, Laravel, Git, Linux"
+            renderItem={(item) => {
+              const logo = item as (typeof techLogos)[number];
+              return (
+                <div className="flex flex-col items-center gap-2">
+                  <span
+                    className="text-[var(--color-foreground-muted)] transition-colors duration-300 hover:text-[var(--color-foreground)]"
+                    style={{ fontSize: 32 }}
+                  >
+                    {logo.node}
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-foreground-subtle)]">
+                    {logo.title}
+                  </span>
+                </div>
+              );
+            }}
+          />
         </div>
       </Container>
     </section>

@@ -218,7 +218,7 @@ export default function Contact() {
                   <a
                     key={info.title}
                     href={info.href}
-                    className="contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] hover:-translate-x-1 transition-all duration-300 group"
+                    className="cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] hover:-translate-x-1 transition-all duration-300 group"
                     aria-label={`${info.title}: ${info.value}`}
                   >
                     <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:gradient-bg group-hover:text-[var(--color-foreground-inverted)] transition-all duration-300 flex-shrink-0">
@@ -266,7 +266,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit my ${social.label} profile`}
-                    className="social-link w-11 h-11 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground-inverted)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                    className="cursor-target social-link w-11 h-11 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground-inverted)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                   >
                     <svg
                       className="w-5 h-5"

@@ -30,7 +30,7 @@ const FeaturedProjectCard = forwardRef<
   return (
     <article
       ref={ref}
-      className="featured-card group relative grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-500 hover:border-[var(--color-border-accent)] hover:shadow-2xl hover:shadow-[var(--color-shadow-accent)]"
+      className="cursor-target featured-card group relative grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)] transition-all duration-500 hover:border-[var(--color-border-accent)] hover:shadow-2xl hover:shadow-[var(--color-shadow-accent)]"
       style={{ willChange: 'transform, opacity' }}
       aria-label={`Featured project: ${project.title}`}
     >

@@ -252,7 +252,7 @@ export default function About() {
               ref={profileRef}
               className="lg:col-span-5 lg:row-span-2 opacity-0"
             >
-              <div className="relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
+              <div className="cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
                 {/* Availability Badge — in-flow so it never wraps on mobile */}
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 backdrop-blur-md whitespace-nowrap">
@@ -327,7 +327,7 @@ export default function About() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Visit my ${app.label} profile`}
-                          className="social-icon group w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] bg-[var(--color-background)]/50 text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground-inverted)] hover:border-[var(--color-accent)] transition-all duration-300 relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                          className="cursor-target social-icon group w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] bg-[var(--color-background)]/50 text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground-inverted)] hover:border-[var(--color-accent)] transition-all duration-300 relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                         >
                           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/80 to-[var(--color-accent-secondary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                           {app.icon === 'github' && (
@@ -376,7 +376,7 @@ export default function About() {
                   ref={(el) => {
                     statsRefs.current[index] = el;
                   }}
-                  className="opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
+                  className="cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
                 >
                   <div className="flex items-baseline justify-center gap-0.5">
                     <span className="stat-value text-4xl lg:text-5xl font-bold gradient-text">
@@ -419,7 +419,7 @@ export default function About() {
                 {features.map((feature) => (
                   <div
                     key={feature.title}
-                    className="p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-background)]/50"
+                    className="cursor-target p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-background)]/50"
                   >
                     <h4 className="text-sm font-semibold text-[var(--color-accent)] mb-1">
                       {feature.title}
@@ -442,7 +442,7 @@ export default function About() {
               <a
                 href="/mohamed-amine-abid-resume.pdf"
                 download
-                className="group btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                className="cursor-target group btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                 aria-label="Download my resume as PDF"
               >
                 <HoverRollText>
@@ -467,7 +467,7 @@ export default function About() {
             <CtaHoverEffect>
               <Link
                 href="#contact"
-                className="group btn-outline inline-flex items-center gap-2 px-8 py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+                className="cursor-target group btn-outline inline-flex items-center gap-2 px-8 py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               >
                 <HoverRollText>
                   <svg

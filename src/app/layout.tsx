@@ -12,8 +12,8 @@ const CookieBanner = dynamic(() => import('@/components/CookieBanner'), {
   ssr: false,
 });
 
-/** Client-only: custom cursor with GSAP-driven follow + interactive morphing */
-const CustomCursor = dynamic(() => import('@/components/UI/CustomCursor'), {
+/** Client-only: crosshair cursor with GSAP-driven corner-targeting effect */
+const TargetCursor = dynamic(() => import('@/components/UI/TargetCursor'), {
   ssr: false,
 });
 
@@ -119,7 +119,7 @@ export default function RootLayout({
             </SmoothScrollProvider>
           </PageEntryLoader>
           <CookieBanner />
-          <CustomCursor />
+          <TargetCursor />
         </ThemeProvider>
       </body>
     </html>

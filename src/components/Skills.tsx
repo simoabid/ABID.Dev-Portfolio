@@ -114,7 +114,7 @@ export default function Skills() {
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
-                className="group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300 opacity-0"
+                className="cursor-target group p-6 bg-[var(--color-background-alt)] rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-xl hover:shadow-[var(--color-shadow-accent)] transition-all duration-300 opacity-0"
                 style={{ perspective: '600px' }}
                 data-cursor="view"
               >

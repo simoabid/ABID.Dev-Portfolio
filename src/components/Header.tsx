@@ -110,7 +110,7 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
+            className="cursor-target flex items-center gap-2 text-xl font-bold text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
           >
             <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[var(--color-border-muted)]">
               <Image
@@ -137,7 +137,7 @@ export default function Header() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     aria-current={active ? 'page' : undefined}
                     className={`
-                      group relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+                      cursor-target group relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
                       focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] focus:outline-none
                       ${
                         active
@@ -160,7 +160,7 @@ export default function Header() {
             <Link
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="group hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              className="cursor-target group hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
             >
               <HoverRollText text="Let's Talk" />
             </Link>
@@ -168,7 +168,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden p-2 rounded-full hover:bg-[var(--color-accent-muted)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              className="cursor-target md:hidden p-2 rounded-full hover:bg-[var(--color-accent-muted)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               aria-label={
                 isMobileMenuOpen
                   ? 'Close navigation menu'

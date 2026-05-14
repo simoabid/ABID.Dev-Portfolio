@@ -429,7 +429,7 @@ export default function ContactForm() {
           ref={submitBtnRef}
           type="submit"
           disabled={isSubmitting}
-          className="relative w-full btn-primary py-4 text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden group"
+          className="cursor-target relative w-full btn-primary py-4 text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden group"
           aria-busy={isSubmitting}
         >
           <HoverRollText
@@ -542,7 +542,7 @@ export default function ContactForm() {
         </p>
         <button
           onClick={handleReset}
-          className="group btn-outline px-8 py-3 text-sm"
+          className="cursor-target group btn-outline px-8 py-3 text-sm"
           type="button"
         >
           <HoverRollText text="Send Another Message" />

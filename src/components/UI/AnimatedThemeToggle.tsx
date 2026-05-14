@@ -162,7 +162,7 @@ export default function AnimatedThemeToggle({
       onKeyDown={handleKeyDown}
       data-cursor="pointer"
       className={`
-        relative w-10 h-10 rounded-full
+        cursor-target relative w-10 h-10 rounded-full
         bg-[var(--color-accent-muted)]
         border border-[var(--color-border)]
         flex items-center justify-center

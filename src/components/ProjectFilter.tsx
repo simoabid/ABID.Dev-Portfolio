@@ -49,7 +49,7 @@ const ProjectFilter = forwardRef<HTMLDivElement, ProjectFilterProps>(
               aria-selected={isActive}
               onClick={() => onCategoryChange(category)}
               className={`
-                group relative px-5 py-2 rounded-full text-sm font-semibold
+                cursor-target group relative px-5 py-2 rounded-full text-sm font-semibold
                 transition-all duration-300 outline-none
                 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]
                 ${
