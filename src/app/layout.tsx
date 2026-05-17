@@ -12,21 +12,16 @@ const CookieBanner = dynamic(() => import('@/components/CookieBanner'), {
   ssr: false,
 });
 
-/** Client-only: crosshair cursor with GSAP-driven corner-targeting effect */
-const TargetCursor = dynamic(() => import('@/components/UI/TargetCursor'), {
-  ssr: false,
-});
-
-/** Client-only: fluid simulation cursor effect */
-const SplashCursor = dynamic(() => import('@/components/UI/SplashCursor'), {
-  ssr: false,
-});
-
 /** Client-only: defers gsap + lenis from the SSR critical path */
 const SmoothScrollProvider = dynamic(
   () => import('@/components/SmoothScrollProvider'),
   { ssr: false }
 );
+
+/** Defers heavy global interactive effects until the browser is idle */
+const GlobalEffects = dynamic(() => import('@/components/GlobalEffects'), {
+  ssr: false,
+});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -124,8 +119,7 @@ export default function RootLayout({
             </SmoothScrollProvider>
           </PageEntryLoader>
           <CookieBanner />
-          <TargetCursor />
-          <SplashCursor />
+          <GlobalEffects />
         </ThemeProvider>
       </body>
     </html>

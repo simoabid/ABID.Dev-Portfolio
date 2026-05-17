@@ -289,6 +289,7 @@ interface CanvAsciiConfig {
   textColor: string;
   planeBaseHeight: number;
   enableWaves: boolean;
+  maxFps: number;
 }
 
 class CanvAscii {
@@ -301,6 +302,7 @@ class CanvAscii {
   width: number;
   height: number;
   enableWaves: boolean;
+  maxFps: number;
 
   camera: THREE.PerspectiveCamera;
   scene: THREE.Scene;
@@ -315,6 +317,8 @@ class CanvAscii {
   filter!: AsciiFilter;
   center!: { x: number; y: number };
   animationFrameId: number = 0;
+  frameInterval = 1000 / 30;
+  lastFrameTime = 0;
 
   constructor(
     config: CanvAsciiConfig,
@@ -331,6 +335,8 @@ class CanvAscii {
     this.width = width;
     this.height = height;
     this.enableWaves = config.enableWaves;
+    this.maxFps = config.maxFps;
+    this.frameInterval = 1000 / Math.max(1, config.maxFps);
 
     this.camera = new THREE.PerspectiveCamera(
       45,
@@ -452,18 +458,19 @@ class CanvAscii {
   }
 
   animate() {
-    const animateFrame = () => {
+    const animateFrame = (time: number) => {
       this.animationFrameId = requestAnimationFrame(animateFrame);
+
+      if (time - this.lastFrameTime < this.frameInterval) return;
+
+      this.lastFrameTime = time;
       this.render();
     };
-    animateFrame();
+    this.animationFrameId = requestAnimationFrame(animateFrame);
   }
 
   render() {
     const time = new Date().getTime() * 0.001;
-
-    this.textCanvas.render();
-    this.texture.needsUpdate = true;
 
     this.mesh.material.uniforms.uTime.value = Math.sin(time);
 
@@ -529,6 +536,7 @@ export interface ASCIITextProps {
   textColor?: string;
   planeBaseHeight?: number;
   enableWaves?: boolean;
+  maxFps?: number;
 }
 
 export default function ASCIIText({
@@ -538,6 +546,7 @@ export default function ASCIIText({
   textColor = '#fdf9f3',
   planeBaseHeight = 8,
   enableWaves = true,
+  maxFps = 30,
 }: ASCIITextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const asciiRef = useRef<CanvAscii | null>(null);
@@ -562,6 +571,7 @@ export default function ASCIIText({
           textColor,
           planeBaseHeight,
           enableWaves,
+          maxFps,
         },
         container,
         w,
@@ -642,6 +652,7 @@ export default function ASCIIText({
     textColor,
     planeBaseHeight,
     enableWaves,
+    maxFps,
   ]);
 
   return (

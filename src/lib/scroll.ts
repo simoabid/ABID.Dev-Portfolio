@@ -18,6 +18,8 @@ if (typeof window !== 'undefined') {
 
 // Singleton instance
 let lenisInstance: Lenis | null = null;
+let gsapTickerCallback: ((time: number) => void) | null = null;
+let resizeHandler: (() => void) | null = null;
 
 /**
  * Configuration options for Lenis smooth scroll
@@ -92,19 +94,20 @@ export function initSmoothScroll(
   lenisInstance.on('scroll', ScrollTrigger.update);
 
   // Add Lenis RAF to GSAP ticker for synchronized updates
-  gsap.ticker.add((time) => {
+  gsapTickerCallback = (time: number) => {
     lenisInstance?.raf(time * 1000);
-  });
+  };
+  gsap.ticker.add(gsapTickerCallback);
 
   // Disable GSAP lag smoothing for smoother animations
   gsap.ticker.lagSmoothing(0);
 
   // Refresh ScrollTrigger on resize
-  const handleResize = () => {
+  resizeHandler = () => {
     ScrollTrigger.refresh();
   };
 
-  window.addEventListener('resize', handleResize);
+  window.addEventListener('resize', resizeHandler, { passive: true });
 
   return lenisInstance;
 }
@@ -122,6 +125,16 @@ export function getLenis(): Lenis | null {
  * Destroy Lenis instance and cleanup
  */
 export function destroySmoothScroll(): void {
+  if (gsapTickerCallback) {
+    gsap.ticker.remove(gsapTickerCallback);
+    gsapTickerCallback = null;
+  }
+
+  if (typeof window !== 'undefined' && resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    resizeHandler = null;
+  }
+
   if (lenisInstance) {
     lenisInstance.destroy();
     lenisInstance = null;

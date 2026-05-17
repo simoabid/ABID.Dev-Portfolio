@@ -64,6 +64,7 @@ export default function Hero() {
   const socialsRef = useRef<HTMLDivElement>(null);
 
   const [isSplashCursorEnabled, setIsSplashCursorEnabled] = useState(false);
+  const [showAsciiGreeting, setShowAsciiGreeting] = useState(false);
 
   useEffect(() => {
     // Check initial state from local storage so it reflects correctly
@@ -73,6 +74,40 @@ export default function Hero() {
         setIsSplashCursorEnabled(saved === 'true');
       }
     }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setShowAsciiGreeting(false);
+      return;
+    }
+
+    let idleId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(() => {
+        setShowAsciiGreeting(true);
+      });
+    } else {
+      timeoutId = setTimeout(() => {
+        setShowAsciiGreeting(true);
+      }, 250);
+    }
+
+    return () => {
+      if (idleId !== null && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   const toggleSplashCursor = () => {
@@ -331,7 +366,18 @@ export default function Hero() {
               ref={greetingRef}
               className="relative h-12 md:h-16 lg:h-20 w-40 md:w-56 lg:w-64 mx-auto lg:mx-0 mb-0 md:mb-2 opacity-0 lg:-ml-4"
             >
-              <ASCIIText text="Hi, I'm" enableWaves={false} asciiFontSize={1} />
+              {showAsciiGreeting ? (
+                <ASCIIText
+                  text="Hi, I'm"
+                  enableWaves={false}
+                  asciiFontSize={2}
+                  maxFps={24}
+                />
+              ) : (
+                <span className="inline-flex h-full items-center text-sm font-medium text-[var(--color-accent)]/80">
+                  Hi, I&apos;m
+                </span>
+              )}
             </div>
 
             {/* Name with split text animation */}

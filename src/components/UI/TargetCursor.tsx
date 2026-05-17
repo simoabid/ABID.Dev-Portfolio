@@ -15,7 +15,7 @@
  * @component
  */
 
-import { useEffect, useRef, useCallback, useMemo } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from '@/lib/scroll';
 import './TargetCursor.css';
 
@@ -77,16 +77,6 @@ const TargetCursor = ({
     []
   );
 
-  const moveCursor = useCallback((x: number, y: number) => {
-    if (!cursorRef.current) return;
-    gsap.to(cursorRef.current, {
-      x,
-      y,
-      duration: 0.1,
-      ease: 'power3.out',
-    });
-  }, []);
-
   useEffect(() => {
     if (isMobile || !cursorRef.current) return;
 
@@ -96,6 +86,7 @@ const TargetCursor = ({
     }
 
     const cursor = cursorRef.current;
+    const activeStrengthState = activeStrengthRef.current;
     cornersRef.current = cursor.querySelectorAll('.target-cursor-corner');
 
     let activeTarget: HTMLElement | null = null;
@@ -114,6 +105,14 @@ const TargetCursor = ({
       yPercent: -50,
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
+    });
+    const setCursorX = gsap.quickTo(cursor, 'x', {
+      duration: 0.1,
+      ease: 'power3.out',
+    });
+    const setCursorY = gsap.quickTo(cursor, 'y', {
+      duration: 0.1,
+      ease: 'power3.out',
     });
 
     const createSpinTimeline = () => {
@@ -138,7 +137,7 @@ const TargetCursor = ({
         return;
       }
 
-      const strength = activeStrengthRef.current.current;
+      const strength = activeStrengthState.current;
       if (strength === 0) return;
 
       const cursorX = gsap.getProperty(cursorRef.current, 'x') as number;
@@ -158,21 +157,20 @@ const TargetCursor = ({
         const finalX = currentX + (targetX - currentX) * strength;
         const finalY = currentY + (targetY - currentY) * strength;
 
-        const duration = strength >= 0.99 ? (parallaxOn ? 0.2 : 0) : 0.05;
-
-        gsap.to(corner, {
-          x: finalX,
-          y: finalY,
-          duration: duration,
-          ease: duration === 0 ? 'none' : 'power1.out',
-          overwrite: 'auto',
+        const smoothing = strength >= 0.99 ? (parallaxOn ? 0.22 : 1) : 0.15;
+        gsap.set(corner, {
+          x: currentX + (finalX - currentX) * smoothing,
+          y: currentY + (finalY - currentY) * smoothing,
         });
       });
     };
 
     tickerFnRef.current = tickerFn;
 
-    const moveHandler = (e: MouseEvent) => moveCursor(e.clientX, e.clientY);
+    const moveHandler = (e: MouseEvent) => {
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+    };
     window.addEventListener('mousemove', moveHandler);
 
     const scrollHandler = () => {
@@ -262,7 +260,7 @@ const TargetCursor = ({
         gsap.ticker.add(tickerFnRef.current);
       }
 
-      gsap.to(activeStrengthRef.current, {
+      gsap.to(activeStrengthState, {
         current: 1,
         duration: hoverDuration,
         ease: 'power2.out',
@@ -286,7 +284,7 @@ const TargetCursor = ({
 
         isActiveRef.current = false;
         targetCornerPositionsRef.current = null;
-        gsap.set(activeStrengthRef.current, {
+        gsap.set(activeStrengthState, {
           current: 0,
           overwrite: true,
         });
@@ -373,12 +371,11 @@ const TargetCursor = ({
 
       isActiveRef.current = false;
       targetCornerPositionsRef.current = null;
-      activeStrengthRef.current.current = 0;
+      activeStrengthState.current = 0;
     };
   }, [
     targetSelector,
     spinDuration,
-    moveCursor,
     constants,
     hideDefaultCursor,
     isMobile,
