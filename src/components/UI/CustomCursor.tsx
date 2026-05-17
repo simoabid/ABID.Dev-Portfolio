@@ -16,7 +16,7 @@
  */
 
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 
 interface CustomCursorProps {
   /** Disable the custom cursor entirely */

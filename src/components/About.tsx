@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import { MagicContainer, MagicCard } from './UI/MagicBento';

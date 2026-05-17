@@ -44,18 +44,25 @@ const socialLinks = [
 
 const navigationLinks = [
   {
-    title: 'System',
+    title: 'Navigate',
     links: [
-      { label: 'Home', href: '/' },
-      { label: 'About', href: '/about' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'Home', href: '#home' },
+      { label: 'About', href: '#about' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Skills', href: '#skills' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Contact', href: '#contact' },
     ],
   },
   {
-    title: 'Projects',
+    title: 'Connect',
     links: [
-      { label: 'All Projects', href: '/projects' },
-      { label: 'Open Source', href: 'https://github.com/simoabid' },
+      { label: 'GitHub', href: 'https://github.com/simoabid' },
+      {
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/in/mohamed-amine-abidd',
+      },
+      { label: 'Social Feed', href: '#socials' },
     ],
   },
   {

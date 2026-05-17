@@ -8,13 +8,7 @@
  */
 
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { gsap, ScrollTrigger } from './gsap';
 
 // Singleton instance
 let lenisInstance: Lenis | null = null;

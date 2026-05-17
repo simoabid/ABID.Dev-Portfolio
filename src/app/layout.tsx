@@ -23,6 +23,14 @@ const GlobalEffects = dynamic(() => import('@/components/GlobalEffects'), {
   ssr: false,
 });
 
+const ScrollProgress = dynamic(() => import('@/components/UI/ScrollProgress'), {
+  ssr: false,
+});
+
+const BackToTop = dynamic(() => import('@/components/UI/BackToTop'), {
+  ssr: false,
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
@@ -111,11 +119,13 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="dark">
           <PageEntryLoader>
             <SmoothScrollProvider>
+              <ScrollProgress />
               <Header />
               <main id="main-content" className="flex-grow" tabIndex={-1}>
                 {children}
               </main>
               <Footer />
+              <BackToTop />
             </SmoothScrollProvider>
           </PageEntryLoader>
           <CookieBanner />

@@ -14,7 +14,7 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 import {
   getConsentStatus,
   setConsentStatus,

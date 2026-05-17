@@ -17,7 +17,7 @@
 
 import { forwardRef, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 import { trackProjectClick } from '@/lib/analytics';
 import type { Project } from '@/data/projects';
 import HoverRollText from './UI/HoverRollText';

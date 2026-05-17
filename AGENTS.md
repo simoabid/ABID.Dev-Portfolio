@@ -27,7 +27,8 @@ scripts/             # Build scripts: image optimizer (Sharp), a11y audit (axe-c
 
 **Key architectural patterns:**
 
-- `Hero` is the only statically-imported section — all others use `next/dynamic` with `ssr: false` to keep the critical rendering path lean (GSAP + Lenis bundle deferred).
+- `Hero` is the only statically-imported homepage section — all others use `next/dynamic` with `ssr: false` via `deferBelowFold()` in `page.tsx` so GSAP-heavy chunks stay off the server path (Lenis/global effects are deferred the same way in `layout.tsx`). Primary SEO signals come from `layout.tsx` metadata, not below-fold SSR.
+- GSAP imports use `@/lib/gsap`; Lenis lives in `@/lib/scroll` and is only imported by `SmoothScrollProvider` so smooth-scroll never lands in the Hero critical bundle.
 - Email provider is pluggable via `MAIL_PROVIDER` env var (Resend, SendGrid, or console-only).
 - Analytics is privacy-first: GTM/GA4 loads only after explicit user consent.
 - Theme is applied before React hydration via an inline `<script>` in `layout.tsx` to prevent flash of incorrect theme.

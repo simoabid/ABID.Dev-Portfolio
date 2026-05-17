@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import Image from 'next/image';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import HoverRollText from './UI/HoverRollText';
 
 /* ─── Mobile grid card tilts ────────────────────────────────────────────────── */
@@ -244,11 +245,12 @@ export default function Socials() {
                     : '0 6px 20px -4px rgba(0,0,0,0.35)',
                 }}
               >
-                {/* Image */}
-                <img
+                <Image
                   src={card.src}
                   alt={card.alt}
-                  className="w-full h-full object-cover pointer-events-none select-none"
+                  fill
+                  sizes="(max-width: 640px) 50vw, 200px"
+                  className="object-cover pointer-events-none select-none"
                   style={{
                     transform: isHovered ? 'scale(1.06)' : 'scale(1)',
                     transition: 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
@@ -325,11 +327,12 @@ export default function Socials() {
                     : '0 10px 30px -8px rgba(0,0,0,0.3)',
                 }}
               >
-                {/* Image */}
-                <img
+                <Image
                   src={card.src}
                   alt={card.alt}
-                  className="w-full h-full object-cover pointer-events-none select-none"
+                  fill
+                  sizes="(min-width: 640px) 310px, 50vw"
+                  className="object-cover pointer-events-none select-none"
                   style={{
                     transform: isHovered ? 'scale(1.07)' : 'scale(1)',
                     transition: 'transform 0.9s cubic-bezier(0.25, 1, 0.5, 1)',

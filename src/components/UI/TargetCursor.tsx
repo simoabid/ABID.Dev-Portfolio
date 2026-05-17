@@ -16,7 +16,7 @@
  */
 
 import { useEffect, useRef, useMemo } from 'react';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 import './TargetCursor.css';
 
 interface TargetCursorProps {
@@ -81,9 +81,6 @@ const TargetCursor = ({
     if (isMobile || !cursorRef.current) return;
 
     const originalCursor = document.body.style.cursor;
-    if (hideDefaultCursor) {
-      document.body.style.cursor = 'none';
-    }
 
     const cursor = cursorRef.current;
     const activeStrengthState = activeStrengthRef.current;
@@ -92,6 +89,7 @@ const TargetCursor = ({
     let activeTarget: HTMLElement | null = null;
     let currentLeaveHandler: (() => void) | null = null;
     let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
+    let hasPointerMoved = false;
 
     const cleanupTarget = (target: HTMLElement) => {
       if (currentLeaveHandler) {
@@ -103,8 +101,7 @@ const TargetCursor = ({
     gsap.set(cursor, {
       xPercent: -50,
       yPercent: -50,
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
+      autoAlpha: 0,
     });
     const setCursorX = gsap.quickTo(cursor, 'x', {
       duration: 0.1,
@@ -126,7 +123,19 @@ const TargetCursor = ({
       });
     };
 
-    createSpinTimeline();
+    const revealCursor = (clientX: number, clientY: number) => {
+      if (hasPointerMoved) {
+        return;
+      }
+      hasPointerMoved = true;
+      setCursorX(clientX);
+      setCursorY(clientY);
+      gsap.set(cursor, { autoAlpha: 1 });
+      if (hideDefaultCursor) {
+        document.body.style.cursor = 'none';
+      }
+      createSpinTimeline();
+    };
 
     const tickerFn = () => {
       if (
@@ -168,6 +177,10 @@ const TargetCursor = ({
     tickerFnRef.current = tickerFn;
 
     const moveHandler = (e: MouseEvent) => {
+      if (!hasPointerMoved) {
+        revealCursor(e.clientX, e.clientY);
+        return;
+      }
       setCursorX(e.clientX);
       setCursorY(e.clientY);
     };

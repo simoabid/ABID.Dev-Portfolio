@@ -11,7 +11,7 @@
  */
 
 import { useRef, useEffect } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface SvgDividerProps {
   /** Divider style variant */

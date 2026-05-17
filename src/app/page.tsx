@@ -1,65 +1,51 @@
+import type { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 import Hero from '@/components/Hero';
 
 /**
- * Below-fold sections are dynamically imported to reduce the initial JS bundle.
- * Only the Hero (LCP element) is statically imported for fastest paint.
- *
- * Loading fallbacks use empty divs with min-height to prevent CLS.
+ * Below-fold sections use `next/dynamic` with `ssr: false` so GSAP-heavy client
+ * bundles stay off the server render path. Only Hero is static for LCP.
+ * Loading fallbacks reserve min-height to prevent CLS.
  */
-const Projects = dynamic(() => import('@/components/Projects'), {
-  loading: () => (
-    <div
-      className="min-h-screen bg-[var(--color-background-alt)]"
-      aria-hidden="true"
-    />
-  ),
-});
+function deferBelowFold<P = Record<string, never>>(
+  loader: () => Promise<{ default: ComponentType<P> }>,
+  placeholderClassName: string
+) {
+  return dynamic(loader, {
+    ssr: false,
+    loading: () => <div className={placeholderClassName} aria-hidden="true" />,
+  });
+}
 
-const About = dynamic(() => import('@/components/About'), {
-  loading: () => (
-    <div
-      className="min-h-screen bg-[var(--color-background)]"
-      aria-hidden="true"
-    />
-  ),
-});
+const Projects = deferBelowFold(
+  () => import('@/components/Projects'),
+  'min-h-screen bg-[var(--color-background-alt)]'
+);
 
-const Skills = dynamic(() => import('@/components/Skills'), {
-  loading: () => (
-    <div
-      className="min-h-screen bg-[var(--color-background-alt)]"
-      aria-hidden="true"
-    />
-  ),
-});
+const About = deferBelowFold(
+  () => import('@/components/About'),
+  'min-h-screen bg-[var(--color-background)]'
+);
 
-const Experience = dynamic(() => import('@/components/Experience'), {
-  loading: () => (
-    <div
-      className="min-h-screen bg-[var(--color-background)]"
-      aria-hidden="true"
-    />
-  ),
-});
+const Skills = deferBelowFold(
+  () => import('@/components/Skills'),
+  'min-h-screen bg-[var(--color-background-alt)]'
+);
 
-const Contact = dynamic(() => import('@/components/Contact'), {
-  loading: () => (
-    <div
-      className="min-h-screen bg-[var(--color-background-alt)]"
-      aria-hidden="true"
-    />
-  ),
-});
+const Experience = deferBelowFold(
+  () => import('@/components/Experience'),
+  'min-h-screen bg-[var(--color-background)]'
+);
 
-const Socials = dynamic(() => import('@/components/Socials'), {
-  loading: () => (
-    <div
-      className="min-h-[600px] bg-[var(--color-background)]"
-      aria-hidden="true"
-    />
-  ),
-});
+const Contact = deferBelowFold(
+  () => import('@/components/Contact'),
+  'min-h-screen bg-[var(--color-background-alt)]'
+);
+
+const Socials = deferBelowFold(
+  () => import('@/components/Socials'),
+  'min-h-[600px] bg-[var(--color-background)]'
+);
 
 /** Animated SVG section dividers — decorative, zero-impact when offscreen */
 const SvgDivider = dynamic(() => import('@/components/UI/SvgDivider'), {

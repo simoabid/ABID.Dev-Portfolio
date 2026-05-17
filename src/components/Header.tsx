@@ -6,14 +6,27 @@ import AnimatedThemeToggle from './UI/AnimatedThemeToggle';
 import Image from 'next/image';
 import HoverRollText from './UI/HoverRollText';
 import StarBorder from './UI/StarBorder';
+import { getLenis } from '@/lib/scroll';
 
 const navLinks = [
   { href: '#home', label: 'Home' },
-  { href: '#projects', label: 'Projects' },
   { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
   { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#socials', label: 'Socials' },
   { href: '#contact', label: 'Contact' },
-];
+] as const;
+
+const SECTION_IDS = [
+  'home',
+  'about',
+  'projects',
+  'skills',
+  'experience',
+  'socials',
+  'contact',
+] as const;
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,11 +37,9 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Detect active section based on scroll position
-      const sections = ['home', 'projects', 'about', 'skills', 'contact'];
-      const scrollPosition = window.scrollY + 100; // Offset for header
+      const scrollPosition = window.scrollY + 120;
 
-      for (const section of sections) {
+      for (const section of SECTION_IDS) {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
@@ -76,15 +87,23 @@ export default function Header() {
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
-    if (element) {
-      const offsetTop = element.offsetTop - 80; // Account for fixed header
+    if (!element) {
+      return;
+    }
+
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(element, { offset: -96, duration: 1.15 });
+    } else {
+      const offsetTop = element.offsetTop - 96;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth',
       });
-      setActiveSection(href);
-      closeMobileMenu();
     }
+
+    setActiveSection(href);
+    closeMobileMenu();
   };
 
   return (

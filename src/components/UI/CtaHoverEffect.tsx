@@ -12,7 +12,7 @@
  */
 
 import { useRef, useEffect, useCallback } from 'react';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 
 interface CtaHoverEffectProps {
   children: React.ReactNode;

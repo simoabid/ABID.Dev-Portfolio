@@ -31,9 +31,8 @@ function detectDeviceProfile(): DeviceProfile {
     '(prefers-reduced-motion: reduce)'
   ).matches;
   const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-  const deviceMemory = (
-    navigator as Navigator & { deviceMemory?: number }
-  ).deviceMemory;
+  const deviceMemory = (navigator as Navigator & { deviceMemory?: number })
+    .deviceMemory;
   const lowEnd =
     navigator.hardwareConcurrency <= 4 ||
     (typeof deviceMemory === 'number' && deviceMemory <= 4);
@@ -42,7 +41,8 @@ function detectDeviceProfile(): DeviceProfile {
 }
 
 export default function GlobalEffects() {
-  const [isReady, setIsReady] = useState(false);
+  const [splashReady, setSplashReady] = useState(false);
+  const [cursorReady, setCursorReady] = useState(false);
   const [profile, setProfile] = useState<DeviceProfile>(defaultProfile);
 
   useEffect(() => {
@@ -53,27 +53,24 @@ export default function GlobalEffects() {
       return;
     }
 
-    const triggerReady = () => setIsReady(true);
     let idleId: number | null = null;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
+    const enableSplash = () => setSplashReady(true);
+    const enableCursor = () => setCursorReady(true);
+
     if ('requestIdleCallback' in window) {
-      idleId = window.requestIdleCallback(
-        () => {
-          triggerReady();
-        },
-        { timeout: 1200 }
-      );
+      idleId = window.requestIdleCallback(enableSplash, { timeout: 1200 });
     } else {
-      timeoutId = setTimeout(triggerReady, 450);
+      timeoutId = setTimeout(enableSplash, 450);
     }
 
-    window.addEventListener('mousemove', triggerReady, {
+    window.addEventListener('mousemove', enableCursor, {
       once: true,
       passive: true,
     });
-    window.addEventListener('keydown', triggerReady, { once: true });
-    window.addEventListener('touchstart', triggerReady, {
+    window.addEventListener('keydown', enableSplash, { once: true });
+    window.addEventListener('touchstart', enableSplash, {
       once: true,
       passive: true,
     });
@@ -85,26 +82,30 @@ export default function GlobalEffects() {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      window.removeEventListener('mousemove', triggerReady);
-      window.removeEventListener('keydown', triggerReady);
-      window.removeEventListener('touchstart', triggerReady);
+      window.removeEventListener('mousemove', enableCursor);
+      window.removeEventListener('keydown', enableSplash);
+      window.removeEventListener('touchstart', enableSplash);
     };
   }, []);
 
-  if (profile.reducedMotion || profile.coarsePointer || !isReady) {
+  if (profile.reducedMotion || profile.coarsePointer) {
     return null;
   }
 
   return (
     <>
-      <TargetCursor spinDuration={profile.lowEnd ? 2.6 : 2} />
-      <SplashCursor
-        SIM_RESOLUTION={profile.lowEnd ? 96 : 112}
-        DYE_RESOLUTION={profile.lowEnd ? 768 : 1024}
-        PRESSURE_ITERATIONS={profile.lowEnd ? 10 : 14}
-        SPLAT_FORCE={profile.lowEnd ? 4200 : 5000}
-        COLOR_UPDATE_SPEED={profile.lowEnd ? 7 : 9}
-      />
+      {cursorReady ? (
+        <TargetCursor spinDuration={profile.lowEnd ? 2.6 : 2} />
+      ) : null}
+      {splashReady ? (
+        <SplashCursor
+          SIM_RESOLUTION={profile.lowEnd ? 96 : 112}
+          DYE_RESOLUTION={profile.lowEnd ? 768 : 1024}
+          PRESSURE_ITERATIONS={profile.lowEnd ? 10 : 14}
+          SPLAT_FORCE={profile.lowEnd ? 4200 : 5000}
+          COLOR_UPDATE_SPEED={profile.lowEnd ? 7 : 9}
+        />
+      ) : null}
     </>
   );
 }

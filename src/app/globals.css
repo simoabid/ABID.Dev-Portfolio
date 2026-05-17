@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
   overflow-x: hidden;
 }
 
@@ -35,6 +36,10 @@ body {
     background-color var(--transition-duration-normal)
       var(--transition-timing-default),
     color var(--transition-duration-normal) var(--transition-timing-default);
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
 }
 
 a {
@@ -343,6 +348,10 @@ select:focus-visible,
   .custom-cursor-dot,
   .custom-cursor-ring {
     display: none !important;
+  }
+
+  .back-to-top {
+    transition: none !important;
   }
 }
 

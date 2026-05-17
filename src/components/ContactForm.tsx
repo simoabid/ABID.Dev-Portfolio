@@ -14,7 +14,7 @@
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 import {
   validateField,
   validateContactForm,

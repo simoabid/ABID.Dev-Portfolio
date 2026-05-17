@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 
 const experiences = [

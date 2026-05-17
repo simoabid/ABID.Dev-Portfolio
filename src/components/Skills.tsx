@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Container from './Container';
 import { Grid, GridItem } from './Grid';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import CurvedLoop from './UI/CurvedLoop';
 import {
   SiHtml5,

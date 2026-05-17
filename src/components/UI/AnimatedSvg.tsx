@@ -18,7 +18,7 @@
  */
 
 import { useEffect, useRef, useCallback } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 interface AnimatedSvgProps {
   /** Inline SVG as children */

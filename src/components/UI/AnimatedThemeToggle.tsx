@@ -12,7 +12,7 @@
 
 import { useRef, useEffect, useCallback } from 'react';
 import { useTheme } from '@/context/ThemeProvider';
-import { gsap } from '@/lib/scroll';
+import { gsap } from '@/lib/gsap';
 
 interface AnimatedThemeToggleProps {
   className?: string;

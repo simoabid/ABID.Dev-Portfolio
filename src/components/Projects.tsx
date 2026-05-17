@@ -29,7 +29,7 @@ import {
   getSecondaryProjects,
   getCategories,
 } from '@/data/projects';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import {
   SiHtml5,
   SiCss,

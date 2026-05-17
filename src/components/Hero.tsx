@@ -11,7 +11,7 @@ import HoverRollText from './UI/HoverRollText';
 import StarBorder from './UI/StarBorder';
 import TextType from './UI/TextType';
 import { MagicContainer } from './UI/MagicBento';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 // Three.js portrait is client-only and lazy-loaded so the WebGL bundle stays
 // out of the initial critical path.
@@ -122,9 +122,6 @@ export default function Hero() {
   useEffect(() => {
     // SSR guard
     if (typeof window === 'undefined') return;
-
-    // Register ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
 
     // Create GSAP context for proper cleanup
     const ctx = gsap.context(() => {
