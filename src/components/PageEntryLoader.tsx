@@ -11,11 +11,10 @@ interface PageEntryLoaderProps {
 
 export default function PageEntryLoader({
   children,
-  minDurationMs = 1100,
+  minDurationMs = 1800,
 }: PageEntryLoaderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
-  const [showDotField, setShowDotField] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
@@ -139,23 +138,6 @@ export default function PageEntryLoader({
     };
   }, [showOverlay]);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    const deviceMemory = (
-      navigator as Navigator & { deviceMemory?: number }
-    ).deviceMemory;
-    const lowEndDevice =
-      navigator.hardwareConcurrency <= 4 ||
-      (typeof deviceMemory === 'number' && deviceMemory <= 4);
-
-    setShowDotField(!prefersReducedMotion && !coarsePointer && !lowEndDevice);
-  }, []);
-
   return (
     <>
       <div
@@ -174,18 +156,17 @@ export default function PageEntryLoader({
           aria-live="polite"
           aria-label="Loading portfolio"
         >
-          {showDotField && (
-            <div className="absolute inset-0 z-0 pointer-events-auto">
-              <DotField
-                dotRadius={1.5}
-                dotSpacing={18}
-                bulgeStrength={45}
-                glowRadius={120}
-                sparkle={false}
-                waveAmplitude={0}
-              />
-            </div>
-          )}
+          {/* Interactive Dot Background */}
+          <div className="absolute inset-0 z-0 pointer-events-auto">
+            <DotField
+              dotRadius={1.5}
+              dotSpacing={14}
+              bulgeStrength={67}
+              glowRadius={160}
+              sparkle={true}
+              waveAmplitude={0}
+            />
+          </div>
 
           <div className="relative z-10 flex w-full max-w-sm flex-col items-center justify-center px-6">
             {/* The Brand Reveal (Hidden initially) */}
