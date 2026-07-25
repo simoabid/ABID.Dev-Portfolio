@@ -2,19 +2,28 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
+import { useTiltGroup } from '@/hooks/useTiltGroup';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 
+/**
+ * Note on the highlights below: they describe the work, not measured
+ * outcomes. Earlier revisions carried figures such as "database performance
+ * improved by 40%" that came from the project scaffold rather than from any
+ * measurement. Precise unverifiable numbers are the first thing an
+ * interviewer probes, so they are gone. Replace any of these with real
+ * figures whenever you have them.
+ */
 const experiences = [
   {
     title: 'Junior Full-Stack Developer',
     company: 'Self-Employed',
     date: 'Jan 2024 - Present',
     description:
-      'Creating scalable web applications, focusing on microservices architecture and cloud integration. Developing full-stack solutions using React, Node.js, and MongoDB.',
+      'Building web applications end to end — data modelling, API design, and the interfaces sitting on top of them. Mostly React, Node.js and MongoDB.',
     highlights: [
-      'Built 5+ production-ready web applications',
-      'Implemented RESTful APIs and microservices',
-      'Optimized database performance by 40%',
+      'Shipped production applications from schema to interface',
+      'Designed REST APIs with clear service boundaries',
+      'Tuned queries and indexes for read-heavy workloads',
     ],
   },
   {
@@ -22,11 +31,11 @@ const experiences = [
     company: 'Self-Employed',
     date: 'Jun 2023 - Present',
     description:
-      'Specialized in creating responsive, user-friendly interfaces with React and modern CSS. Focus on accessibility and performance optimization.',
+      'Browser-side work: responsive layouts, accessible components, and keeping interaction smooth on hardware that is not a developer laptop.',
     highlights: [
-      'Developed pixel-perfect responsive designs',
-      'Improved Core Web Vitals scores by 60%',
-      'Created reusable component libraries',
+      'Built layouts that hold their shape across breakpoints',
+      'Treated Core Web Vitals as a budget, not an afterthought',
+      'Extracted repeated patterns into reusable components',
     ],
   },
   {
@@ -34,11 +43,11 @@ const experiences = [
     company: 'Self-Learning',
     date: 'Jan 2023 - Jun 2023',
     description:
-      'Intensive self-study period focused on mastering web development fundamentals and modern frameworks.',
+      'A deliberate stretch of self-teaching. Fundamentals first, then the frameworks built on top of them.',
     highlights: [
-      'Completed 10+ online courses',
-      'Built personal portfolio projects',
-      'Contributed to open-source projects',
+      'Worked through structured courses in HTML, CSS and JavaScript',
+      'Built projects to apply each concept rather than only reading',
+      'Read and contributed to open-source codebases',
     ],
   },
 ];
@@ -47,6 +56,7 @@ export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const tiltRef = useTiltGroup<HTMLDivElement>({ selector: '.tilt-card' });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -118,13 +128,17 @@ export default function Experience() {
       className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
       aria-label="Work experience"
     >
-      <div className="container mx-auto px-4">
+      <div ref={tiltRef} className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
-            MY
+            HOW I GOT
             <br />
-            <span className="gradient-text">EXPERIENCE</span>
+            <span className="gradient-text">HERE</span>
           </h2>
+          <p className="mt-6 text-lg text-[var(--color-foreground-muted)] max-w-2xl mx-auto">
+            Self-taught, then self-employed. The short version of a longer
+            habit of taking things apart to see how they work.
+          </p>
         </div>
         <MagicContainer className="max-w-3xl mx-auto relative">
           {/* Timeline line */}
@@ -157,7 +171,7 @@ export default function Experience() {
 
               {/* Content card */}
               <MagicCard
-                className="cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
+                className="tilt-card cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
                 data-cursor="pointer"
               >
                 <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-1">

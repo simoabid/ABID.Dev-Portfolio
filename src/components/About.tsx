@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
+import { useTiltGroup } from '@/hooks/useTiltGroup';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
@@ -11,14 +12,12 @@ import { MagicContainer, MagicCard } from './UI/MagicBento';
 /**
  * About Section Component
  *
- * A premium, modern About section featuring:
- * - Bento grid layout (asymmetric, not simple 2-column)
- * - Glassmorphic stats cards with animated counters
- * - Profile area with animated gradient border
- * - GSAP scroll-triggered animations
- * - Dark/light theme support via CSS variables
+ * A bento grid layout with glassmorphic stats cards, animated counters, a
+ * profile area with a gradient border ring, and GSAP scroll-triggered
+ * entrances. Cards tilt toward the pointer via useTiltGroup.
  *
- * Accessibility: Supports prefers-reduced-motion
+ * Accessibility: every animation here is skipped under prefers-reduced-motion,
+ * including the tilt.
  */
 
 // Stats data
@@ -31,14 +30,14 @@ const stats = [
 // Feature highlights
 const features = [
   {
-    title: 'Problem Solver',
+    title: 'Performance First',
     description:
-      'Specializing in debugging complex architectural bottlenecks and optimizing for peak performance.',
+      'Profiling before optimising, so the work lands where the time is actually being spent.',
   },
   {
-    title: 'UI Enthusiast',
+    title: 'Interface Craft',
     description:
-      'Crafting pixel-perfect designs with fluid motions and modern aesthetics that users love.',
+      'Accessible, responsive interfaces where motion explains something rather than just decorating.',
   },
 ];
 
@@ -48,6 +47,7 @@ export default function About() {
   const bioRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useTiltGroup<HTMLDivElement>({ selector: '.tilt-card' });
 
   useEffect(() => {
     // SSR guard
@@ -236,7 +236,7 @@ export default function About() {
         />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div ref={tiltRef} className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
             ABOUT
@@ -253,7 +253,7 @@ export default function About() {
               ref={profileRef}
               className="lg:col-span-5 lg:row-span-2 opacity-0"
             >
-              <MagicCard className="cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
+              <MagicCard className="tilt-card cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
                 {/* Availability Badge — in-flow so it never wraps on mobile */}
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 backdrop-blur-md whitespace-nowrap">
@@ -377,7 +377,7 @@ export default function About() {
                   ref={(el) => {
                     statsRefs.current[index] = el;
                   }}
-                  className="cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
+                  className="tilt-card cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
                 >
                   <div className="flex items-baseline justify-center gap-0.5">
                     <span className="stat-value text-4xl lg:text-5xl font-bold gradient-text">
@@ -397,22 +397,24 @@ export default function About() {
             {/* Bio Content - Right side, bottom row */}
             <MagicCard
               ref={bioRef}
-              className="lg:col-span-7 opacity-0 glass-card rounded-3xl p-8"
+              className="tilt-card lg:col-span-7 opacity-0 glass-card rounded-3xl p-8"
             >
               <h3 className="text-2xl font-bold mb-4 gradient-text">
                 Who I Am
               </h3>
               <p className="text-lg text-[var(--color-foreground-muted)] mb-4 leading-relaxed">
-                I am a Full-Stack Developer obsessed with crafting scalable,
-                high-performance web applications that merge technical
-                excellence with immersive user experiences.
+                I build web applications end to end — the interface you touch
+                and the services behind it. Most of my work sits where a design
+                has to survive contact with real data, real latency and real
+                browsers.
               </p>
               <p className="text-lg text-[var(--color-foreground-muted)] mb-6 leading-relaxed">
-                My journey began with a curiosity for how the internet works,
-                which evolved into a professional career focused on modern tech
-                stacks like React, Node.js, and Cloud Architecture. I believe
-                code is not just instructions for machines, but a medium for
-                solving human problems.
+                I started by pulling websites apart to find out what made them
+                load. That turned into a working practice built on React,
+                Node.js and modern cloud tooling, and a habit of asking what a
+                feature costs before asking how it looks. Code is a means to an
+                end: someone gets their problem solved, or the effort was
+                wasted.
               </p>
 
               {/* Feature highlights */}
