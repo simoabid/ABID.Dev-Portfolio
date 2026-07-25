@@ -11,7 +11,6 @@ import CameraRig from './CameraRig';
 import GeneratedEnvironment from './GeneratedEnvironment';
 import HeroCore from './HeroCore';
 import ParticleField from './ParticleField';
-import ProjectGallery from './scenes/ProjectGallery';
 import SkillsConstellation from './scenes/SkillsConstellation';
 
 interface SceneRootProps {
@@ -29,9 +28,10 @@ interface SceneRootProps {
  * painting a solid background colour would hide it completely. Fog is still
  * applied for depth falloff.
  *
- * Section scenes such as the skills constellation and the project gallery are
- * positioned at their camera waypoint in world space and cull themselves when
- * their section is off screen.
+ * A caution learned the hard way: anything placed here sits at a fixed world
+ * position while the camera travels between waypoints, so it can drift into
+ * neighbouring sections. Section scenes must stay small, sit well back, and
+ * cull themselves when their section is off screen.
  */
 export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
   return (
@@ -58,7 +58,6 @@ export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
       <Suspense fallback={null}>
         <GeneratedEnvironment />
         <BackdropPlane reducedMotion={reducedMotion} />
-        <ProjectGallery reducedMotion={reducedMotion} />
         <Float
           enabled={!reducedMotion}
           speed={1.1}

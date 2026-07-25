@@ -3,9 +3,17 @@
 /**
  * Skills constellation.
  *
- * Three clusters of glowing nodes, one per skill category, wired back to a
- * hub. Each node carries its technology's brand colour, so the shape of the
- * constellation reads as the shape of the stack.
+ * Three clusters of nodes, one per skill category, wired back to a hub. Each
+ * node carries its technology's brand colour.
+ *
+ * This is deliberately background depth rather than a focal element. The first
+ * attempt spread nine world units across at close range and read as random
+ * coloured dust scattered behind the text. It now sits well back and stays
+ * compact, so it gives the section parallax without competing with the cards.
+ *
+ * Two things keep the nodes from blooming into white blobs: tone mapping is
+ * left on, and emissive intensity is kept low. The bloom pass has a 0.35
+ * luminance threshold, which unmapped emissive colours sail straight past.
  *
  * Placement is deterministic — a golden-angle spiral per cluster rather than
  * random scatter — so the layout is identical on every render and cannot
@@ -24,10 +32,10 @@ import { SKILL_CATEGORIES } from '@/data/skills';
 import { getSectionState } from '@/lib/scrollState';
 
 /** Horizontal gap between the three category clusters. */
-const CLUSTER_SPACING = 2.9;
+const CLUSTER_SPACING = 1.6;
 
 /** Radius of the shell each cluster's nodes sit on. */
-const CLUSTER_RADIUS = 1.05;
+const CLUSTER_RADIUS = 0.55;
 
 /** Golden angle, for even distribution without clumping. */
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
@@ -57,7 +65,7 @@ function buildClusters(): ConstellationCluster[] {
     const center = new Vector3(
       (categoryIndex - 1) * CLUSTER_SPACING,
       0,
-      categoryIndex === 1 ? -0.6 : 0
+      categoryIndex === 1 ? -0.4 : 0
     );
 
     const count = category.skills.length;
@@ -117,20 +125,20 @@ export default function SkillsConstellation({
     if (!group.visible) return;
 
     // Settles into full size as the section takes over the viewport.
-    group.scale.setScalar(0.72 + visibility * 0.28);
+    group.scale.setScalar(0.85 + visibility * 0.15);
 
     if (!reducedMotion) {
-      group.rotation.y += delta * 0.07;
+      group.rotation.y += delta * 0.05;
     }
   });
 
   return (
-    <group ref={groupRef} position={[0, -2, -1.5]}>
+    <group ref={groupRef} position={[0, -2, -5]}>
       <lineSegments geometry={linkGeometry}>
         <lineBasicMaterial
           color="#6c63ff"
           transparent
-          opacity={0.22}
+          opacity={0.45}
           depthWrite={false}
         />
       </lineSegments>
@@ -139,25 +147,23 @@ export default function SkillsConstellation({
         <group key={cluster.center.x}>
           {/* Cluster hub */}
           <mesh position={cluster.center}>
-            <sphereGeometry args={[0.055, 16, 16]} />
+            <sphereGeometry args={[0.035, 16, 16]} />
             <meshStandardMaterial
               color="#00d4ff"
               emissive="#00d4ff"
-              emissiveIntensity={1.4}
-              toneMapped={false}
+              emissiveIntensity={0.5}
             />
           </mesh>
 
           {cluster.nodes.map((node) => (
             <mesh key={node.name} position={node.position}>
-              <sphereGeometry args={[0.085, 20, 20]} />
+              <sphereGeometry args={[0.048, 16, 16]} />
               <meshStandardMaterial
                 color={node.color}
                 emissive={node.color}
-                emissiveIntensity={0.85}
+                emissiveIntensity={0.35}
                 roughness={0.35}
                 metalness={0.1}
-                toneMapped={false}
               />
             </mesh>
           ))}
