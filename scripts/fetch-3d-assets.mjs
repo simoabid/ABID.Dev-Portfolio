@@ -11,6 +11,9 @@
  * The downloaded files are binary and are NOT committed by this script. Once
  * they are on disk you should commit them yourself if you want them preserved
  * in git history rather than only on your machine.
+ *
+ * Note: the project cover art at the end of the list OVERWRITES files that are
+ * already tracked in git. Every other entry writes a new, untracked file.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, relative, resolve } from 'node:path';
@@ -71,6 +74,30 @@ const assets = [
       process.env.HERO_CONCEPT_URL ??
       MEDIA_CDN + '/hf_20260725_005413_eccf1511-cbc9-4581-9df6-4e8ed738f744.png',
     target: resolve(publicDir, 'images', 'generated', 'hero-concept.png'),
+  },
+  // Project cover art. These REPLACE tracked placeholder stubs that were only
+  // about 1KB each — effectively blank images. The CINEFLIX covers are real
+  // artwork and are deliberately left alone.
+  {
+    label: 'cover: AI analytics dashboard',
+    url:
+      process.env.COVER_AI_DASHBOARD_URL ??
+      MEDIA_CDN + '/hf_20260725_023048_4333768f-17e9-4aa9-b50c-399f133fa0c2.png',
+    target: resolve(publicDir, 'images', 'projects', 'ai-dashboard.png'),
+  },
+  {
+    label: 'cover: real-time collaboration hub',
+    url:
+      process.env.COVER_CHAT_APP_URL ??
+      MEDIA_CDN + '/hf_20260725_023100_1a4f667a-606f-4c68-92cb-0b6805d7ad43.png',
+    target: resolve(publicDir, 'images', 'projects', 'chat-app.png'),
+  },
+  {
+    label: 'cover: component design system',
+    url:
+      process.env.COVER_DESIGN_SYSTEM_URL ??
+      MEDIA_CDN + '/hf_20260725_023108_3c43e044-6286-4a4d-a97b-cac9726756ca.png',
+    target: resolve(publicDir, 'images', 'projects', 'design-system.png'),
   },
 ];
 
