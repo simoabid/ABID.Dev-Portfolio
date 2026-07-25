@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import { ASSETS_3D } from '@/lib/assets3d';
 import type { QualitySettings } from '@/hooks/useQualityTier';
 
+import BackdropPlane from './BackdropPlane';
 import CameraRig from './CameraRig';
 import HeroCore from './HeroCore';
 import ParticleField from './ParticleField';
@@ -20,15 +21,16 @@ interface SceneRootProps {
  * Everything that lives inside the persistent canvas. Kept separate from
  * `SceneCanvas` so the canvas element itself never re-mounts when the scene
  * contents change.
+ *
+ * Note there is deliberately no `<color attach="background">` here. The canvas
+ * renders with an alpha buffer so the ambient video behind it stays visible;
+ * painting a solid background colour would hide it completely. Fog is still
+ * applied for depth falloff.
  */
-export default function SceneRoot({
-  quality,
-  reducedMotion,
-}: SceneRootProps) {
+export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
   return (
     <>
-      <color attach="background" args={['#0f0f1a']} />
-      <fog attach="fog" args={['#0f0f1a', 8, 22]} />
+      <fog attach="fog" args={['#0f0f1a', 8, 26]} />
 
       <ambientLight intensity={0.35} />
       <directionalLight position={[4, 6, 5]} intensity={1.1} color="#6c63ff" />
@@ -46,6 +48,7 @@ export default function SceneRoot({
 
       <Suspense fallback={null}>
         <Environment files={ASSETS_3D.environment} />
+        <BackdropPlane reducedMotion={reducedMotion} />
         <Float
           enabled={!reducedMotion}
           speed={1.1}
