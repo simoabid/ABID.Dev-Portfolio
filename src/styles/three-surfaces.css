@@ -2,8 +2,8 @@
    3D SURFACES
 
    The site renders a persistent WebGL layer behind all content. Sections that
-   used to paint a solid fill would hide it completely, so they instead sit on
-   a translucent scrim.
+   paint a solid fill would hide it completely, so they instead sit on a
+   translucent scrim.
 
    The scrim is deliberately opaque enough (>=72%) that body text keeps a WCAG
    AA contrast ratio against the brightest part of the scene behind it.
@@ -34,20 +34,83 @@
   );
 }
 
-/* Respect an explicit request for less transparency, and keep the layout
-   readable for anyone who finds motion behind text distracting. */
+/* -----------------------------------------------------------------------------
+   SECTION PASS-THROUGH
+
+   Every content section declares its own opaque fill through inline Tailwind
+   utilities (`bg-[var(--color-background)]` and friends). Those utilities beat
+   an element selector on specificity, so the fill is neutralised explicitly and
+   re-applied as a translucent scrim on a pseudo-element behind the content.
+
+   Only the outermost section is affected — cards, code blocks and form fields
+   inside keep their own solid surfaces.
+   -------------------------------------------------------------------------- */
+
+main section[id] {
+  position: relative;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+main section[id]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: rgba(15, 15, 26, 0.74);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 74%,
+    transparent
+  );
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* Alternate the scrim tint so the original light/dark section rhythm survives. */
+main section[id]:nth-of-type(even)::before {
+  background-color: rgba(22, 22, 45, 0.74);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background-alt) 74%,
+    transparent
+  );
+}
+
+/* The hero owns its own atmospheric treatment and must stay fully open. */
+main section#home::before {
+  content: none;
+}
+
+/* Keep section content above its scrim. */
+main section[id] > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   REDUCED TRANSPARENCY / REDUCED MOTION
+
+   Anyone who asks for less transparency — or who finds a moving scene behind
+   text distracting — gets the original solid surfaces back.
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-transparency: reduce) {
   .surface-3d,
-  .surface-3d-alt {
+  .surface-3d-alt,
+  main section[id]::before {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
 
-  .surface-3d {
+  .surface-3d,
+  main section[id]::before {
     background-color: var(--color-background);
   }
 
-  .surface-3d-alt {
+  .surface-3d-alt,
+  main section[id]:nth-of-type(even)::before {
     background-color: var(--color-background-alt);
   }
 }
