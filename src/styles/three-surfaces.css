@@ -7,9 +7,8 @@
 
    Every translucent value is declared twice on purpose. The first declaration
    is an opaque theme token and the second layers transparency on with
-   color-mix(). Browsers without color-mix() keep the original solid surface,
-   which loses the effect but never the legibility — a hardcoded rgba fallback
-   would paint a dark band beneath dark text in the light theme.
+   color-mix(). Engines without color-mix() keep the original solid surface,
+   which loses the effect but never the legibility.
    ============================================================================= */
 
 .surface-3d,
@@ -76,7 +75,7 @@ main section[id]::before {
   -webkit-backdrop-filter: blur(6px) saturate(120%);
 }
 
-/* Alternate the tint so the original light/dark section rhythm survives. */
+/* Alternate the tint so the original section rhythm survives. */
 main section[id]:nth-of-type(even)::before {
   background-color: var(--color-background-alt);
   background-color: color-mix(
@@ -96,8 +95,8 @@ main section#home::before {
 
    Keeps hero copy above the AA contrast threshold against the scene behind it.
    Defined here rather than as an inline Tailwind gradient so it can reference
-   the theme token — the previous hardcoded dark gradient inverted badly in the
-   light theme.
+   the theme token instead of hardcoding a colour that would drift if the
+   background token is ever retuned.
 
    Vertical on small screens, where text sits directly over the object.
    Directional on desktop, where text occupies the left column and the object
@@ -134,12 +133,6 @@ main section#home::before {
 
 .video-backdrop-media {
   opacity: 0.45;
-}
-
-/* The footage is a dark nebula. At full strength it muddies the light theme,
-   so it drops back to a faint texture there. */
-.light .video-backdrop-media {
-  opacity: 0.14;
 }
 
 .video-backdrop-tint {
