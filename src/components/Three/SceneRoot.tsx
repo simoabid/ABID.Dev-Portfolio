@@ -11,7 +11,6 @@ import CameraRig from './CameraRig';
 import GeneratedEnvironment from './GeneratedEnvironment';
 import HeroCore from './HeroCore';
 import ParticleField from './ParticleField';
-import SkillsConstellation from './scenes/SkillsConstellation';
 
 interface SceneRootProps {
   quality: QualitySettings;
@@ -30,8 +29,10 @@ interface SceneRootProps {
  *
  * A caution learned the hard way: anything placed here sits at a fixed world
  * position while the camera travels between waypoints, so it can drift into
- * neighbouring sections. Section scenes must stay small, sit well back, and
- * cull themselves when their section is off screen.
+ * neighbouring sections. That is why section-specific geometry belongs in a
+ * SectionView, anchored to a DOM element, rather than here. This root now
+ * holds only the things that are genuinely global: the travelling camera, the
+ * particle field, the environment, and the hero core.
  */
 export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
   return (
@@ -51,9 +52,6 @@ export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
         count={quality.particleCount}
         reducedMotion={reducedMotion}
       />
-
-      {/* No assets to load, so it stays outside the Suspense boundary. */}
-      <SkillsConstellation reducedMotion={reducedMotion} />
 
       <Suspense fallback={null}>
         <GeneratedEnvironment />

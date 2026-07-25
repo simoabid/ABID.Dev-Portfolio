@@ -1,17 +1,24 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from './Container';
 import { Grid, GridItem } from './Grid';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import CurvedLoop from './UI/CurvedLoop';
+import SectionView from './Three/SectionView';
+import SkillsConstellation from './Three/scenes/SkillsConstellation';
 import { SKILL_CATEGORIES } from '@/data/skills';
 import { SKILL_ICONS } from '@/data/skillIcons';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const reducedMotion = usePrefersReducedMotion();
+
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const [focusedLabel, setFocusedLabel] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -86,7 +93,7 @@ export default function Skills() {
       aria-label="Technical skills"
     >
       <Container size="xl">
-        <div className="max-w-7xl mx-auto text-center mb-16 md:mb-24 relative z-10">
+        <div className="max-w-7xl mx-auto text-center mb-12 md:mb-16 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
             MY
             <br />
@@ -96,6 +103,31 @@ export default function Skills() {
             A comprehensive overview of my technical expertise, spanning
             frontend architecture, backend systems, and modern development
             tooling.
+          </p>
+        </div>
+
+        {/* Decorative constellation. Every technology named here is also in
+            the badge grid below, which is the accessible copy of this. */}
+        <div className="relative max-w-6xl mx-auto mb-12 md:mb-16">
+          <SectionView
+            className="w-full h-[300px] md:h-[420px] cursor-grab active:cursor-grabbing"
+            cameraDistance={7.2}
+            fov={38}
+          >
+            <SkillsConstellation
+              reducedMotion={reducedMotion}
+              onHoverChange={setHoveredLabel}
+              onFocusChange={setFocusedLabel}
+            />
+          </SectionView>
+
+          <p
+            className="mt-4 text-center font-mono text-sm uppercase tracking-widest text-[var(--color-foreground-subtle)]"
+            aria-hidden="true"
+          >
+            {hoveredLabel ??
+              focusedLabel ??
+              'Drag to spin · click a hub to focus'}
           </p>
         </div>
 
