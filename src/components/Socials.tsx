@@ -87,42 +87,54 @@ interface FanPosition {
   readonly rotate: number;
   readonly y: number;
   readonly z: number;
+  /** Rotation about the vertical axis, in degrees. Turns each card to face
+   *  the centre so the fan reads as a curved arc rather than a flat spread. */
+  readonly rotateY: number;
+  /** Depth offset in px. Outer cards sit further back. */
+  readonly depth: number;
 }
 
 /**
  * Each card has a fixed translateX (px), rotation (deg), translateY (px),
  * and z-index. These are the RESTING positions and they NEVER change on hover.
  * The values are hand-tuned to match the Lando Norris fan-spread.
+ *
+ * rotateY and depth were added later to curve the arc into the screen. They
+ * are mirrored about the centre card, which stays at zero for both.
+ *
+ * Note: these transforms are written inline from React state. Do not point the
+ * useTiltGroup hook at these cards — GSAP writes the same inline transform
+ * property and the two would fight on every pointer move.
  */
-const FAN_LAYOUT = [
-  { x: -520, rotate: -18, y: 50, z: 1 },
-  { x: -345, rotate: -12, y: 25, z: 2 },
-  { x: -178, rotate: -6, y: 7, z: 3 },
-  { x: 0, rotate: 0, y: 0, z: 4 }, // center
-  { x: 178, rotate: 6, y: 7, z: 3 },
-  { x: 345, rotate: 12, y: 25, z: 2 },
-  { x: 520, rotate: 18, y: 50, z: 1 },
+const FAN_LAYOUT: readonly FanPosition[] = [
+  { x: -520, rotate: -18, y: 50, z: 1, rotateY: 15, depth: -70 },
+  { x: -345, rotate: -12, y: 25, z: 2, rotateY: 10, depth: -38 },
+  { x: -178, rotate: -6, y: 7, z: 3, rotateY: 5, depth: -12 },
+  { x: 0, rotate: 0, y: 0, z: 4, rotateY: 0, depth: 0 }, // center
+  { x: 178, rotate: 6, y: 7, z: 3, rotateY: -5, depth: -12 },
+  { x: 345, rotate: 12, y: 25, z: 2, rotateY: -10, depth: -38 },
+  { x: 520, rotate: 18, y: 50, z: 1, rotateY: -15, depth: -70 },
 ] as const;
 
 /* Mobile-scaled versions */
-const FAN_LAYOUT_SM = [
-  { x: -240, rotate: -18, y: 34, z: 1 },
-  { x: -160, rotate: -12, y: 17, z: 2 },
-  { x: -82, rotate: -6, y: 5, z: 3 },
-  { x: 0, rotate: 0, y: 0, z: 4 },
-  { x: 82, rotate: 6, y: 5, z: 3 },
-  { x: 160, rotate: 12, y: 17, z: 2 },
-  { x: 240, rotate: 18, y: 34, z: 1 },
+const FAN_LAYOUT_SM: readonly FanPosition[] = [
+  { x: -240, rotate: -18, y: 34, z: 1, rotateY: 12, depth: -40 },
+  { x: -160, rotate: -12, y: 17, z: 2, rotateY: 8, depth: -22 },
+  { x: -82, rotate: -6, y: 5, z: 3, rotateY: 4, depth: -8 },
+  { x: 0, rotate: 0, y: 0, z: 4, rotateY: 0, depth: 0 },
+  { x: 82, rotate: 6, y: 5, z: 3, rotateY: -4, depth: -8 },
+  { x: 160, rotate: 12, y: 17, z: 2, rotateY: -8, depth: -22 },
+  { x: 240, rotate: 18, y: 34, z: 1, rotateY: -12, depth: -40 },
 ] as const;
 
-const FAN_LAYOUT_MD = [
-  { x: -390, rotate: -18, y: 42, z: 1 },
-  { x: -260, rotate: -12, y: 22, z: 2 },
-  { x: -133, rotate: -6, y: 6, z: 3 },
-  { x: 0, rotate: 0, y: 0, z: 4 },
-  { x: 133, rotate: 6, y: 6, z: 3 },
-  { x: 260, rotate: 12, y: 22, z: 2 },
-  { x: 390, rotate: 18, y: 42, z: 1 },
+const FAN_LAYOUT_MD: readonly FanPosition[] = [
+  { x: -390, rotate: -18, y: 42, z: 1, rotateY: 14, depth: -55 },
+  { x: -260, rotate: -12, y: 22, z: 2, rotateY: 9, depth: -30 },
+  { x: -133, rotate: -6, y: 6, z: 3, rotateY: 5, depth: -10 },
+  { x: 0, rotate: 0, y: 0, z: 4, rotateY: 0, depth: 0 },
+  { x: 133, rotate: 6, y: 6, z: 3, rotateY: -5, depth: -10 },
+  { x: 260, rotate: 12, y: 22, z: 2, rotateY: -9, depth: -30 },
+  { x: 390, rotate: 18, y: 42, z: 1, rotateY: -14, depth: -55 },
 ] as const;
 
 /* ─── Component ─────────────────────────────────────────────────────────────── */
@@ -199,10 +211,13 @@ export default function Socials() {
       {/* Heading */}
       <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
         <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
-          WHAT&apos;S UP
+          OUTSIDE
           <br />
-          <span className="gradient-text">ON SOCIALS</span>
+          <span className="gradient-text">THE EDITOR</span>
         </h2>
+        <p className="mt-6 text-lg text-[var(--color-foreground-muted)] max-w-2xl mx-auto">
+          Cities, light, and whatever caught my eye that week.
+        </p>
       </div>
 
       {/* ─── Mobile grid layout (< 640 px) ───────────────────────────────────── */}
@@ -289,13 +304,22 @@ export default function Socials() {
         <div
           ref={cardsContainerRef}
           className="relative mx-auto flex items-center justify-center"
-          style={{ height: 'clamp(420px, 58vw, 680px)' }}
+          style={{
+            height: 'clamp(420px, 58vw, 680px)',
+            perspective: '1600px',
+            transformStyle: 'preserve-3d',
+          }}
         >
           {SOCIAL_CARDS.map((card, index) => {
             const pos = layout[index];
             const isHovered = hoveredIndex === index;
             const isAnyHovered = hoveredIndex !== null;
             const isSiblingDimmed = isAnyHovered && !isHovered;
+
+            /* On hover the card straightens up and comes forward, so the
+               image can be read flat instead of at an angle. */
+            const restingRotateY = isHovered ? 0 : pos.rotateY;
+            const restingDepth = isHovered ? 60 : pos.depth;
 
             return (
               <a
@@ -316,6 +340,8 @@ export default function Socials() {
                   transform: `
                     translateX(${pos.x}px)
                     translateY(${pos.y}px)
+                    translateZ(${restingDepth}px)
+                    rotateY(${restingRotateY}deg)
                     rotate(${pos.rotate}deg)
                     scale(${isHovered ? 1.12 : 1})
                   `,
@@ -380,7 +406,7 @@ export default function Socials() {
           className="text-2xl sm:text-3xl md:text-4xl font-light italic text-[var(--color-foreground)] mb-8 md:mb-10"
           style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
         >
-          Follow me on social media
+          Find me elsewhere
         </p>
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
           {SOCIAL_LINKS.map((link) => (
