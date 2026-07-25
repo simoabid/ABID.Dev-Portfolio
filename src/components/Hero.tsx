@@ -354,11 +354,9 @@ export default function Hero() {
           }}
         />
         {/* Legibility scrim. Keeps body copy above the WCAG AA contrast
-            threshold against the brightest part of the scene behind it.
-            Vertical on small screens where the text sits over the object,
-            directional on desktop where the text occupies the left column. */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(15,15,26,0.82)_0%,rgba(15,15,26,0.5)_55%,rgba(15,15,26,0.75)_100%)] lg:hidden" />
-        <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(to_right,rgba(15,15,26,0.9)_0%,rgba(15,15,26,0.6)_32%,rgba(15,15,26,0)_62%)]" />
+            threshold against the scene behind it. Direction and strength are
+            handled in CSS so the gradient can follow the active theme. */}
+        <div className="hero-scrim absolute inset-0" />
       </div>
 
       {/* Full-width layout with edge alignment */}
