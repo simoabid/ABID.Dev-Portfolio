@@ -11,6 +11,7 @@ import CameraRig from './CameraRig';
 import GeneratedEnvironment from './GeneratedEnvironment';
 import HeroCore from './HeroCore';
 import ParticleField from './ParticleField';
+import SkillsConstellation from './scenes/SkillsConstellation';
 
 interface SceneRootProps {
   quality: QualitySettings;
@@ -26,6 +27,10 @@ interface SceneRootProps {
  * renders with an alpha buffer so the ambient video behind it stays visible;
  * painting a solid background colour would hide it completely. Fog is still
  * applied for depth falloff.
+ *
+ * Section scenes such as the skills constellation are positioned at their
+ * camera waypoint in world space and cull themselves when their section is
+ * off screen.
  */
 export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
   return (
@@ -45,6 +50,9 @@ export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
         count={quality.particleCount}
         reducedMotion={reducedMotion}
       />
+
+      {/* No assets to load, so it stays outside the Suspense boundary. */}
+      <SkillsConstellation reducedMotion={reducedMotion} />
 
       <Suspense fallback={null}>
         <GeneratedEnvironment />
