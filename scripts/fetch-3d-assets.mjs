@@ -78,25 +78,28 @@ const assets = [
   // Project cover art. These REPLACE tracked placeholder stubs that were only
   // about 1KB each — effectively blank images. The CINEFLIX covers are real
   // artwork and are deliberately left alone.
+  //
+  // Second pass: the first set rendered as flat wireframe-looking mockups, so
+  // these were regenerated on a cinematic model at 2048x1152.
   {
     label: 'cover: AI analytics dashboard',
     url:
       process.env.COVER_AI_DASHBOARD_URL ??
-      MEDIA_CDN + '/hf_20260725_023048_4333768f-17e9-4aa9-b50c-399f133fa0c2.png',
+      MEDIA_CDN + '/hf_20260725_030827_c3980363-b628-42d5-bd41-11025c597caa.png',
     target: resolve(publicDir, 'images', 'projects', 'ai-dashboard.png'),
   },
   {
     label: 'cover: real-time collaboration hub',
     url:
       process.env.COVER_CHAT_APP_URL ??
-      MEDIA_CDN + '/hf_20260725_023100_1a4f667a-606f-4c68-92cb-0b6805d7ad43.png',
+      MEDIA_CDN + '/hf_20260725_030916_e866453e-07a5-4266-bb24-6d2ad391b6a7.png',
     target: resolve(publicDir, 'images', 'projects', 'chat-app.png'),
   },
   {
     label: 'cover: component design system',
     url:
       process.env.COVER_DESIGN_SYSTEM_URL ??
-      MEDIA_CDN + '/hf_20260725_023108_3c43e044-6286-4a4d-a97b-cac9726756ca.png',
+      MEDIA_CDN + '/hf_20260725_030928_b2f853e9-a6f0-49b4-b357-026a02608293.png',
     target: resolve(publicDir, 'images', 'projects', 'design-system.png'),
   },
 ];
