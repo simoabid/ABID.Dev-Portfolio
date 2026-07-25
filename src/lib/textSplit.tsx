@@ -32,6 +32,34 @@ export function splitChars(text: string): string[] {
 }
 
 /**
+ * Tags this component is allowed to render as.
+ *
+ * Deliberately an explicit list rather than `keyof JSX.IntrinsicElements`.
+ * Libraries that register custom JSX elements — `@react-three/drei` adds an
+ * `Image` element with a required `map` prop — augment that global namespace,
+ * which would widen this union to include elements that have mandatory props a
+ * text wrapper can never supply. An explicit list is immune to that and is a
+ * more honest description of what the component supports.
+ */
+export type SplitTextTag =
+  | 'span'
+  | 'div'
+  | 'p'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'strong'
+  | 'em'
+  | 'label'
+  | 'li'
+  | 'blockquote'
+  | 'figcaption'
+  | 'section';
+
+/**
  * Props for SplitText component
  */
 export interface SplitTextProps {
@@ -58,7 +86,7 @@ export interface SplitTextProps {
   /** Initial rotation for animation */
   fromRotation?: number;
   /** Tag to use for wrapper (default: span) */
-  as?: keyof JSX.IntrinsicElements;
+  as?: SplitTextTag;
 }
 
 export interface SplitTextRef {
