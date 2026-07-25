@@ -6,66 +6,8 @@ import { Grid, GridItem } from './Grid';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import CurvedLoop from './UI/CurvedLoop';
-import {
-  SiHtml5,
-  SiCss,
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiPython,
-  SiPhp,
-  SiLaravel,
-  SiMongodb,
-  SiPostgresql,
-  SiGit,
-  SiLinux,
-  SiDocker,
-  SiFigma,
-} from 'react-icons/si';
-
-const skillCategories = [
-  {
-    title: 'Frontend Architecture',
-    description: 'Building responsive, accessible, and performant interfaces.',
-    spanLg: 2 as const,
-    skills: [
-      { name: 'React', Icon: SiReact, color: '#61DAFB' },
-      { name: 'Next.js', Icon: SiNextdotjs, color: '#ffffff' },
-      { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
-      { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'Tailwind CSS', Icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
-      { name: 'CSS3', Icon: SiCss, color: '#1572B6' },
-    ],
-  },
-  {
-    title: 'Backend Systems',
-    description: 'Developing scalable APIs and robust server logic.',
-    spanLg: 1 as const,
-    skills: [
-      { name: 'Node.js', Icon: SiNodedotjs, color: '#339933' },
-      { name: 'Python', Icon: SiPython, color: '#3776AB' },
-      { name: 'PHP', Icon: SiPhp, color: '#777BB4' },
-      { name: 'Laravel', Icon: SiLaravel, color: '#FF2D20' },
-    ],
-  },
-  {
-    title: 'Database & Infrastructure',
-    description: 'Managing data persistence and deployment pipelines.',
-    spanLg: 3 as const,
-    skills: [
-      { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
-      { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1' },
-      { name: 'Git', Icon: SiGit, color: '#F05032' },
-      { name: 'Linux', Icon: SiLinux, color: '#FCC624' },
-      { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
-      { name: 'Figma', Icon: SiFigma, color: '#F24E1E' },
-    ],
-  },
-];
+import { SKILL_CATEGORIES } from '@/data/skills';
+import { SKILL_ICONS } from '@/data/skillIcons';
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -165,7 +107,7 @@ export default function Skills() {
             gap={6}
             className="max-w-6xl mx-auto"
           >
-            {skillCategories.map((category, index) => (
+            {SKILL_CATEGORIES.map((category, index) => (
               <GridItem key={category.title} spanLg={category.spanLg}>
                 <MagicCard
                   ref={(el) => {
@@ -190,7 +132,7 @@ export default function Skills() {
                   {/* Skills Grid */}
                   <div className="relative z-10 flex flex-wrap gap-3 md:gap-4 mt-auto">
                     {category.skills.map((skill) => {
-                      const { Icon } = skill;
+                      const Icon = SKILL_ICONS[skill.icon];
                       return (
                         <div
                           key={skill.name}
