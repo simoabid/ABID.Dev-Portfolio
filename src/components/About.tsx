@@ -16,6 +16,10 @@ import { MagicContainer, MagicCard } from './UI/MagicBento';
  * profile area with a gradient border ring, and GSAP scroll-triggered
  * entrances. Cards tilt toward the pointer via useTiltGroup.
  *
+ * Note: do not add Tailwind hover transforms (scale, rotate, translate) to a
+ * .tilt-card. GSAP writes the tilt as an inline transform and inline styles
+ * beat classes, so the hover rule would never fire.
+ *
  * Accessibility: every animation here is skipped under prefers-reduced-motion,
  * including the tilt.
  */
@@ -377,7 +381,7 @@ export default function About() {
                   ref={(el) => {
                     statsRefs.current[index] = el;
                   }}
-                  className="tilt-card cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
+                  className="tilt-card cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group"
                 >
                   <div className="flex items-baseline justify-center gap-0.5">
                     <span className="stat-value text-4xl lg:text-5xl font-bold gradient-text">
