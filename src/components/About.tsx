@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
-import { useTiltGroup } from '@/hooks/useTiltGroup';
 import CtaHoverEffect from './UI/CtaHoverEffect';
 import HoverRollText from './UI/HoverRollText';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
@@ -14,14 +13,18 @@ import { MagicContainer, MagicCard } from './UI/MagicBento';
  *
  * A bento grid layout with glassmorphic stats cards, animated counters, a
  * profile area with a gradient border ring, and GSAP scroll-triggered
- * entrances. Cards tilt toward the pointer via useTiltGroup.
+ * entrances.
+ *
+ * Pointer tilt on these cards comes from MagicCard itself (enableTilt is on
+ * by default). Do not add a second tilt layer on top of it — both would be
+ * writing rotateX/rotateY on the same element and would fight every frame.
  *
  * Note: do not add Tailwind hover transforms (scale, rotate, translate) to a
- * .tilt-card. GSAP writes the tilt as an inline transform and inline styles
- * beat classes, so the hover rule would never fire.
+ * MagicCard. It writes its tilt as an inline transform and inline styles beat
+ * classes, so the hover rule would never fire.
  *
  * Accessibility: every animation here is skipped under prefers-reduced-motion,
- * including the tilt.
+ * and MagicCard disables its own tilt on mobile.
  */
 
 // Stats data
@@ -51,7 +54,6 @@ export default function About() {
   const bioRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const tiltRef = useTiltGroup<HTMLDivElement>({ selector: '.tilt-card' });
 
   useEffect(() => {
     // SSR guard
@@ -240,7 +242,7 @@ export default function About() {
         />
       </div>
 
-      <div ref={tiltRef} className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
             ABOUT
@@ -257,7 +259,7 @@ export default function About() {
               ref={profileRef}
               className="lg:col-span-5 lg:row-span-2 opacity-0"
             >
-              <MagicCard className="tilt-card cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
+              <MagicCard className="cursor-target relative h-full min-h-[400px] lg:min-h-full rounded-3xl p-8 flex flex-col items-center justify-center gap-0 glass-card overflow-hidden">
                 {/* Availability Badge — in-flow so it never wraps on mobile */}
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 backdrop-blur-md whitespace-nowrap">
@@ -317,8 +319,8 @@ export default function About() {
                         },
                         {
                           icon: 'twitter',
-                          label: 'Twitter',
-                          href: 'https://twitter.com',
+                          label: 'X',
+                          href: 'https://www.x.com/SeeMooAbid',
                         },
                         {
                           icon: 'linkedin',
@@ -381,7 +383,7 @@ export default function About() {
                   ref={(el) => {
                     statsRefs.current[index] = el;
                   }}
-                  className="tilt-card cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group"
+                  className="cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group"
                 >
                   <div className="flex items-baseline justify-center gap-0.5">
                     <span className="stat-value text-4xl lg:text-5xl font-bold gradient-text">
@@ -401,7 +403,7 @@ export default function About() {
             {/* Bio Content - Right side, bottom row */}
             <MagicCard
               ref={bioRef}
-              className="tilt-card lg:col-span-7 opacity-0 glass-card rounded-3xl p-8"
+              className="lg:col-span-7 opacity-0 glass-card rounded-3xl p-8"
             >
               <h3 className="text-2xl font-bold mb-4 gradient-text">
                 Who I Am
