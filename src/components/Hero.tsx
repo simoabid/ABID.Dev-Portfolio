@@ -36,6 +36,8 @@ const ASCIIText = dynamic(() => import('./UI/ASCIIText'), {
  * - Right: Code snippet widget (aligned to right edge)
  *
  * Features:
+ * - Renders transparently over the persistent WebGL layer mounted in the root
+ *   layout, so the signature 3D object reads directly behind the content
  * - GSAP ScrollTrigger animations for scroll-driven effects
  * - Typographic reveal animations with staggered text
  * - Parallax floating elements
@@ -327,9 +329,12 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-32 md:pt-28 lg:pt-20 pb-12 overflow-hidden"
       aria-label="Hero section - Introduction"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[var(--color-background)]">
-        <div className="absolute inset-0 opacity-40 mix-blend-screen">
+      {/* Atmospheric layer.
+          Deliberately transparent: the persistent WebGL canvas mounted in the
+          root layout renders behind this section, and a solid fill here would
+          hide it completely. */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 opacity-25 mix-blend-screen">
           <AuroraBackground
             colorStops={['#677cff', '#B497CF', '#5227FF']}
             blend={0.67}
@@ -348,6 +353,12 @@ export default function Hero() {
             backgroundSize: '50px 50px',
           }}
         />
+        {/* Legibility scrim. Keeps body copy above the WCAG AA contrast
+            threshold against the brightest part of the scene behind it.
+            Vertical on small screens where the text sits over the object,
+            directional on desktop where the text occupies the left column. */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(15,15,26,0.82)_0%,rgba(15,15,26,0.5)_55%,rgba(15,15,26,0.75)_100%)] lg:hidden" />
+        <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(to_right,rgba(15,15,26,0.9)_0%,rgba(15,15,26,0.6)_32%,rgba(15,15,26,0)_62%)]" />
       </div>
 
       {/* Full-width layout with edge alignment */}
