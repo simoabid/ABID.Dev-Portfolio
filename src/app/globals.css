@@ -2,6 +2,8 @@
 @import '../styles/tokens.css';
 /* Import micro-interactions (per-section hover/animation system) */
 @import '../styles/micro-interactions.css';
+/* Translucent scrims that sit over the persistent WebGL layer */
+@import '../styles/three-surfaces.css';
 
 @tailwind base;
 @tailwind components;

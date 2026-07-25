@@ -6,6 +6,9 @@ import Hero from '@/components/Hero';
  * Below-fold sections use `next/dynamic` with `ssr: false` so GSAP-heavy client
  * bundles stay off the server render path. Only Hero is static for LCP.
  * Loading fallbacks reserve min-height to prevent CLS.
+ *
+ * Placeholders use the translucent `surface-3d` scrims rather than solid fills
+ * so the persistent WebGL layer stays visible while a section streams in.
  */
 function deferBelowFold<P = Record<string, never>>(
   loader: () => Promise<{ default: ComponentType<P> }>,
@@ -19,32 +22,32 @@ function deferBelowFold<P = Record<string, never>>(
 
 const Projects = deferBelowFold(
   () => import('@/components/Projects'),
-  'min-h-screen bg-[var(--color-background-alt)]'
+  'min-h-screen surface-3d-alt'
 );
 
 const About = deferBelowFold(
   () => import('@/components/About'),
-  'min-h-screen bg-[var(--color-background)]'
+  'min-h-screen surface-3d'
 );
 
 const Skills = deferBelowFold(
   () => import('@/components/Skills'),
-  'min-h-screen bg-[var(--color-background-alt)]'
+  'min-h-screen surface-3d-alt'
 );
 
 const Experience = deferBelowFold(
   () => import('@/components/Experience'),
-  'min-h-screen bg-[var(--color-background)]'
+  'min-h-screen surface-3d'
 );
 
 const Contact = deferBelowFold(
   () => import('@/components/Contact'),
-  'min-h-screen bg-[var(--color-background-alt)]'
+  'min-h-screen surface-3d-alt'
 );
 
 const Socials = deferBelowFold(
   () => import('@/components/Socials'),
-  'min-h-[600px] bg-[var(--color-background)]'
+  'min-h-[600px] surface-3d'
 );
 
 /** Animated SVG section dividers — decorative, zero-impact when offscreen */
