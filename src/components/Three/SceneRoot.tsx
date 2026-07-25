@@ -1,14 +1,14 @@
 'use client';
 
-import { Environment, Float } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
 import { Suspense } from 'react';
 
-import { ASSETS_3D } from '@/lib/assets3d';
 import type { QualitySettings } from '@/hooks/useQualityTier';
 
 import BackdropPlane from './BackdropPlane';
 import CameraRig from './CameraRig';
+import GeneratedEnvironment from './GeneratedEnvironment';
 import HeroCore from './HeroCore';
 import ParticleField from './ParticleField';
 
@@ -47,7 +47,7 @@ export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
       />
 
       <Suspense fallback={null}>
-        <Environment files={ASSETS_3D.environment} />
+        <GeneratedEnvironment />
         <BackdropPlane reducedMotion={reducedMotion} />
         <Float
           enabled={!reducedMotion}
