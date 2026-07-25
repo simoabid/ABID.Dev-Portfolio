@@ -20,7 +20,8 @@ export interface Asset3dManifest {
 
 const CDN_USER = 'user_3GyMraYTybXA3U3ke2AElMIN7ia';
 const MESH_CDN = 'https://d3u0tzju9qaucj.cloudfront.net';
-const MEDIA_CDN = `https://d8j0ntlcm91z4.cloudfront.net/${CDN_USER}`;
+const MEDIA_HOST = 'https://d8j0ntlcm91z4.cloudfront.net';
+const MEDIA_CDN = MEDIA_HOST + '/' + CDN_USER;
 
 export const LOCAL_ASSETS_3D: Asset3dManifest = {
   heroCore: '/models/hero-core.glb',
@@ -30,10 +31,16 @@ export const LOCAL_ASSETS_3D: Asset3dManifest = {
 };
 
 export const REMOTE_ASSETS_3D: Asset3dManifest = {
-  heroCore: `${MESH_CDN}/7d051b5a-7bfe-49fe-a484-24e7b3a9458a/8e63a5ff-5271-4d9a-a944-4b6604a81750.glb`,
-  environment: `${MEDIA_CDN}/hf_20260725_005520_1d1a29cf-2c10-4bd1-9b5c-ee7a32a6afca.png`,
-  surfaceTexture: `${MEDIA_CDN}/hf_20260725_011828_26529d44-8777-4dbf-aed8-361c567277f0.png`,
-  backdropVideo: `${MEDIA_CDN}/hf_20260725_011811_73a31e88-e339-4de2-9db2-ac5895f3e5ef.mp4`,
+  heroCore:
+    MESH_CDN +
+    '/7d051b5a-7bfe-49fe-a484-24e7b3a9458a' +
+    '/8e63a5ff-5271-4d9a-a944-4b6604a81750.glb',
+  environment:
+    MEDIA_CDN + '/hf_20260725_005520_1d1a29cf-2c10-4bd1-9b5c-ee7a32a6afca.png',
+  surfaceTexture:
+    MEDIA_CDN + '/hf_20260725_011828_26529d44-8777-4dbf-aed8-361c567277f0.png',
+  backdropVideo:
+    MEDIA_CDN + '/hf_20260725_011811_73a31e88-e339-4de2-9db2-ac5895f3e5ef.mp4',
 };
 
 const useRemote = process.env.NEXT_PUBLIC_USE_REMOTE_3D !== 'false';
