@@ -14,20 +14,21 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const publicDir = resolve(here, '..', 'public');
 
-const CDN_BASE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3GyMraYTybXA3U3ke2AElMIN7ia';
+const HERO_CORE_URL =
+  'https://d3u0tzju9qaucj.cloudfront.net/7d051b5a-7bfe-49fe-a484-24e7b3a9458a/8e63a5ff-5271-4d9a-a944-4b6604a81750.glb';
+
+const ENVIRONMENT_MAP_URL =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_3GyMraYTybXA3U3ke2AElMIN7ia/hf_20260725_005520_1d1a29cf-2c10-4bd1-9b5c-ee7a32a6afca.png';
 
 const assets = [
   {
     name: 'hero core mesh',
-    url: process.env.HERO_CORE_URL ?? `${CDN_BASE}/hero-core.glb`,
+    url: process.env.HERO_CORE_URL ?? HERO_CORE_URL,
     target: 'models/hero-core.glb',
   },
   {
     name: 'environment map',
-    url:
-      process.env.ENVIRONMENT_MAP_URL ??
-      `${CDN_BASE}/hf_20260725_005520_1d1a29cf-2c10-4bd1-9b5c-ee7a32a6afca.png`,
+    url: process.env.ENVIRONMENT_MAP_URL ?? ENVIRONMENT_MAP_URL,
     target: 'hdri/studio-void.png',
   },
 ];

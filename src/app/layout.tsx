@@ -31,6 +31,15 @@ const BackToTop = dynamic(() => import('@/components/UI/BackToTop'), {
   ssr: false,
 });
 
+/**
+ * Persistent WebGL backdrop. Client-only so the three.js bundle never enters
+ * the SSR critical path, and mounted once here so scrolling between sections
+ * never tears down the GL context.
+ */
+const SceneCanvas = dynamic(() => import('@/components/Three/SceneCanvas'), {
+  ssr: false,
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
@@ -116,6 +125,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <SceneCanvas />
         <ThemeProvider defaultTheme="dark">
           <PageEntryLoader>
             <SmoothScrollProvider>
