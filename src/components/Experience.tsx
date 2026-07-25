@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
-import { useTiltGroup } from '@/hooks/useTiltGroup';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 
 /**
@@ -12,6 +11,10 @@ import { MagicContainer, MagicCard } from './UI/MagicBento';
  * measurement. Precise unverifiable numbers are the first thing an
  * interviewer probes, so they are gone. Replace any of these with real
  * figures whenever you have them.
+ *
+ * Note on motion: pointer tilt comes from MagicCard itself. Do not add a
+ * second tilt layer, and do not put `transition-all` on these cards — it
+ * would transition the inline transform MagicCard writes each frame.
  */
 const experiences = [
   {
@@ -56,7 +59,6 @@ export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const tiltRef = useTiltGroup<HTMLDivElement>({ selector: '.tilt-card' });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -128,7 +130,7 @@ export default function Experience() {
       className="min-h-screen py-24 pt-32 bg-[var(--color-background)]"
       aria-label="Work experience"
     >
-      <div ref={tiltRef} className="container mx-auto px-4">
+      <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
             HOW I GOT
@@ -171,7 +173,7 @@ export default function Experience() {
 
               {/* Content card */}
               <MagicCard
-                className="tilt-card cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-all duration-300"
+                className="cursor-target ml-8 md:ml-0 bg-[var(--color-background)]/80 p-6 rounded-xl border border-[var(--color-border-muted)] hover:border-[var(--color-border-accent)] hover:shadow-lg hover:shadow-[var(--color-shadow-accent)] transition-[border-color,box-shadow] duration-300"
                 data-cursor="pointer"
               >
                 <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-1">
