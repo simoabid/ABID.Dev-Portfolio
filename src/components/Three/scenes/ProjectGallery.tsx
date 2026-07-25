@@ -61,7 +61,7 @@ export default function ProjectGallery({
     texture.colorSpace = SRGBColorSpace;
   }
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     const group = groupRef.current;
     if (!group) return;
 
@@ -82,10 +82,6 @@ export default function ProjectGallery({
     group.children.forEach((panel, index) => {
       panel.position.y = Math.sin(time * 0.6 + index * 1.3) * 0.09;
     });
-
-    // Referenced so the frame delta is not silently unused if the drift above
-    // is ever changed to be delta driven.
-    void delta;
   });
 
   return (
