@@ -9,6 +9,16 @@
  * - GSAP scroll-triggered entrance animations
  * - Decorative gradient background orbs
  * - prefers-reduced-motion support
+ *
+ * Pointer tilt on the contact cards comes from MagicCard itself, which has
+ * enableTilt on by default. Do not add a second tilt layer on top of it.
+ *
+ * Note: do not add Tailwind hover transforms (translate, scale, rotate) to a
+ * MagicCard, and do not give one `transition-all`. It writes its tilt as an
+ * inline transform, so a class-based transform never applies and a CSS
+ * transition on `all` would lag every frame of the tilt. The round social
+ * buttons below are plain anchors, not MagicCards, so their hover translate
+ * is fine.
  */
 
 import { useEffect, useRef } from 'react';
@@ -196,7 +206,7 @@ export default function Contact() {
             <span className="gradient-text">TOUCH</span>
           </h2>
           <p className="text-[var(--color-foreground-muted)] mt-6 text-lg md:text-xl max-w-2xl mx-auto">
-            Have a project in mind? Let&apos;s make something great together
+            Tell me what you are building. I read everything that arrives here.
           </p>
         </div>
 
@@ -205,11 +215,12 @@ export default function Contact() {
             {/* ── Left: Contact Info ── */}
             <div ref={infoRef} className="opacity-0">
               <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-3">
-                Let&apos;s work <span className="gradient-text">TOGETHER</span>
+                Start a <span className="gradient-text">CONVERSATION</span>
               </h3>
               <p className="text-[var(--color-foreground-muted)] mb-8 leading-relaxed">
-                I&apos;m always open to discussing new projects, creative ideas,
-                or opportunities to be part of your vision.
+                Freelance work, a role on your team, or a half-formed idea you
+                want a second opinion on — all of it is welcome. A rough brief
+                is enough to start from.
               </p>
 
               {/* Contact info cards */}
@@ -219,10 +230,10 @@ export default function Contact() {
                     as="a"
                     key={info.title}
                     href={info.href}
-                    className="cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] hover:-translate-x-1 transition-all duration-300 group"
+                    className="cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] transition-colors duration-300 group"
                     aria-label={`${info.title}: ${info.value}`}
                   >
-                    <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:gradient-bg group-hover:text-[var(--color-foreground-inverted)] transition-all duration-300 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:gradient-bg group-hover:text-[var(--color-foreground-inverted)] transition-colors duration-300 flex-shrink-0">
                       <svg
                         className="w-5 h-5"
                         fill="none"

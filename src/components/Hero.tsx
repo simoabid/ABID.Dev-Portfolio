@@ -36,6 +36,8 @@ const ASCIIText = dynamic(() => import('./UI/ASCIIText'), {
  * - Right: Code snippet widget (aligned to right edge)
  *
  * Features:
+ * - Renders transparently over the persistent WebGL layer mounted in the root
+ *   layout, so the signature 3D object reads directly behind the content
  * - GSAP ScrollTrigger animations for scroll-driven effects
  * - Typographic reveal animations with staggered text
  * - Parallax floating elements
@@ -327,9 +329,12 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-32 md:pt-28 lg:pt-20 pb-12 overflow-hidden"
       aria-label="Hero section - Introduction"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[var(--color-background)]">
-        <div className="absolute inset-0 opacity-40 mix-blend-screen">
+      {/* Atmospheric layer.
+          Deliberately transparent: the persistent WebGL canvas mounted in the
+          root layout renders behind this section, and a solid fill here would
+          hide it completely. */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 opacity-25 mix-blend-screen">
           <AuroraBackground
             colorStops={['#677cff', '#B497CF', '#5227FF']}
             blend={0.67}
@@ -348,6 +353,10 @@ export default function Hero() {
             backgroundSize: '50px 50px',
           }}
         />
+        {/* Legibility scrim. Keeps body copy above the WCAG AA contrast
+            threshold against the scene behind it. Direction and strength are
+            handled in CSS so the gradient can follow the active theme. */}
+        <div className="hero-scrim absolute inset-0" />
       </div>
 
       {/* Full-width layout with edge alignment */}

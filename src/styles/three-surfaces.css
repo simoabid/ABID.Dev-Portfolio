@@ -1,0 +1,179 @@
+/* =============================================================================
+   3D SURFACES
+
+   The site renders a persistent WebGL layer behind all content. Sections that
+   paint a solid fill would hide it completely, so they instead sit on a
+   translucent scrim.
+
+   Every translucent value is declared twice on purpose. The first declaration
+   is an opaque theme token and the second layers transparency on with
+   color-mix(). Engines without color-mix() keep the original solid surface,
+   which loses the effect but never the legibility.
+   ============================================================================= */
+
+.surface-3d,
+.surface-3d-alt {
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+}
+
+.surface-3d {
+  background-color: var(--color-background);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 74%,
+    transparent
+  );
+}
+
+.surface-3d-alt {
+  background-color: var(--color-background-alt);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background-alt) 74%,
+    transparent
+  );
+}
+
+/* -----------------------------------------------------------------------------
+   SECTION PASS-THROUGH
+
+   Sections declare their own opaque fill through inline Tailwind utilities, so
+   the fill is neutralised and re-applied as a translucent scrim on a
+   pseudo-element.
+
+   The scrim uses z-index:-1 rather than reordering the section's children. An
+   earlier revision set `position: relative` on `section > *` to lift content
+   above the scrim, but that selector outranks Tailwind's `.absolute` and broke
+   every absolutely positioned decorative layer inside a section. Nothing here
+   touches section children.
+
+   Paint order ends up: video (-20) < canvas (-10) < scrim (-1) < content.
+   -------------------------------------------------------------------------- */
+
+main section[id] {
+  /* Required: the scrim is positioned against this box. Without it the scrim
+     would resolve against a distant ancestor and cover the whole page. */
+  position: relative;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+main section[id]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-background);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 74%,
+    transparent
+  );
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* Alternate the tint so the original section rhythm survives. */
+main section[id]:nth-of-type(even)::before {
+  background-color: var(--color-background-alt);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background-alt) 74%,
+    transparent
+  );
+}
+
+/* The hero owns its own atmospheric treatment and must stay fully open. */
+main section#home::before {
+  content: none;
+}
+
+/* -----------------------------------------------------------------------------
+   HERO SCRIM
+
+   Keeps hero copy above the AA contrast threshold against the scene behind it.
+   Defined here rather than as an inline Tailwind gradient so it can reference
+   the theme token instead of hardcoding a colour that would drift if the
+   background token is ever retuned.
+
+   Vertical on small screens, where text sits directly over the object.
+   Directional on desktop, where text occupies the left column and the object
+   should stay clear on the right.
+   -------------------------------------------------------------------------- */
+
+.hero-scrim {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-background) 84%, transparent) 0%,
+    color-mix(in srgb, var(--color-background) 52%, transparent) 55%,
+    color-mix(in srgb, var(--color-background) 78%, transparent) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  .hero-scrim {
+    background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-background) 92%, transparent) 0%,
+      color-mix(in srgb, var(--color-background) 62%, transparent) 32%,
+      transparent 62%
+    );
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   VIDEO BACKDROP
+   -------------------------------------------------------------------------- */
+
+.video-backdrop {
+  background-color: var(--color-background);
+}
+
+.video-backdrop-media {
+  opacity: 0.45;
+}
+
+.video-backdrop-tint {
+  background-color: var(--color-background);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 55%,
+    transparent
+  );
+}
+
+/* -----------------------------------------------------------------------------
+   REDUCED TRANSPARENCY
+
+   Anyone who asks for less transparency gets the original solid surfaces back.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-transparency: reduce) {
+  .surface-3d,
+  .surface-3d-alt,
+  main section[id]::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .surface-3d,
+  main section[id]::before {
+    background-color: var(--color-background);
+  }
+
+  .surface-3d-alt,
+  main section[id]:nth-of-type(even)::before {
+    background-color: var(--color-background-alt);
+  }
+
+  .hero-scrim {
+    background-image: none;
+    background-color: var(--color-background);
+  }
+
+  .video-backdrop-media {
+    opacity: 0.12;
+  }
+}

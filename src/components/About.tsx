@@ -11,14 +11,20 @@ import { MagicContainer, MagicCard } from './UI/MagicBento';
 /**
  * About Section Component
  *
- * A premium, modern About section featuring:
- * - Bento grid layout (asymmetric, not simple 2-column)
- * - Glassmorphic stats cards with animated counters
- * - Profile area with animated gradient border
- * - GSAP scroll-triggered animations
- * - Dark/light theme support via CSS variables
+ * A bento grid layout with glassmorphic stats cards, animated counters, a
+ * profile area with a gradient border ring, and GSAP scroll-triggered
+ * entrances.
  *
- * Accessibility: Supports prefers-reduced-motion
+ * Pointer tilt on these cards comes from MagicCard itself (enableTilt is on
+ * by default). Do not add a second tilt layer on top of it — both would be
+ * writing rotateX/rotateY on the same element and would fight every frame.
+ *
+ * Note: do not add Tailwind hover transforms (scale, rotate, translate) to a
+ * MagicCard. It writes its tilt as an inline transform and inline styles beat
+ * classes, so the hover rule would never fire.
+ *
+ * Accessibility: every animation here is skipped under prefers-reduced-motion,
+ * and MagicCard disables its own tilt on mobile.
  */
 
 // Stats data
@@ -31,14 +37,14 @@ const stats = [
 // Feature highlights
 const features = [
   {
-    title: 'Problem Solver',
+    title: 'Performance First',
     description:
-      'Specializing in debugging complex architectural bottlenecks and optimizing for peak performance.',
+      'Profiling before optimising, so the work lands where the time is actually being spent.',
   },
   {
-    title: 'UI Enthusiast',
+    title: 'Interface Craft',
     description:
-      'Crafting pixel-perfect designs with fluid motions and modern aesthetics that users love.',
+      'Accessible, responsive interfaces where motion explains something rather than just decorating.',
   },
 ];
 
@@ -313,8 +319,8 @@ export default function About() {
                         },
                         {
                           icon: 'twitter',
-                          label: 'Twitter',
-                          href: 'https://twitter.com',
+                          label: 'X',
+                          href: 'https://www.x.com/SeeMooAbid',
                         },
                         {
                           icon: 'linkedin',
@@ -377,7 +383,7 @@ export default function About() {
                   ref={(el) => {
                     statsRefs.current[index] = el;
                   }}
-                  className="cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group hover:scale-105 transition-transform duration-300"
+                  className="cursor-target opacity-0 glass-card rounded-2xl p-6 text-center group"
                 >
                   <div className="flex items-baseline justify-center gap-0.5">
                     <span className="stat-value text-4xl lg:text-5xl font-bold gradient-text">
@@ -403,16 +409,18 @@ export default function About() {
                 Who I Am
               </h3>
               <p className="text-lg text-[var(--color-foreground-muted)] mb-4 leading-relaxed">
-                I am a Full-Stack Developer obsessed with crafting scalable,
-                high-performance web applications that merge technical
-                excellence with immersive user experiences.
+                I build web applications end to end — the interface you touch
+                and the services behind it. Most of my work sits where a design
+                has to survive contact with real data, real latency and real
+                browsers.
               </p>
               <p className="text-lg text-[var(--color-foreground-muted)] mb-6 leading-relaxed">
-                My journey began with a curiosity for how the internet works,
-                which evolved into a professional career focused on modern tech
-                stacks like React, Node.js, and Cloud Architecture. I believe
-                code is not just instructions for machines, but a medium for
-                solving human problems.
+                I started by pulling websites apart to find out what made them
+                load. That turned into a working practice built on React,
+                Node.js and modern cloud tooling, and a habit of asking what a
+                feature costs before asking how it looks. Code is a means to an
+                end: someone gets their problem solved, or the effort was
+                wasted.
               </p>
 
               {/* Feature highlights */}

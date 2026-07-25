@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ThemeProvider } from '@/context/ThemeProvider';
 import PageEntryLoader from '@/components/PageEntryLoader';
 
 /** Non-critical: deferred until after hydration */
@@ -28,6 +27,15 @@ const ScrollProgress = dynamic(() => import('@/components/UI/ScrollProgress'), {
 });
 
 const BackToTop = dynamic(() => import('@/components/UI/BackToTop'), {
+  ssr: false,
+});
+
+/**
+ * Persistent WebGL backdrop. Client-only so the three.js bundle never enters
+ * the SSR critical path, and mounted once here so scrolling between sections
+ * never tears down the GL context.
+ */
+const SceneCanvas = dynamic(() => import('@/components/Three/SceneCanvas'), {
   ssr: false,
 });
 
@@ -80,57 +88,40 @@ export const metadata: Metadata = {
   },
 };
 
-// Inline script to prevent flash of incorrect theme (FOIT)
-// This runs before React hydrates, ensuring the correct theme is applied immediately
-const themeInitScript = `
-  (function() {
-    try {
-      var theme = localStorage.getItem('portfolio-theme');
-      if (!theme) {
-        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-      }
-      document.documentElement.classList.add(theme);
-      document.documentElement.classList.remove(theme === 'dark' ? 'light' : 'dark');
-    } catch (e) {}
-  })();
-`;
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
+    <html lang="en" className={jetbrainsMono.variable}>
       <head>
-        <meta name="theme-color" content="#1a1a2e" />
+        <meta name="theme-color" content="#0f0f1a" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-screen flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ThemeProvider defaultTheme="dark">
-          <PageEntryLoader>
-            <SmoothScrollProvider>
-              <ScrollProgress />
-              <Header />
-              <main id="main-content" className="flex-grow" tabIndex={-1}>
-                {children}
-              </main>
-              <Footer />
-              <BackToTop />
-            </SmoothScrollProvider>
-          </PageEntryLoader>
-          <CookieBanner />
-          <GlobalEffects />
-        </ThemeProvider>
+        <SceneCanvas />
+        <PageEntryLoader>
+          <SmoothScrollProvider>
+            <ScrollProgress />
+            <Header />
+            <main id="main-content" className="flex-grow" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer />
+            <BackToTop />
+          </SmoothScrollProvider>
+        </PageEntryLoader>
+        <CookieBanner />
+        <GlobalEffects />
       </body>
     </html>
   );
