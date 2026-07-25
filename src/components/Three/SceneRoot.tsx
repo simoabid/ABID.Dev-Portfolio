@@ -1,6 +1,7 @@
 'use client';
 
 import { Float } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
 import { Suspense } from 'react';
 
@@ -15,6 +16,25 @@ import ParticleField from './ParticleField';
 interface SceneRootProps {
   quality: QualitySettings;
   reducedMotion: boolean;
+}
+
+/**
+ * Draws the root scene when no post-processing pass is doing it.
+ *
+ * react-three-fiber renders automatically only while every useFrame
+ * subscriber is at priority 0. drei's View subscribes at its index, so as soon
+ * as one viewport mounts the automatic render stops and the root scene has to
+ * be drawn explicitly by something.
+ *
+ * EffectComposer already does that on the high tier. Below it there is no
+ * composer, and without this the background would simply not be drawn.
+ */
+function ManualRootRender() {
+  useFrame((state) => {
+    state.gl.render(state.scene, state.camera);
+  }, 1);
+
+  return null;
 }
 
 /**
@@ -77,7 +97,7 @@ export default function SceneRoot({ quality, reducedMotion }: SceneRootProps) {
           <Vignette eskil={false} offset={0.25} darkness={0.75} />
         </EffectComposer>
       ) : (
-        <></>
+        <ManualRootRender />
       )}
     </>
   );

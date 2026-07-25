@@ -15,8 +15,9 @@ interface SectionViewProps {
   /** Field of view for the dedicated camera. */
   fov?: number;
   /**
-   * Render order. Views take over the render loop and draw in index order, so
-   * overlapping viewports need distinct values.
+   * Render order. Views take over the render loop and draw in index order.
+   * Defaults to 2 so viewports always compose on top of the root pass, which
+   * runs at 1. Overlapping viewports need distinct values.
    */
   index?: number;
   /** Set false to stop drawing without unmounting the geometry. */
@@ -33,7 +34,7 @@ interface SectionViewProps {
  * geometry can be positioned with flexbox and grid like any other element,
  * while still being drawn by the single canvas mounted in the layout.
  *
- * Two properties of drei's View shape everything here.
+ * Three properties of drei's View shape everything here.
  *
  * The first is that the viewport gets its own camera. drei resizes the active
  * camera to the viewport's aspect ratio and rebuilds its projection matrix on
@@ -47,6 +48,11 @@ interface SectionViewProps {
  * its own small rig. Anything strongly metallic needs an environment map of
  * its own; the shared HDRI will not reach it.
  *
+ * The third is that mounting any View stops react-three-fiber from rendering
+ * the root scene automatically, because it subscribes to the frame loop above
+ * priority 0. SceneRoot compensates, either through EffectComposer or through
+ * its manual render. Do not lower the index below that pass.
+ *
  * Always decorative. Callers must provide the real content as DOM alongside
  * it, because this renders nothing at all on the lowest quality tier — where
  * a fallback is not optional, it is the only thing the user will see.
@@ -56,7 +62,7 @@ export default function SectionView({
   className,
   cameraDistance = 4,
   fov = 40,
-  index = 1,
+  index = 2,
   visible = true,
   lit = true,
 }: SectionViewProps) {
