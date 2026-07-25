@@ -7,19 +7,22 @@
  * - Left: heading, description, contact info cards, social links
  * - Right: ContactForm with serverless submission
  * - GSAP scroll-triggered entrance animations
- * - Contact cards tilt toward the pointer via useTiltGroup
  * - Decorative gradient background orbs
  * - prefers-reduced-motion support
  *
+ * Pointer tilt on the contact cards comes from MagicCard itself, which has
+ * enableTilt on by default. Do not add a second tilt layer on top of it.
+ *
  * Note: do not add Tailwind hover transforms (translate, scale, rotate) to a
- * .tilt-card. GSAP writes the tilt as an inline transform and inline styles
- * beat classes, so the hover rule would never fire. The round social buttons
- * below are not tilt cards, so their hover translate is fine.
+ * MagicCard, and do not give one `transition-all`. It writes its tilt as an
+ * inline transform, so a class-based transform never applies and a CSS
+ * transition on `all` would lag every frame of the tilt. The round social
+ * buttons below are plain anchors, not MagicCards, so their hover translate
+ * is fine.
  */
 
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
-import { useTiltGroup } from '@/hooks/useTiltGroup';
 import { MagicContainer, MagicCard } from './UI/MagicBento';
 import ContactForm from './ContactForm';
 
@@ -75,11 +78,6 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const formWrapperRef = useRef<HTMLDivElement>(null);
-  const tiltRef = useTiltGroup<HTMLDivElement>({
-    selector: '.tilt-card',
-    maxTilt: 5,
-    lift: 6,
-  });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -200,7 +198,7 @@ export default function Contact() {
         />
       </div>
 
-      <div ref={tiltRef} className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative z-10">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-[var(--color-foreground)] font-mono">
             GET IN
@@ -232,10 +230,10 @@ export default function Contact() {
                     as="a"
                     key={info.title}
                     href={info.href}
-                    className="tilt-card cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] transition-colors duration-300 group"
+                    className="cursor-target contact-card flex items-center gap-4 p-4 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-background-alt)]/60 hover:border-[var(--color-border-accent)] hover:bg-[var(--color-background-alt)] transition-colors duration-300 group"
                     aria-label={`${info.title}: ${info.value}`}
                   >
-                    <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:gradient-bg group-hover:text-[var(--color-foreground-inverted)] transition-all duration-300 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center text-[var(--color-accent)] group-hover:gradient-bg group-hover:text-[var(--color-foreground-inverted)] transition-colors duration-300 flex-shrink-0">
                       <svg
                         className="w-5 h-5"
                         fill="none"
