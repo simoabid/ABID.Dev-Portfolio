@@ -14,6 +14,11 @@ import { ASSETS_3D } from '@/lib/assets3d';
  *
  * Under `prefers-reduced-motion` the video is paused on its first frame rather
  * than removed, which keeps the visual depth without any movement.
+ *
+ * Opacity and tint live in `three-surfaces.css` rather than as Tailwind
+ * utilities. Tailwind cannot apply an alpha channel to an arbitrary CSS
+ * variable, so `bg-[var(--color-background)]/55` silently produced no tint at
+ * all.
  */
 export default function VideoBackdrop() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,12 +40,12 @@ export default function VideoBackdrop() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 -z-20 overflow-hidden bg-[var(--color-background)]"
+      className="video-backdrop pointer-events-none fixed inset-0 -z-20 overflow-hidden"
       aria-hidden="true"
     >
       <video
         ref={videoRef}
-        className="h-full w-full object-cover opacity-45"
+        className="video-backdrop-media h-full w-full object-cover"
         src={ASSETS_3D.backdropVideo}
         muted
         loop
@@ -49,9 +54,9 @@ export default function VideoBackdrop() {
         autoPlay={!reducedMotion}
         tabIndex={-1}
       />
-      {/* Tints the footage back towards the palette and stops it competing
-          with foreground copy. */}
-      <div className="absolute inset-0 bg-[var(--color-background)]/55" />
+      {/* Tints the footage back towards the palette so it never competes with
+          foreground copy. */}
+      <div className="video-backdrop-tint absolute inset-0" />
     </div>
   );
 }
