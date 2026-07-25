@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import AnimatedThemeToggle from './UI/AnimatedThemeToggle';
 import Image from 'next/image';
 import HoverRollText from './UI/HoverRollText';
 import StarBorder from './UI/StarBorder';
@@ -175,8 +174,6 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            <AnimatedThemeToggle />
-
             <StarBorder
               as={Link}
               href="#contact"
