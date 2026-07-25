@@ -1,12 +1,13 @@
 /* =============================================================================
    DESIGN TOKENS
    A comprehensive design token system using CSS variables.
-   Dark theme is the default, light theme applied via .light class on html/body.
+   Dark only. The light theme was removed deliberately: the WebGL layer
+   (bloom, fog, emissive materials) assumes a dark backdrop.
    ============================================================================= */
 
 :root {
   /* =========================================================================
-     COLOR TOKENS - Dark Theme (Default)
+     COLOR TOKENS
      ========================================================================= */
 
   /* Background Colors — subtle luminance steps for section rhythm */
@@ -243,50 +244,4 @@
   --z-modal: 50;
   --z-popover: 60;
   --z-tooltip: 70;
-}
-
-/* =============================================================================
-   LIGHT THEME OVERRIDES
-   Applied when .light class is present on html element
-   ============================================================================= */
-
-.light {
-  /* Background Colors — deeper muted lavender-gray, never pure white or bright */
-  --color-background: #cdd0de;
-  --color-background-alt: #d5d8e5;
-  --color-background-elevated: #e0e2ed;
-  --color-background-overlay: rgba(205, 208, 222, 0.95);
-
-  /* Foreground / Text Colors — deep navy for readability */
-  --color-foreground: #10101c;
-  --color-foreground-muted: #2d2d4c;
-  --color-foreground-subtle: #4a4a68;
-  --color-foreground-inverted: #cdd0de;
-
-  /* Accent Colors — slightly deeper to pop on muted backgrounds */
-  --color-accent: #4a3aef;
-  --color-accent-secondary: #0088b3;
-  --color-accent-hover: #3a2adf;
-  --color-accent-muted: rgba(74, 58, 239, 0.15);
-
-  /* Border Colors — visible but soft */
-  --color-border: rgba(74, 58, 239, 0.18);
-  --color-border-muted: rgba(74, 58, 239, 0.12);
-  --color-border-accent: rgba(74, 58, 239, 0.35);
-
-  /* Shadow Colors — violet-tinted, never gray */
-  --color-shadow: rgba(74, 58, 239, 0.08);
-  --color-shadow-accent: rgba(74, 58, 239, 0.2);
-  --color-shadow-glow: rgba(74, 58, 239, 0.35);
-
-  /* Code / Terminal surface tokens — stays dark */
-  --color-code-bg: #151525;
-  --color-code-header: #0f0f1b;
-  --color-code-text: #c0b8ff;
-  --color-terminal-prompt: #4a3aef;
-  --color-terminal-command: #cdd0de;
-  --color-terminal-output: #0088b3;
-  --color-dot-red: rgba(255, 95, 86, 0.8);
-  --color-dot-yellow: rgba(255, 189, 46, 0.8);
-  --color-dot-green: rgba(39, 202, 64, 0.7);
 }
